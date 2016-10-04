@@ -1,0 +1,65 @@
+<dsx>
+    
+    <globals background="0 1 0 1" drawmode="fill" shading="gouraud" cullface="none" cullorder="CCW" /> 
+
+	<list>
+		<elem id="rect1" coords="0 0 1" />
+	</list>
+
+    <illumination>
+    
+        <ambient r="0.5" g="0.5" b="0.5" a="0.5" />
+        <background r="0.0" g="0.0" b="0.0" a="1.0" />
+
+    </illumination>
+    
+    <!--transformations>
+    
+        <transformation id="ss">
+           <translate x="ff" y="ff" z="ff" />
+           <rotate axis="cc" angle="ff" />
+           <scale x="ff" y="ff" z="ff" />
+        </transformation>
+        
+    </transformations-->
+    
+    <primitives>
+    
+        <primitive id="rect1">
+           
+            <rectangle x1="ff" y1="ff" x2="ff" y2="ff" />
+            
+        </primitive>
+        
+    </primitives>
+    
+    
+    <!--components>
+        
+        <component id="ss">
+        
+            <transformation>
+            
+                <transformationref id="ss" />
+                <translate x="ff" y="ff" z="ff" />
+                <rotate axis="cc" angle="ff" />
+                <scale x="ff" y="ff" z="ff" />
+
+            </transformation>
+       
+            <materials>
+                <material id="ss" />
+            </materials>
+            
+            <children>
+                
+                <componentref id="ss" />
+                <primitiveref id="ss" />
+                
+            </children>
+            
+        </component>
+        
+    </components-->
+
+</dsx>
