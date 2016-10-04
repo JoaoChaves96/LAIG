@@ -47,15 +47,6 @@ MySceneGraph.prototype.onXMLReady=function()
  */
 MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 
-	var elems =  rootElement.getElementsByTagName('globals');
-	if (elems == null) {
-		return "globals element is missing.";
-	}
-
-	if (elems.length != 1) {
-		return "either zero or more than one 'globals' element found.";
-	}
-
 	var ilums =  rootElement.getElementsByTagName('illumination');
 
 	var illumination = ilums[0];
@@ -66,13 +57,15 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 		return "globals element is missing.";
 	}
 
+
+////////////////////////Primitives////////////////////////
+console.log("");
+console.log("Primitives:");
 	var prim = rootElement.getElementsByTagName('primitives');
 
 	var listprim = prim[0].getElementsByTagName('primitive');
 
 	var nprim = listprim.length;
-
-	console.log(nprim);
 
 	for(var i = 0; i < nprim; i++){
 		var prim1 = listprim[i].children[0];
@@ -81,9 +74,12 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 		console.log(prim1.attributes.getNamedItem("x2").value);
 		console.log(prim1.attributes.getNamedItem("y1").value);
 		console.log(prim1.attributes.getNamedItem("y2").value);
-	//	console.log(this.reader.getString(prim1, 'id'));
 	}
 
+////////////////////////Transformations////////////////////////
+
+	console.log("");
+	console.log("Transformations:");
 	var transf = rootElement.getElementsByTagName('transformations');
 
 	var listtransf = transf[0].getElementsByTagName('transformation');
@@ -107,11 +103,21 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 				console.log(child.attributes.getNamedItem("y").value);
 				console.log(child.attributes.getNamedItem("z").value);
 			}
+			console.log("");
 		}
 	}
 
 
-	// various examples of different types of access
+////////////////////////Globals////////////////////////
+	var elems =  rootElement.getElementsByTagName('globals');
+	if (elems == null) {
+		return "globals element is missing.";
+	}
+
+	if (elems.length != 1) {
+		return "either zero or more than one 'globals' element found.";
+	}
+
 	var globals = elems[0];
 	this.background = this.reader.getRGBA(globals, 'background');
 	this.drawmode = this.reader.getItem(globals, 'drawmode', ["fill","line","point"]);
@@ -120,6 +126,32 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 
 	console.log("Globals read from file: {background=" + this.background + ", drawmode=" + this.drawmode + ", cullface=" + this.cullface + ", cullorder=" + this.cullorder + "}");
 
+////////////////////////Nodes////////////////////////
+
+		console.log("");
+
+var nodes = rootElement.getElementsByTagName('components');
+var listNodes = nodes[0].getElementsByTagName('component');
+
+var nnodes = listNodes.length;
+
+for (var i = 0; i < nnodes; i++){
+	var node1 = listNodes[i];
+	var nchild = node1.children.length;
+	console.log(node1.tagName + ": " + node1.attributes.getNamedItem("id").value);
+
+	for (var j = 0; j < nchild; j++){
+		var temp = node1.children[j];
+		//console.log(temp.attributes.getNamedItem("id").value);
+		console.log("	" + temp.children[0].tagName + ": " + temp.children[0].attributes.getNamedItem("id").value);
+	}
+
+		console.log("");
+
+}
+
+
+////////////////////////List////////////////////////
 	var tempList=rootElement.getElementsByTagName('list');
 
 	if (tempList == null  || tempList.length==0) {

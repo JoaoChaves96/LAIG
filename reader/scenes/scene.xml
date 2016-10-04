@@ -36,24 +36,46 @@
     </primitives>
 
 
+
     <components>
 
         <component id="node1">
 
             <transformation>
 
-                <transformationref id="ss" />
+                <transformationref id="transf1-ref" />
 
             </transformation>
 
-            <materials>
+            <!--materials>
                 <material id="ss" />
-            </materials>
+            </materials-->
 
             <children>
 
-                <componentref id="ss" />
-                <primitiveref id="ss" />
+                <!--componentref id="ss" /-->
+                <primitiveref id="rect-ref" />
+
+            </children>
+
+        </component>
+
+        <component id="node2">
+
+            <transformation>
+
+                <transformationref id="transf1" />
+
+            </transformation>
+
+            <!--materials>
+                <material id="ss" />
+            </materials-->
+
+            <children>
+
+                <!--componentref id="ss" /-->
+                <primitiveref id="rect" />
 
             </children>
 
