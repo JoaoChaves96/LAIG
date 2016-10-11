@@ -38,12 +38,12 @@ XMLscene.prototype.setDefaultAppearance = function () {
     this.setAmbient(0.2, 0.4, 0.8, 1.0);
     this.setDiffuse(0.2, 0.4, 0.8, 1.0);
     this.setSpecular(0.2, 0.4, 0.8, 1.0);
-    this.setShininess(10.0);	
+    this.setShininess(10.0);
 };
 
-// Handler called when the graph is finally loaded. 
+// Handler called when the graph is finally loaded.
 // As loading is asynchronous, this may be called already after the application has started the run loop
-XMLscene.prototype.onGraphLoaded = function () 
+XMLscene.prototype.onGraphLoaded = function ()
 {
 	this.gl.clearColor(this.graph.background[0],this.graph.background[1],this.graph.background[2],this.graph.background[3]);
 	this.lights[0].setVisible(true);
@@ -52,7 +52,7 @@ XMLscene.prototype.onGraphLoaded = function ()
 
 XMLscene.prototype.display = function () {
 	// ---- BEGIN Background, camera and axis setup
-	
+
 	// Clear image and depth buffer everytime we update the scene
     this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
     this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
@@ -68,7 +68,7 @@ XMLscene.prototype.display = function () {
 	this.axis.display();
 
 	this.setDefaultAppearance();
-	
+
 	// ---- END Background, camera and axis setup
 
 	// it is important that things depending on the proper loading of the graph
@@ -77,6 +77,5 @@ XMLscene.prototype.display = function () {
 	if (this.graph.loadedOk)
 	{
 		this.lights[0].update();
-	};	
+	};
 };
-

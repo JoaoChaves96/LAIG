@@ -13,24 +13,10 @@
 
     </illumination>
 
-    <transformations>
-
-        <transformation id="transf1">
-           <rotate axis="y" angle="90" />
-        </transformation>
-
-        <transformation id="transf2">
-           <translate x="0" y="1" z="0" />
-        </transformation>
-
-    </transformations>
-
     <primitives>
 
-        <primitive id="rect">
-
+        <primitive id="rect1">
             <rectangle x1="0" y1="0" x2="5" y2="5" />
-
         </primitive>
 
     </primitives>
@@ -39,11 +25,11 @@
 
     <components>
 
-        <component id="node1">
+        <component id="cube">
 
             <transformation>
 
-                <transformationref id="transf1-ref" />
+                <!--transformationref id="transf1" /-->
 
             </transformation>
 
@@ -52,36 +38,93 @@
             </materials-->
 
             <children>
-
-                <!--componentref id="ss" /-->
-                <primitiveref id="rect-ref" />
-
+                <componentref id="face1" />
+                <componentref id="face2" />
+                <componentref id="face3" />
+                <componentref id="face4" />
+                <componentref id="top" />
+                <componentref id="bottom" />
             </children>
 
         </component>
 
-        <component id="node2">
+        <component id="face1">
 
-            <transformation>
+          <transformations>
+              <translate x="0.5" y="0" z="0.5" />
+              <rotate axis="z" angle="90" />
+          </transformations>
 
-                <transformationref id="transf1" />
+          <children>
+            <primitiveref id="rect1"/>
+          </children>
 
-            </transformation>
+        </component>
 
-            <!--materials>
-                <material id="ss" />
-            </materials-->
+        <component id="face2">
 
-            <children>
+          <transformations>
+              <rotation axis="x" angle="90" />
+              <translate x="0.5" y="0.5" z="1" />
+          </transformations>
 
-                <!--componentref id="ss" /-->
-                <primitiveref id="rect" />
+          <children>
+            <primitiveref id="rect1"/>
+          </children>
 
-            </children>
+        </component>
+
+        <component id="face3">
+
+          <transformations>
+            <rotation axis="z" angle="-90" />
+            <translate x="1" y="0.5" z="0.5" />
+          </transformations>
+
+          <children>
+            <primitiveref id="rect1"/>
+          </children>
+
+        </component>
+
+        <component id="face4">
+
+          <transformations>
+            <translate x="0.5" y="0" z="0.5" />
+            <rotate axis="x" angle="90" />
+          </transformations>
+
+          <children>
+            <primitiveref id="rect1"/>
+          </children>
+
+        </component>
+
+        <component id="top">
+
+          <transformations>
+              <translate x="0.5" y="1" z="0.5" />
+          </transformations>
+
+          <children>
+            <primitiveref id="rect1"/>
+          </children>
+
+        </component>
+
+        <component id="bottom">
+
+          <transformations>
+              <rotate axis="x" angle="180" />
+              <translate x="0.5" y="0" z="0.5" />
+          </transformations>
+
+          <children>
+            <primitiveref id="rect1"/>
+          </children>
 
         </component>
 
     </components>
 
 </dsx>
-----------
