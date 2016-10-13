@@ -11,6 +11,10 @@ function MySceneGraph(filename, scene) {
 	// File reading
 	this.reader = new CGFXMLreader();
 
+	this.quad = new MyQuad(scene,0,0,1,1);
+
+
+
 	/*
 	 * Read the contents of the xml file, and refer to this class for loading and error handlers.
 	 * After the file is read, the reader calls onXMLReady on this object.
@@ -145,7 +149,7 @@ for (var i = 0; i < nnodes; i++){
 	for (var j = 0; j < nchild; j++){
 		var temp = node1.children[j];
 		//console.log(temp.attributes.getNamedItem("id").value);
-		console.log("	" + temp.children[0].tagName + ": " + temp.children[0].attributes.getNamedItem("id").value);
+	
 	}
 
 		console.log("");
