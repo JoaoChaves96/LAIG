@@ -38,21 +38,20 @@
             </materials-->
 
             <children>
-                <componentref id="face1" />
-                <componentref id="face2" />
-                <componentref id="face3" />
-                <componentref id="face4" />
-                <componentref id="top" />
-                <componentref id="bottom" />
+                <componentref id="front_R" />
+                <componentref id="back_r" />
+                <componentref id="top_r" />
+                <componentref id="bottom_r" />
+                <componentref id="right_r" />
+                <componentref id="left_r" />
             </children>
 
         </component>
 
-        <component id="face1">
+        <component id="front_r">
 
           <transformations>
-              <translate x="0.5" y="0" z="0.5" />
-              <rotate axis="z" angle="90" />
+              <translate x="0" y="0" z="0.5" />
           </transformations>
 
           <children>
@@ -61,66 +60,177 @@
 
         </component>
 
-        <component id="face2">
-
-          <transformations>
-              <rotation axis="x" angle="90" />
-              <translate x="0.5" y="0.5" z="1" />
-          </transformations>
-
-          <children>
-            <primitiveref id="rect1"/>
-          </children>
-
-        </component>
-
-        <component id="face3">
-
-          <transformations>
-            <rotation axis="z" angle="-90" />
-            <translate x="1" y="0.5" z="0.5" />
-          </transformations>
-
-          <children>
-            <primitiveref id="rect1"/>
-          </children>
-
-        </component>
-
-        <component id="face4">
-
-          <transformations>
-            <translate x="0.5" y="0" z="0.5" />
-            <rotate axis="x" angle="90" />
-          </transformations>
-
-          <children>
-            <primitiveref id="rect1"/>
-          </children>
-
-        </component>
-
-        <component id="top">
-
-          <transformations>
-              <translate x="0.5" y="1" z="0.5" />
-          </transformations>
-
-          <children>
-            <primitiveref id="rect1"/>
-          </children>
-
-        </component>
-
-        <component id="bottom">
+        <component id="back_r">
 
           <transformations>
               <rotate axis="x" angle="180" />
-              <translate x="0.5" y="0" z="0.5" />
+              <translate x="0" y="0" z="0.5" />
           </transformations>
 
           <children>
             <primitiveref id="rect1"/>
+          </children>
+
+        </component>
+
+        <component id="top_r">
+
+          <transformations>
+            <rotate axis="x" angle="-90" />
+            <translate x="0" y="0" z="0.5" />
+          </transformations>
+
+          <children>
+            <primitiveref id="rect1"/>
+          </children>
+
+        </component>
+
+        <component id="bottom_r">
+
+          <transformations>
+            <rotate axis="x" angle="90" />
+            <translate x="0" y="0" z="0.5" />
+          </transformations>
+
+          <children>
+            <primitiveref id="rect1"/>
+          </children>
+
+        </component>
+
+        <component id="right_r">
+
+          <transformations>
+            <rotate axis="y" angle="-90" />
+            <translate x="0" y="0" z="0.5" />
+          </transformations>
+
+          <children>
+            <primitiveref id="rect1"/>
+          </children>
+
+        </component>
+
+        <component id="left_r">
+
+          <transformations>
+              <rotate axis="y" angle="90" />
+              <translate x="0" y="0" z="0.5" />
+          </transformations>
+
+          <children>
+            <primitiveref id="rect1"/>
+          </children>
+
+        </component>
+
+        <component id="chair">
+
+          <transformations>
+            <translate x="-0.5" y="0.125" z="-0.5" />
+          </transformations>
+
+          <children>
+            <componentref id="supp1" />
+            <componentref id="supp2" />
+            <componentref id="back-rest" />
+            <componentref id="sit" />
+            <componentref id="leg1" />
+            <componentref id="leg2" />
+            <componentref id="leg3" />
+            <componentref id="leg4" />
+          </children>
+
+        </component>
+
+        <component id="supp1">
+
+          <transformations>
+            <translate x="0" y="1" z="0" />
+            <scale x="0.25" y="2" z="0.25" />
+          </transformations>
+
+          <children>
+            <componentref id="cube" />
+          </children>
+
+        </component>
+
+        <component id="supp2">
+
+          <transformations>
+            <translate x="0" y="1" z="1" />
+            <scale x="0.25" y="2" z="0.25" />
+          </transformations>
+
+          <children>
+            <componentref id="cube" />
+          </children>
+
+        </component>
+
+        <component id="back-rest">
+
+          <transformations>
+            <scale x="1.25" y="0.25" z="1.25" />
+            <translate x="0.4" y="-0.5" z="0.4" />
+          </transformations>
+
+          <children>
+            <componentref id="cube" />
+          </children>
+
+        </component>
+
+        <component id="leg1">
+
+          <transformations>
+            <translate x="0" y="-0.8" z="0" />
+            <scale x="0.25" y="1.2" z="0.25" />
+          </transformations>
+
+          <children>
+            <componentref id="cube" />
+          </children>
+
+        </component>
+
+        <component id="leg2">
+
+          <transformations>
+            <translate x="0" y="-0.8" z="1" />
+            <scale x="0.25" y="1.2" z="0.25" />
+          </transformations>
+
+          <children>
+            <componentref id="cube" />
+          </children>
+
+        </component>
+
+        <component id="leg3">
+
+          <transformations>
+            <translate x="1" y="-0.8" z="0" />
+            <scale x="0.25" y="1.2" z="0.25" />
+          </transformations>
+
+          <children>
+            <componentref id="cube" />
+          </children>
+
+        </component>
+
+        <component id="leg4">
+
+          <transformations>
+            <translate x="1" y="-0.8" z="1" />
+            <scale x="0.25" y="1.2" z="0.25" />
+          </transformations>
+
+          <children>
+            <componentref id="cube" />
           </children>
 
         </component>

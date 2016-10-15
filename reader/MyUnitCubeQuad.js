@@ -32,7 +32,7 @@
  	this.quad.display();
  	this.scene.popMatrix();
 
- 	// back face
+ 	// bottom face
  	this.scene.pushMatrix();
  	this.scene.rotate(90 * degToRad, 1, 0, 0);
  	this.scene.translate(0, 0, 0.5);

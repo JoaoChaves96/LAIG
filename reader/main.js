@@ -11,7 +11,7 @@ function getUrlVars() {
     return vars;
 }
 
-serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js', 'MyQuad.js', 'MyNode.js', 'MyCircle.js', 'MyClock.js', 'MyClockHand.js', 'MyCylinder.js', 'MyLamp.js', 'MyPrism.js', 'MySphere.js',
+serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js', 'MyQuad.js', 'MyNode.js', 'MyCircle.js', 'MyClock.js', 'MyClockHand.js', 'MyCylinder.js', 'MyLamp.js', 'MyPrism.js', 'MySphere.js', 'MyUnitCubeQuad.js',
 
 main=function()
 {
