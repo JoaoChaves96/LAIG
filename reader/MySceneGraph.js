@@ -5,13 +5,13 @@ function MySceneGraph(filename, scene) {
 	// Establish bidirectional references between scene and graph
 	this.scene = scene;
 	scene.graph=this;
-	this.nodes = [];
-	this.nodes[0] = new MyNode("node1", [],[],"prim1");
+	this.nodes = {};
+	this.comps = [];
 
 	// File reading
 	this.reader = new CGFXMLreader();
 
-	this.quad = new MyQuad(scene,0,0,1,1);
+
 
 
 
@@ -149,7 +149,7 @@ for (var i = 0; i < nnodes; i++){
 	for (var j = 0; j < nchild; j++){
 		var temp = node1.children[j];
 		//console.log(temp.attributes.getNamedItem("id").value);
-	
+
 	}
 
 		console.log("");
@@ -181,6 +181,23 @@ for (var i = 0; i < nnodes; i++){
 /*
  * Callback to be executed on any read error
  */
+
+ MySceneGraph.prototype.readComponents=function(){
+	 var nodes = rootElement.getElementsByTagName('components');
+	 var listNodes = nodes[0].getElementsByTagName('component');
+
+	 var nnodes = listNodes.length;
+
+	 for (var i = 0; i < nnodes; i++){
+	 	var node1 = listNodes[i];
+	 	var nchild = node1.children.length;
+	 	console.log(node1.tagName + ": " + node1.attributes.getNamedItem("id").value);
+
+	 		for (var j = 0; j < nchild; j++){
+	 			var temp = node1.children[j];
+	 		}
+	 }
+ }
 
 MySceneGraph.prototype.onXMLError=function (message) {
 	console.error("XML Loading Error: "+message);

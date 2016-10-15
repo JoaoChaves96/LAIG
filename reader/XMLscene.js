@@ -71,7 +71,7 @@ XMLscene.prototype.display = function () {
 
 	// ---- END Background, camera and axis setup
 
-  this.graph.quad.display();
+  this.graph.nodes[0].primitive.display();
 
 	// it is important that things depending on the proper loading of the graph
 	// only get executed after the graph has loaded correctly.
