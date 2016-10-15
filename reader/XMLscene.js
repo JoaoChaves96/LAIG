@@ -67,6 +67,8 @@ XMLscene.prototype.display = function () {
 	// Draw axis
 	this.axis.display();
 
+
+
 	this.setDefaultAppearance();
 
 	// ---- END Background, camera and axis setup

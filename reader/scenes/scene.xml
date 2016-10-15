@@ -235,6 +235,91 @@
 
         </component>
 
+        <component id="desk">
+
+          <transformations>
+            
+          </transformations>
+
+          <children>
+            <componentref id="desktop" />
+            <componentref id="deskleg1" />
+            <componentref id="deskleg2" />
+            <componentref id="deskleg3" />
+            <componentref id="deskleg4" />
+          </children>
+
+        </component>
+
+        <component id="desktop">
+
+          <transformations>
+              <translate x="0" y="1" z="0" />
+              <scale x="3" y="0.125" z="1.5">
+          </transformations>
+
+          <children>
+            <componentref id="cube"/>
+          </children>
+
+        </component>
+
+        <component id="deskleg1">
+
+          <transformations>
+              <rotate axis="x" angle="90" />
+              <translate x="1.2" y="0.5" z="0" />
+              <scale x="0.1" y="0.1" z="2" />
+          </transformations>
+
+          <children>
+            <primitiveref id="cylinder"/>
+          </children>
+
+        </component>
+
+        <component id="deskleg2">
+
+          <transformations>
+              <rotate axis="x" angle="90" />
+              <translate x="1.2" y="-0.5" z="0" />
+              <scale x="0.1" y="0.1" z="2" />
+          </transformations>
+
+          <children>
+            <primitiveref id="cylinder"/>
+          </children>
+
+        </component>
+
+        <component id="deskleg3">
+
+          <transformations>
+              <rotate axis="x" angle="90" />
+              <translate x="-1.2" y="0.5" z="0" />
+              <scale x=0.1" y="0.1 z="2" />
+          </transformations>
+
+          <children>
+            <primitiveref id="cylinder"/>
+          </children>
+
+        </component>
+
+        <component id="deskleg1">
+
+          <transformations>
+              <rotate axis="x" angle="90" />
+              <translate x="-1.2" y="-0.5" z="0" />
+              <scale x="0.1" y="0.1" z="2" />
+          </transformations>
+
+          <children>
+            <primitiveref id="cylinder"/>
+          </children>
+
+        </component>
+
     </components>
 
 </dsx>
