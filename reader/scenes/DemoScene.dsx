@@ -1,5 +1,7 @@
 <dsx>
 
+    <globals background="0 0 0 1" drawmode="fill" shading="gouraud" cullface="none" cullorder="CCW" />
+
     <scene root="root" axis_length="3" />
 
     <views default="view1">
@@ -55,6 +57,7 @@
       <texture id="floor" file="resources\\images\\floor.png" length_s="1.0" length_t="1.0" />
       <texture id="chair" file="resources\\images\\wood.jpg" length_s="1.0" length_t="1.0" />
       <texture id="table" file="resources\\images\\marmore.jpg" length_s="1.0" length_t="1.0" />
+      <texture id="pillow" file="resources\\images\\pillow.jpg" length_s="1.0" length_t="1.0" />
     </textures>
 
     <materials>
@@ -68,14 +71,6 @@
       </material>
 
       <material id="matA">
-        <emission r="0.2" g="0.2" b="0.2" a="0.2" />
-        <ambient r="0.3" g="0.3" b="0.3" a="1" />
-        <diffuse r="1" g="1" b="1" a="1" />
-        <specular r="0.2" g="0.2" b="0.2" a="1" />
-        <shininess value="1" />
-      </material>
-
-      <material id="matB">
         <emission r="0.2" g="0.2" b="0.2" a="0.2" />
         <ambient r="0.3" g="0.3" b="0.3" a="1" />
         <diffuse r="1" g="1" b="1" a="1" />
@@ -105,6 +100,10 @@
 
         <primitive id="cylinder1">
             <cylinder base="0.5" top="0.5" height="1" slices="50" stacks="20" />
+        </primitive>
+
+        <primitive id="torus1">
+            <torus inner="0.5" outer="1" slices="40" loops="40" />
         </primitive>
 
     </primitives>
@@ -449,7 +448,7 @@
           </transformation>
 
           <materials>
-            <material id="matB" />
+            <material id="matA" />
           </materials>
 
           <texture id="table" />
@@ -579,6 +578,26 @@
 
           <children>
             <primitiveref id="rect1" />
+          </children>
+
+        </component>
+
+        <component id="pillow">
+
+          <transformation>
+            <scale x="0.25" y="0.15" z="0.25" />
+            <translate x="-0.25" y="0.5" z="2.5" />
+            <rotate axis="x" angle="-90" />
+          </transformation>
+
+          <materials>
+            <material id="matA" />
+          </materials>
+
+          <texture id="pillow" />
+
+          <children>
+            <primitiveref id="torus1" />
           </children>
 
         </component>

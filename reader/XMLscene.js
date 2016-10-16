@@ -47,6 +47,13 @@ XMLscene.prototype.init = function (application) {
   this.materialA.setSpecular(0,0.2,0.2,1);
   this.materialA.setShininess(100);
   this.materialA.loadTexture("resources/images/wood.jpg");
+
+  this.materialC = new CGFappearance(this);
+  this.materialC.setAmbient(0.3,0.3,0.3,1);
+  this.materialC.setDiffuse(1,1,1,1);
+  this.materialC.setSpecular(0,0.2,0.2,1);
+  this.materialC.setShininess(100);
+  this.materialC.loadTexture("resources/images/pillow.jpg");
 };
 
 XMLscene.prototype.initLights = function () {
@@ -236,6 +243,18 @@ this.rotate(Math.PI/2, 1,0,0);
 this.translate(-1.2,-0.5,0);
 this.scale(0.1,0.1,2);
 this.cylinder.display();
+this.popMatrix();
+
+this.materialDefault.apply();
+
+this.pillow=new MyTorus(this, 0.5, 1, 20, 20);
+
+this.pushMatrix();
+this.scale(0.25, 0.15, 0.25);
+this.translate(-0.25,0.5,2.5);
+this.rotate(-Math.PI/2,1, 0, 0);
+this.materialC.apply();
+this.pillow.display();
 this.popMatrix();
 
 this.materialDefault.apply();
