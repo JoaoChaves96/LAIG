@@ -204,7 +204,7 @@ for (var i = 0; i < nnodes; i++){
 
 
 ////////////////////////List////////////////////////
-	var tempList=rootElement.getElementsByTagName('list');
+/*	var tempList=rootElement.getElementsByTagName('list');
 
 	if (tempList == null  || tempList.length==0) {
 		return "list element is missing.";
@@ -220,7 +220,7 @@ for (var i = 0; i < nnodes; i++){
 		// process each element and store its information
 		this.list[e.id]=e.attributes.getNamedItem("coords").value;
 		console.log("Read list item id "+ e.id+" with value "+this.list[e.id]);
-	};
+	};*/
 
 };
 

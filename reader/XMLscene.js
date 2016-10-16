@@ -13,8 +13,6 @@ XMLscene.prototype.init = function (application) {
 
     this.initLights();
 
-    this.quad = new MyUnitCubeQuad(this);
-
     this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
     this.gl.clearDepth(100.0);
@@ -23,13 +21,41 @@ XMLscene.prototype.init = function (application) {
     this.gl.depthFunc(this.gl.LEQUAL);
 
 	this.axis=new CGFaxis(this);
+
+  this.enableTextures(true);
+
+  this.materialDefault = new CGFappearance(this);
+
+  this.floorAppearance = new CGFappearance(this);
+	this.floorAppearance.setAmbient(0.3,0.3,0.3,1);
+	this.floorAppearance.setDiffuse(1,1, 1, 1);
+	this.floorAppearance.setSpecular(0.2, 0.2, 0.2, 1);
+	this.floorAppearance.setShininess(100);
+	this.floorAppearance.loadTexture("resources/images/floor.png");
+  this.floorAppearance.setTextureWrap('REPEAT', 'REPEAT');
+
+  this.materialB = new CGFappearance(this);
+	this.materialB.setAmbient(0.3,0.3,0.3,1);
+	this.materialB.setDiffuse(1,1,1,1);
+	this.materialB.setSpecular(0,0.2,0.2,1);
+	this.materialB.setShininess(100);
+  this.materialB.loadTexture("resources/images/marmore.jpg");
+
+  this.materialA = new CGFappearance(this);
+  this.materialA.setAmbient(0.3,0.3,0.3,1);
+  this.materialA.setDiffuse(1,1,1,1);
+  this.materialA.setSpecular(0,0.2,0.2,1);
+  this.materialA.setShininess(100);
+  this.materialA.loadTexture("resources/images/wood.jpg");
 };
 
 XMLscene.prototype.initLights = function () {
+
+    this.setGlobalAmbientLight(0,0,0, 1.0);
     this.lights[0].setPosition(2, 3, 3, 1);
     this.lights[0].setAmbient(0, 0, 0, 1);
     this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
-    this.lights[0].setSpecular(1.0, 1.0, 1.0, 1.0);
+    this.lights[0].setSpecular(1.0, 1.0, 0, 1.0);
     this.lights[0].setVisible(true);
     this.lights[0].enable();
     this.lights[0].update();
@@ -66,15 +92,16 @@ XMLscene.prototype.loadLights = function(){
 };
 
 XMLscene.prototype.updateLights = function(){
-  for(var i = 0; i < this.lights.length; i++){
+/*  for(var i = 0; i < this.lights.length; i++){
     this.lights[i].setVisible(true);
-    if (this.graph.lights[i].enabled)
+    /*if (this.graph.lights[i].enabled)
       this.lights[i].enable();
     else {
       this.lights[i].disable();
     }
-  }
+  }*/
 
+this.loadLights();
   for (var i = 0; i < this.lights.length; i++)
     this.lights[i].update();
 
@@ -82,7 +109,7 @@ XMLscene.prototype.updateLights = function(){
 
 XMLscene.prototype.display = function () {
 	// ---- BEGIN Background, camera and axis setup
-  
+
 	// Clear image and depth buffer everytime we update the scene
     this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
     this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
@@ -95,9 +122,123 @@ XMLscene.prototype.display = function () {
 	this.applyViewMatrix();
 
 	// Draw axis
-	this.axis.display();
+	//this.axis.display();
 
-  this.quad.display();
+this.quad = new MyUnitCubeQuad(this);
+this.cylinder = new MyCylinder(this, 10, 10);
+
+this.floor = new MyQuad(this, 0, 7, 0, 7);
+
+this.pushMatrix();
+this.translate(2.5,0,2.5);
+this.scale(5, 0.2, 5);
+this.rotate(-Math.PI/2, 1, 0, 0);
+this.floorAppearance.apply();
+this.floor.display();
+this.popMatrix();
+this.materialDefault.apply();
+
+this.pushMatrix();
+
+this.translate(3, 1, 3);
+this.rotate(Math.PI/2, 0, 1, 0);
+this.scale(0.75,0.75,0.75);
+
+this.materialA.apply();
+
+this.pushMatrix();
+this.translate(0, 1, 0);
+this.scale(0.25,2,0.25);
+this.quad.display();
+this.popMatrix();
+
+this.pushMatrix();
+this.translate(0, 1, 1);
+this.scale(0.25,2,0.25);
+this.quad.display();
+this.popMatrix();
+
+this.pushMatrix();
+this.scale(0.25, 0.75, 1);
+this.translate(0, 1.35, 0.5);
+this.quad.display();
+this.popMatrix();
+
+this.pushMatrix();
+this.scale(1.25,0.25,1.25);
+this.translate(0.4,-0.5,0.4);
+this.quad.display();
+this.popMatrix();
+
+this.pushMatrix();
+this.translate(0, -0.8, 0);
+this.scale(0.25,1.2,0.25);
+this.quad.display();
+this.popMatrix();
+
+this.pushMatrix();
+this.translate(0, -0.8, 1);
+this.scale(0.25,1.2,0.25);
+this.quad.display();
+this.popMatrix();
+
+this.pushMatrix();
+this.translate(1, -0.8, 0);
+this.scale(0.25,1.2,0.25);
+this.quad.display();
+this.popMatrix();
+
+this.pushMatrix();
+this.translate(1, -0.8, 1);
+this.scale(0.25,1.2,0.25);
+this.quad.display();
+this.popMatrix();
+
+this.popMatrix();
+
+this.materialDefault.apply();
+
+this.pushMatrix();
+
+this.translate(3.5, 1, 2);
+
+this.materialB.apply();
+this.pushMatrix();
+this.translate(0,1,0);
+this.scale(3, 0.125, 1.5);
+this.quad.display();
+this.popMatrix();
+
+
+this.pushMatrix();
+this.rotate(Math.PI/2, 1,0,0);
+this.translate(1.2,0.5,0);
+this.scale(0.1,0.1,2);
+this.cylinder.display();
+this.popMatrix();
+
+this.pushMatrix();
+this.rotate(Math.PI/2, 1,0,0);
+this.translate(1.2,-0.5,0);
+this.scale(0.1,0.1,2);
+this.cylinder.display();
+this.popMatrix();
+
+this.pushMatrix();
+this.rotate(Math.PI/2, 1,0,0);
+this.translate(-1.2,0.5,0);
+this.scale(0.1,0.1,2);
+this.cylinder.display();
+this.popMatrix();
+
+this.pushMatrix();
+this.rotate(Math.PI/2, 1,0,0);
+this.translate(-1.2,-0.5,0);
+this.scale(0.1,0.1,2);
+this.cylinder.display();
+this.popMatrix();
+
+this.materialDefault.apply();
 
 	this.setDefaultAppearance();
 

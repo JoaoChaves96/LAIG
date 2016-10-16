@@ -1,14 +1,21 @@
 <dsx>
 
+    <scene root="root" axis_length="3" />
+
     <globals background="0 0 0 1" drawmode="fill" shading="gouraud" cullface="none" cullorder="CCW" />
 
-	<list>
-		<elem id="rect1" coords="0 0 1" />
-	</list>
+    <views default="view1">
 
-    <illumination>
+        <perspective id="view1" near="0.1" far="500" angle="22">
+            <from x="15" y="20" z="35" />
+            <to x="5" y="5" z="5" />
+        </perspective>
 
-        <ambient r="0.5" g="0.5" b="0.5" a="0.5" />
+    </views>
+
+    <illumination doublesided="1" local="1">
+
+        <ambient r="0.5" g="0.5" b="0.5" a="0.8" />
         <background r="0.0" g="0.0" b="0.0" a="1.0" />
 
     </illumination>
@@ -36,7 +43,53 @@
         <specular x="1.0" y="1.0" z="1.0" a="1.0" />
       </omni>
 
+      <spot id="spot1" enabled="0" angle="40" exponent="0.5">
+            <target x="3" y="3" z="0.5" />
+            <location x="4" y="2" z="2" />
+            <ambient r="0.5" g="0.5" b="0.5" a="0.5" />
+            <diffuse r="0.5" g="0.5" b="0.5" a="0.5" />
+            <specular r="0.5" g="0.5" b="0.5" a="0.5" />
+      </spot>
+
     </lights>
+
+    <textures>
+      <texture id="floor" file="resources\\images\\floor.png" length_s="1.0" length_t="1.0" />
+      <texture id="chair" file="resources\\images\\wood.jpg" length_s="1.0" length_t="1.0" />
+      <texture id="table" file="resources\\images\\marmore.jpg" length_s="1.0" length_t="1.0" />
+    </textures>
+
+    <materials>
+
+      <material id="floor">
+        <emission r="0.2" g="0.2" b="0.2" a="0.2" />
+        <ambient r="0.3" g="0.3" b="0.3" a="1" />
+        <diffuse r="1" g="1" b="1" a="1" />
+        <specular r="0.2" g="0.2" b="0.2" a="1" />
+        <shininess value="1" />
+      </material>
+
+      <material id="matA">
+        <emission r="0.2" g="0.2" b="0.2" a="0.2" />
+        <ambient r="0.3" g="0.3" b="0.3" a="1" />
+        <diffuse r="1" g="1" b="1" a="1" />
+        <specular r="0.2" g="0.2" b="0.2" a="1" />
+        <shininess value="1" />
+      </material>
+
+      <material id="matB">
+        <emission r="0.2" g="0.2" b="0.2" a="0.2" />
+        <ambient r="0.3" g="0.3" b="0.3" a="1" />
+        <diffuse r="1" g="1" b="1" a="1" />
+        <specular r="0.2" g="0.2" b="0.2" a="1" />
+        <shininess value="1" />
+      </material>
+
+    </materials>
+
+    <transformations>
+
+    </transformations>
 
     <primitives>
 
@@ -44,23 +97,49 @@
             <rectangle x1="0" y1="0" x2="5" y2="5" />
         </primitive>
 
+        <primitive id="triang1">
+          <triangle x1="-0.5" y1="0" z1="0" x2="0.5" y2="0" z2="0" x3="0" y3="1" z3="0" />
+        </primitive>
+
+        <primitive id="sphere1">
+            <sphere radius="0.5" slices="40" stacks="40" />
+        </primitive>
+
+        <primitive id="cylinder1">
+            <cylinder base="0.5" top="0.5" height="1" slices="50" stacks="20" />
+        </primitive>
+
     </primitives>
-
-
 
     <components>
 
+        <component id="root">
+          <transformations>
+            <scale x="1" y="1" z="1" />
+          </transformations>
+
+          <materials>
+          </materials>
+
+          <texture id="null" />
+
+          <children>
+            <componentref id="floor" />
+            <componentref id="desk" />
+            <componentref id="chair" />
+          </children>
+
+        </component>
+
         <component id="cube">
 
-            <transformation>
+            <transformations>
+            </transformations>
 
-                <!--transformationref id="transf1" /-->
+            <materials>
+            </materials>
 
-            </transformation>
-
-            <!--materials>
-                <material id="ss" />
-            </materials-->
+            <texture id="null" />
 
             <children>
                 <componentref id="front_R" />
@@ -79,6 +158,11 @@
               <translate x="0" y="0" z="0.5" />
           </transformations>
 
+          <materials>
+          </materials>
+
+          <texture id="null" />
+
           <children>
             <primitiveref id="rect1"/>
           </children>
@@ -91,6 +175,11 @@
               <rotate axis="x" angle="180" />
               <translate x="0" y="0" z="0.5" />
           </transformations>
+
+          <materials>
+          </materials>
+
+          <texture id="null" />
 
           <children>
             <primitiveref id="rect1"/>
@@ -105,6 +194,11 @@
             <translate x="0" y="0" z="0.5" />
           </transformations>
 
+          <materials>
+          </materials>
+
+          <texture id="null" />
+
           <children>
             <primitiveref id="rect1"/>
           </children>
@@ -117,6 +211,11 @@
             <rotate axis="x" angle="90" />
             <translate x="0" y="0" z="0.5" />
           </transformations>
+
+          <materials>
+          </materials>
+
+          <texture id="null" />
 
           <children>
             <primitiveref id="rect1"/>
@@ -131,6 +230,11 @@
             <translate x="0" y="0" z="0.5" />
           </transformations>
 
+          <materials>
+          </materials>
+
+          <texture id="null" />
+
           <children>
             <primitiveref id="rect1"/>
           </children>
@@ -144,6 +248,11 @@
               <translate x="0" y="0" z="0.5" />
           </transformations>
 
+          <materials>
+          </materials>
+
+          <texture id="null" />
+
           <children>
             <primitiveref id="rect1"/>
           </children>
@@ -155,6 +264,12 @@
           <transformations>
             <translate x="-0.5" y="0.125" z="-0.5" />
           </transformations>
+
+          <materials>
+            <material id="matA" />
+          </materials>
+
+          <texture id="chair" />
 
           <children>
             <componentref id="supp1" />
@@ -176,6 +291,11 @@
             <scale x="0.25" y="2" z="0.25" />
           </transformations>
 
+          <materials>
+          </materials>
+
+          <texture id="null" />
+
           <children>
             <componentref id="cube" />
           </children>
@@ -189,6 +309,11 @@
             <scale x="0.25" y="2" z="0.25" />
           </transformations>
 
+          <materials>
+          </materials>
+
+          <texture id="null" />
+
           <children>
             <componentref id="cube" />
           </children>
@@ -198,9 +323,23 @@
         <component id="back-rest">
 
           <transformations>
+            <scale x="0.25" y="0.75" z="1" />
+            <translate x="0" y="1.35" z="0.5" />
+          </transformations>
+
+        </component>
+
+        <component id="sit">
+
+          <transformations>
             <scale x="1.25" y="0.25" z="1.25" />
             <translate x="0.4" y="-0.5" z="0.4" />
           </transformations>
+
+          <materials>
+          </materials>
+
+          <texture id="null" />
 
           <children>
             <componentref id="cube" />
@@ -215,6 +354,11 @@
             <scale x="0.25" y="1.2" z="0.25" />
           </transformations>
 
+          <materials>
+          </materials>
+
+          <texture id="null" />
+
           <children>
             <componentref id="cube" />
           </children>
@@ -227,6 +371,11 @@
             <translate x="0" y="-0.8" z="1" />
             <scale x="0.25" y="1.2" z="0.25" />
           </transformations>
+
+          <materials>
+          </materials>
+
+          <texture id="null" />
 
           <children>
             <componentref id="cube" />
@@ -241,6 +390,11 @@
             <scale x="0.25" y="1.2" z="0.25" />
           </transformations>
 
+          <materials>
+          </materials>
+
+          <texture id="null" />
+
           <children>
             <componentref id="cube" />
           </children>
@@ -254,6 +408,11 @@
             <scale x="0.25" y="1.2" z="0.25" />
           </transformations>
 
+          <materials>
+          </materials>
+
+          <texture id="null" />
+
           <children>
             <componentref id="cube" />
           </children>
@@ -263,7 +422,14 @@
         <component id="desk">
 
           <transformations>
+            <translate x="3.5" y="1" z="2" />
           </transformations>
+
+          <materials>
+            <material id="matB" />
+          </materials>
+
+          <texture id="table" />
 
           <children>
             <componentref id="desktop" />
@@ -282,6 +448,11 @@
               <scale x="3" y="0.125" z="1.5">
           </transformations>
 
+          <materials>
+          </materials>
+
+          <texture id="null" />
+
           <children>
             <componentref id="cube"/>
           </children>
@@ -296,8 +467,13 @@
               <scale x="0.1" y="0.1" z="2" />
           </transformations>
 
+          <materials>
+          </materials>
+
+          <texture id="null" />
+
           <children>
-            <primitiveref id="cylinder"/>
+            <primitiveref id="cylinder"1/>
           </children>
 
         </component>
@@ -310,8 +486,13 @@
               <scale x="0.1" y="0.1" z="2" />
           </transformations>
 
+          <materials>
+          </materials>
+
+          <texture id="null" />
+
           <children>
-            <primitiveref id="cylinder"/>
+            <primitiveref id="cylinder1"/>
           </children>
 
         </component>
@@ -321,11 +502,16 @@
           <transformations>
               <rotate axis="x" angle="90" />
               <translate x="-1.2" y="0.5" z="0" />
-              <scale x=0.1" y="0.1 z="2" />
+              <scale x="0.1" y="0.1" z="2" />
           </transformations>
 
+          <materials>
+          </materials>
+
+          <texture id="null" />
+
           <children>
-            <primitiveref id="cylinder"/>
+            <primitiveref id="cylinder1"/>
           </children>
 
         </component>
@@ -338,8 +524,33 @@
               <scale x="0.1" y="0.1" z="2" />
           </transformations>
 
+          <materials>
+          </materials>
+
+          <texture id="null" />
+
           <children>
-            <primitiveref id="cylinder"/>
+            <primitiveref id="cylinder1"/>
+          </children>
+
+        </component>
+
+        <component id="floor">
+
+          <transformations>
+            <translate x="2.5" y="0" z="2.5" />
+            <scale x="5" y="0" z="5" />
+            <rotate axis="x" angle="-90" />
+          </transformations>
+
+          <materials>
+            <material id="floor" />
+          </materials>
+
+          <texture id="floor" />
+
+          <children>
+            <primitiveref id="rect1" />
           </children>
 
         </component>
