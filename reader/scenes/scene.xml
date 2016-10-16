@@ -238,7 +238,11 @@
         <component id="desk">
 
           <transformations>
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> 3142a18a04f5ea014b4dffc686995df2df1383ea
           </transformations>
 
           <children>
