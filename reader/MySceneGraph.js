@@ -71,6 +71,7 @@ var lights = rootElement.getElementsByTagName('lights');
 var listlights = lights[0].getElementsByTagName('omni');
 
 var nlight = listlights.length;
+console.log(nlight);
 
 for(var i = 0; i < nlight; i++){
 	var light1 = listlights[i];
@@ -104,18 +105,6 @@ for(var i = 0; i < nlight; i++){
 	specular[2] = this.reader.getFloat(light1.getElementsByTagName('specular')[0], 'z');
 	specular[3] = this.reader.getFloat(light1.getElementsByTagName('specular')[0], 'a');
 
-	console.log(location[0]);
-	console.log(location[1]);
-	console.log(location[2]);
-	console.log(location[3]);
-	console.log(ambient[0]);
-	console.log(ambient[1]);
-	console.log(ambient[2]);
-	console.log(ambient[3]);
-	console.log(diffuse[0]);
-	console.log(diffuse[1]);
-	console.log(diffuse[2]);
-	console.log(diffuse[3]);
 	var light = new Light(id, enabled, location, ambient, diffuse, specular);
 	this.lights[i] = light;
 }
