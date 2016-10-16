@@ -1,4 +1,3 @@
-
 function XMLscene() {
     CGFscene.call(this);
 }
@@ -66,6 +65,8 @@ XMLscene.prototype.display = function () {
 
 	// Draw axis
 	this.axis.display();
+
+
 
 	this.setDefaultAppearance();
 

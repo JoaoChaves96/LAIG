@@ -7,6 +7,7 @@ function MySceneGraph(filename, scene) {
 	scene.graph=this;
 	this.nodes = {};
 	this.comps = [];
+	this.lights = [];
 
 	// File reading
 	this.reader = new CGFXMLreader();
@@ -62,6 +63,62 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	if (ilums == null) {
 		return "globals element is missing.";
 	}
+
+
+//////////////////////////Lights//////////////////////////
+var lights = rootElement.getElementsByTagName('lights');
+
+var listlights = lights[0].getElementsByTagName('omni');
+
+var nlight = listlights.length;
+
+for(var i = 0; i < nlight; i++){
+	var light1 = listlights[i];
+	var id, enabled;
+
+	var location = [];
+	var ambient = [];
+	var diffuse = [];
+	var specular = [];
+
+	id = this.reader.getString(light1, 'id');
+	enabled = this.reader.getBoolean(light1, 'enabled');
+
+	location[0] = this.reader.getFloat(light1.getElementsByTagName('location')[0], 'x');
+	location[1] = this.reader.getFloat(light1.getElementsByTagName('location')[0], 'y');
+	location[2] = this.reader.getFloat(light1.getElementsByTagName('location')[0], 'z');
+	location[3] = this.reader.getFloat(light1.getElementsByTagName('location')[0], 'w');
+
+	ambient[0] = this.reader.getFloat(light1.getElementsByTagName('ambient')[0], 'x');
+	ambient[1] = this.reader.getFloat(light1.getElementsByTagName('ambient')[0], 'y');
+	ambient[2] = this.reader.getFloat(light1.getElementsByTagName('ambient')[0], 'z');
+	ambient[3] = this.reader.getFloat(light1.getElementsByTagName('ambient')[0], 'a');
+
+	diffuse[0] = this.reader.getFloat(light1.getElementsByTagName('diffuse')[0], 'x');
+	diffuse[1] = this.reader.getFloat(light1.getElementsByTagName('diffuse')[0], 'y');
+	diffuse[2] = this.reader.getFloat(light1.getElementsByTagName('diffuse')[0], 'z');
+	diffuse[3] = this.reader.getFloat(light1.getElementsByTagName('diffuse')[0], 'a');
+
+	specular[0] = this.reader.getFloat(light1.getElementsByTagName('specular')[0], 'x');
+	specular[1] = this.reader.getFloat(light1.getElementsByTagName('specular')[0], 'y');
+	specular[2] = this.reader.getFloat(light1.getElementsByTagName('specular')[0], 'z');
+	specular[3] = this.reader.getFloat(light1.getElementsByTagName('specular')[0], 'a');
+
+	console.log(location[0]);
+	console.log(location[1]);
+	console.log(location[2]);
+	console.log(location[3]);
+	console.log(ambient[0]);
+	console.log(ambient[1]);
+	console.log(ambient[2]);
+	console.log(ambient[3]);
+	console.log(diffuse[0]);
+	console.log(diffuse[1]);
+	console.log(diffuse[2]);
+	console.log(diffuse[3]);
+	var light = new Light(id, enabled, location, ambient, diffuse, specular);
+	this.lights[i] = light;
+}
 
 
 ////////////////////////Primitives////////////////////////
