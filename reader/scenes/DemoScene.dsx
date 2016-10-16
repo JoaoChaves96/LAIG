@@ -2,8 +2,6 @@
 
     <scene root="root" axis_length="3" />
 
-    <globals background="0 0 0 1" drawmode="fill" shading="gouraud" cullface="none" cullorder="CCW" />
-
     <views default="view1">
 
         <perspective id="view1" near="0.1" far="500" angle="22">
@@ -16,7 +14,7 @@
     <illumination doublesided="1" local="1">
 
         <ambient r="0.5" g="0.5" b="0.5" a="0.8" />
-        <background r="0.0" g="0.0" b="0.0" a="1.0" />
+        <background r="0.1" g="0.1" b="0.2" a="1" />
 
     </illumination>
 
@@ -24,23 +22,23 @@
 
       <omni id="omni1" enabled="1">
         <location x="4" y="6" z="1" w="1" />
-        <ambient x="0" y="0" z="0" a="1" />
-        <diffuse x="1.0" y="1.0" z="1.0" a="1.0" />
-        <specular x="1.0" y="1.0" z="1.0" a="1.0" />
+        <ambient r="0" g="0" b="0" a="1" />
+        <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+        <specular r="1.0" g="1.0" b="1.0" a="1.0" />
       </omni>
 
       <omni id="omni2" enabled="1">
         <location x="10.5" y="6.0" z="1.0" w="1.0" />
-        <ambient x="0" y="0" z="0" a="1" />
-        <diffuse x="1.0" y="1.0" z="1.0" a="1.0" />
-        <specular x="1.0" y="1.0" z="1.0" a="1.0" />
+        <ambient r="0" g="0" b="0" a="1" />
+        <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+        <specular r="1.0" g="1.0" b="1.0" a="1.0" />
       </omni>
 
       <omni id="omni3" enabled="1">
         <location x="10.5" y="6.0" z="15.0" w="1.0" />
-        <ambient x="0" y="0" z="0" a="1" />
-        <diffuse x="1.0" y="1.0" z="1.0" a="1.0" />
-        <specular x="1.0" y="1.0" z="1.0" a="1.0" />
+        <ambient r="0" g="0" b="0" a="1" />
+        <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+        <specular r="1.0" g="1.0" b="1.0" a="1.0" />
       </omni>
 
       <spot id="spot1" enabled="0" angle="40" exponent="0.5">
@@ -88,7 +86,7 @@
     </materials>
 
     <transformations>
-
+		<scale x="1" y="1" z="1" />
     </transformations>
 
     <primitives>
@@ -114,11 +112,12 @@
     <components>
 
         <component id="root">
-          <transformations>
+          <transformation>
             <scale x="1" y="1" z="1" />
-          </transformations>
+          </transformation>
 
           <materials>
+			<material id="matA" />
           </materials>
 
           <texture id="null" />
@@ -133,10 +132,11 @@
 
         <component id="cube">
 
-            <transformations>
-            </transformations>
+            <transformation>
+            </transformation>
 
             <materials>
+				<material id="inherit" />
             </materials>
 
             <texture id="null" />
@@ -154,11 +154,12 @@
 
         <component id="front_r">
 
-          <transformations>
+          <transformation>
               <translate x="0" y="0" z="0.5" />
-          </transformations>
+          </transformation>
 
           <materials>
+			<material id="inherit" />
           </materials>
 
           <texture id="null" />
@@ -171,12 +172,13 @@
 
         <component id="back_r">
 
-          <transformations>
+          <transformation>
               <rotate axis="x" angle="180" />
               <translate x="0" y="0" z="0.5" />
-          </transformations>
+          </transformation>
 
           <materials>
+			<material id="inherit" />
           </materials>
 
           <texture id="null" />
@@ -189,12 +191,13 @@
 
         <component id="top_r">
 
-          <transformations>
+          <transformation>
             <rotate axis="x" angle="-90" />
             <translate x="0" y="0" z="0.5" />
-          </transformations>
+          </transformation>
 
           <materials>
+			<material id="inherit" />
           </materials>
 
           <texture id="null" />
@@ -207,12 +210,13 @@
 
         <component id="bottom_r">
 
-          <transformations>
+          <transformation>
             <rotate axis="x" angle="90" />
             <translate x="0" y="0" z="0.5" />
-          </transformations>
+          </transformation>
 
           <materials>
+			<material id="inherit" />
           </materials>
 
           <texture id="null" />
@@ -225,12 +229,13 @@
 
         <component id="right_r">
 
-          <transformations>
+          <transformation>
             <rotate axis="y" angle="-90" />
             <translate x="0" y="0" z="0.5" />
-          </transformations>
+          </transformation>
 
           <materials>
+			<material id="inherit" />
           </materials>
 
           <texture id="null" />
@@ -243,12 +248,13 @@
 
         <component id="left_r">
 
-          <transformations>
+          <transformation>
               <rotate axis="y" angle="90" />
               <translate x="0" y="0" z="0.5" />
-          </transformations>
+          </transformation>
 
           <materials>
+			<material id="inherit" />
           </materials>
 
           <texture id="null" />
@@ -261,9 +267,9 @@
 
         <component id="chair">
 
-          <transformations>
+          <transformation>
             <translate x="-0.5" y="0.125" z="-0.5" />
-          </transformations>
+          </transformation>
 
           <materials>
             <material id="matA" />
@@ -286,12 +292,13 @@
 
         <component id="supp1">
 
-          <transformations>
+          <transformation>
             <translate x="0" y="1" z="0" />
             <scale x="0.25" y="2" z="0.25" />
-          </transformations>
+          </transformation>
 
           <materials>
+			<material id="inherit" />
           </materials>
 
           <texture id="null" />
@@ -304,12 +311,13 @@
 
         <component id="supp2">
 
-          <transformations>
+          <transformation>
             <translate x="0" y="1" z="1" />
             <scale x="0.25" y="2" z="0.25" />
-          </transformations>
+          </transformation>
 
           <materials>
+			<material id="inherit" />
           </materials>
 
           <texture id="null" />
@@ -322,21 +330,32 @@
 
         <component id="back-rest">
 
-          <transformations>
+          <transformation>
             <scale x="0.25" y="0.75" z="1" />
             <translate x="0" y="1.35" z="0.5" />
-          </transformations>
+          </transformation>
+
+		   <materials>
+			<material id="inherit" />
+          </materials>
+
+          <texture id="null" />
+
+          <children>
+            <componentref id="cube" />
+          </children>
 
         </component>
 
         <component id="sit">
 
-          <transformations>
+          <transformation>
             <scale x="1.25" y="0.25" z="1.25" />
             <translate x="0.4" y="-0.5" z="0.4" />
-          </transformations>
+          </transformation>
 
           <materials>
+			<material id="inherit" />
           </materials>
 
           <texture id="null" />
@@ -349,12 +368,13 @@
 
         <component id="leg1">
 
-          <transformations>
+          <transformation>
             <translate x="0" y="-0.8" z="0" />
             <scale x="0.25" y="1.2" z="0.25" />
-          </transformations>
+          </transformation>
 
           <materials>
+			<material id="inherit" />
           </materials>
 
           <texture id="null" />
@@ -367,12 +387,13 @@
 
         <component id="leg2">
 
-          <transformations>
+          <transformation>
             <translate x="0" y="-0.8" z="1" />
             <scale x="0.25" y="1.2" z="0.25" />
-          </transformations>
+          </transformation>
 
           <materials>
+			<material id="inherit" />
           </materials>
 
           <texture id="null" />
@@ -385,12 +406,13 @@
 
         <component id="leg3">
 
-          <transformations>
+          <transformation>
             <translate x="1" y="-0.8" z="0" />
             <scale x="0.25" y="1.2" z="0.25" />
-          </transformations>
+          </transformation>
 
           <materials>
+			<material id="inherit" />
           </materials>
 
           <texture id="null" />
@@ -403,12 +425,13 @@
 
         <component id="leg4">
 
-          <transformations>
+          <transformation>
             <translate x="1" y="-0.8" z="1" />
             <scale x="0.25" y="1.2" z="0.25" />
-          </transformations>
+          </transformation>
 
           <materials>
+			<material id="inherit" />
           </materials>
 
           <texture id="null" />
@@ -421,9 +444,9 @@
 
         <component id="desk">
 
-          <transformations>
+          <transformation>
             <translate x="3.5" y="1" z="2" />
-          </transformations>
+          </transformation>
 
           <materials>
             <material id="matB" />
@@ -443,12 +466,13 @@
 
         <component id="desktop">
 
-          <transformations>
+          <transformation>
               <translate x="0" y="1" z="0" />
-              <scale x="3" y="0.125" z="1.5">
-          </transformations>
+              <scale x="3" y="0.125" z="1.5" />
+          </transformation>
 
           <materials>
+			<material id="inherit" />
           </materials>
 
           <texture id="null" />
@@ -461,32 +485,34 @@
 
         <component id="deskleg1">
 
-          <transformations>
+          <transformation>
               <rotate axis="x" angle="90" />
               <translate x="1.2" y="0.5" z="0" />
               <scale x="0.1" y="0.1" z="2" />
-          </transformations>
+          </transformation>
 
           <materials>
+			<material id="inherit" />
           </materials>
 
           <texture id="null" />
 
           <children>
-            <primitiveref id="cylinder"1/>
+            <primitiveref id="cylinder1"/>
           </children>
 
         </component>
 
         <component id="deskleg2">
 
-          <transformations>
+          <transformation>
               <rotate axis="x" angle="90" />
               <translate x="1.2" y="-0.5" z="0" />
               <scale x="0.1" y="0.1" z="2" />
-          </transformations>
+          </transformation>
 
           <materials>
+			<material id="inherit" />
           </materials>
 
           <texture id="null" />
@@ -499,13 +525,14 @@
 
         <component id="deskleg3">
 
-          <transformations>
+          <transformation>
               <rotate axis="x" angle="90" />
               <translate x="-1.2" y="0.5" z="0" />
               <scale x="0.1" y="0.1" z="2" />
-          </transformations>
+          </transformation>
 
           <materials>
+			<material id="inherit" />
           </materials>
 
           <texture id="null" />
@@ -518,13 +545,14 @@
 
         <component id="deskleg4">
 
-          <transformations>
+          <transformation>
               <rotate axis="x" angle="90" />
               <translate x="-1.2" y="-0.5" z="0" />
               <scale x="0.1" y="0.1" z="2" />
-          </transformations>
+          </transformation>
 
           <materials>
+			<material id="inherit" />
           </materials>
 
           <texture id="null" />
@@ -537,11 +565,11 @@
 
         <component id="floor">
 
-          <transformations>
+          <transformation>
             <translate x="2.5" y="0" z="2.5" />
             <scale x="5" y="0" z="5" />
             <rotate axis="x" angle="-90" />
-          </transformations>
+          </transformation>
 
           <materials>
             <material id="floor" />
