@@ -8,6 +8,7 @@ function MySceneGraph(filename, scene) {
 	this.nodes = {};
 	this.comps = [];
 	this.lights = [];
+	this.primitives = {};
 
 	// File reading
 	this.reader = new CGFXMLreader();
@@ -82,7 +83,7 @@ for(var i = 0; i < nlight; i++){
 	var diffuse = [];
 	var specular = [];
 
-	id = this.reader.getString(light1, 'id');
+	/*id = this.reader.getString(light1, 'id');
 	enabled = this.reader.getBoolean(light1, 'enabled');
 
 	location[0] = this.reader.getFloat(light1.getElementsByTagName('location')[0], 'x');
@@ -106,7 +107,7 @@ for(var i = 0; i < nlight; i++){
 	specular[3] = this.reader.getFloat(light1.getElementsByTagName('specular')[0], 'a');
 
 	var light = new Light(id, enabled, location, ambient, diffuse, specular);
-	this.lights[i] = light;
+	this.lights[i] = light;*/
 }
 
 
@@ -121,11 +122,66 @@ console.log("Primitives:");
 
 	for(var i = 0; i < nprim; i++){
 		var prim1 = listprim[i].children[0];
-		console.log(prim1.tagName);
-		console.log(prim1.attributes.getNamedItem("x1").value);
-		console.log(prim1.attributes.getNamedItem("x2").value);
-		console.log(prim1.attributes.getNamedItem("y1").value);
-		console.log(prim1.attributes.getNamedItem("y2").value);
+		var id = listprim[i].attributes.getNamedItem("id").value;
+		switch(prim1.tagName){
+			case "rectangle":
+				var x1, y1, x2, y2;
+				x1 = prim1.attributes.getNamedItem("x1").value;
+				x2 = prim1.attributes.getNamedItem("x2").value;
+				y1 = prim1.attributes.getNamedItem("y1").value;
+				y2 = prim1.attributes.getNamedItem("y2").value;
+
+				this.primitives[id] = new MyQuad(this.scene, x1, y1, x2, y2);
+				break;
+
+			case "triangle":
+				var x1, y1, z1, x2, y2, z2, x3, y3, z3;
+				x1 = prim1.attributes.getNamedItem("x1").value;
+				x2 = prim1.attributes.getNamedItem("x2").value;
+				x3 = prim1.attributes.getNamedItem("x3").value;
+				y1 = prim1.attributes.getNamedItem("y1").value;
+				y2 = prim1.attributes.getNamedItem("y2").value;
+				y3 = prim1.attributes.getNamedItem("y3").value;
+				z1 = prim1.attributes.getNamedItem("z1").value;
+				z2 = prim1.attributes.getNamedItem("z2").value;
+				z3 = prim1.attributes.getNamedItem("z3").value;
+
+				this.primitives[id] = new MyTriangle(this.scene, x1, y1, z1, x2, y2, z2, x3, y3, z3);
+				break;
+
+			case "sphere":
+				var radius, slices, stacks;
+				radius = prim1.attributes.getNamedItem("radius").value;
+				slices = prim1.attributes.getNamedItem("slices").value;
+				stacks = prim1.attributes.getNamedItem("stacks").value;
+
+				this.primitives[id] = new MySphere(this.scene, radius, slices, stacks);
+				break;
+
+			case "cylinder":
+				var base, top, height, slices, stacks;
+				base = prim1.attributes.getNamedItem("base").value;
+				top = prim1.attributes.getNamedItem("top").value;
+				height = prim1.attributes.getNamedItem("height").value;
+				slices = prim1.attributes.getNamedItem("slices").value;
+				stacks = prim1.attributes.getNamedItem("stacks").value;
+
+				this.primitives[id] = new MyCylinder(this.scene, base, top, height, slices, stacks);
+				break;
+
+			case "torus":
+				var inner, outer, slices, loops;
+				inner = prim1.attributes.getNamedItem("inner").value;
+				outer = prim1.attributes.getNamedItem("outer").value;
+				slices = prim1.attributes.getNamedItem("slices").value;
+				loops = prim1.attributes.getNamedItem("loops").value;
+
+				this.primitives[id] = new MyTorus(this.scene, inner, outer, slices, loops);
+				break;
+
+			default:
+				return "Uknown primitive...";
+		}
 	}
 
 ////////////////////////Transformations////////////////////////
@@ -161,7 +217,7 @@ console.log("Primitives:");
 
 
 ////////////////////////Globals////////////////////////
-	var elems =  rootElement.getElementsByTagName('globals');
+	/*var elems =  rootElement.getElementsByTagName('globals');
 	if (elems == null) {
 		return "globals element is missing.";
 	}
@@ -176,7 +232,7 @@ console.log("Primitives:");
 	this.cullface = this.reader.getItem(globals, 'cullface', ["back","front","none", "frontandback"]);
 	this.cullorder = this.reader.getItem(globals, 'cullorder', ["ccw","cw"]);
 
-	console.log("Globals read from file: {background=" + this.background + ", drawmode=" + this.drawmode + ", cullface=" + this.cullface + ", cullorder=" + this.cullorder + "}");
+	console.log("Globals read from file: {background=" + this.background + ", drawmode=" + this.drawmode + ", cullface=" + this.cullface + ", cullorder=" + this.cullorder + "}");*/
 
 ////////////////////////Nodes////////////////////////
 

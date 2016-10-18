@@ -83,7 +83,8 @@ XMLscene.prototype.setDefaultAppearance = function () {
 // As loading is asynchronous, this may be called already after the application has started the run loop
 XMLscene.prototype.onGraphLoaded = function ()
 {
-	this.gl.clearColor(this.graph.background[0],this.graph.background[1],this.graph.background[2],this.graph.background[3]);
+	//this.gl.clearColor(this.graph.background[0],this.graph.background[1],this.graph.background[2],this.graph.background[3]);
+  this.gl.clearColor(0,0,0,1);
   this.lights[0].setVisible(true);
   this.lights[0].enable();
 };
@@ -131,7 +132,7 @@ XMLscene.prototype.display = function () {
 	// Draw axis
 	//this.axis.display();
 
-this.quad = new MyUnitCubeQuad(this);
+/*this.quad = new MyUnitCubeQuad(this);
 this.cylinder = new MyCylinder(this, 10, 10);
 
 this.floor = new MyQuad(this, 0, 7, 0, 7);
@@ -259,7 +260,7 @@ this.popMatrix();
 
 this.materialDefault.apply();
 
-	this.setDefaultAppearance();
+	this.setDefaultAppearance();*/
 
 	// ---- END Background, camera and axis setup
 

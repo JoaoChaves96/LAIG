@@ -1,7 +1,5 @@
 <dsx>
-
-    <globals background="0 0 0 1" drawmode="fill" shading="gouraud" cullface="none" cullorder="CCW" />
-
+  
     <scene root="root" axis_length="3" />
 
     <views default="view1">
