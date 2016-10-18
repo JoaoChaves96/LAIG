@@ -2,11 +2,12 @@
  * MyNode
  * @constructor
  */
- function MyNode(){
+ function MyNode(id){
+   this.id = id;
    this.material = null;
    this.texture = null;
    this.mat = null;
-   this.children ={};
+   this.children =[];
    this.primitive = null;
  };
 
