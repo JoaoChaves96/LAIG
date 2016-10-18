@@ -115,6 +115,26 @@ this.loadLights();
 
 };
 
+XMLscene.prototype.processGraph = function(nodeName){
+  var material = null;
+  if(nodeName != null)
+    var node = this.graph.nodes[nodeName];
+  /*  if(node.material != null)
+      material = node.material;
+      if(material != null)
+        //this.applyMaterial(material);*/
+
+  if(node.primitive != null)
+    node.primitive.display();
+
+  for (var i = 0; i < node.getSize(); i++){
+    this.pushMatrix();
+    //this.applyMaterial(material);
+    this.processGraph(node.children[i].id);
+    this.popMatrix();
+  }
+};
+
 XMLscene.prototype.display = function () {
 	// ---- BEGIN Background, camera and axis setup
 
@@ -130,7 +150,7 @@ XMLscene.prototype.display = function () {
 	this.applyViewMatrix();
 
 	// Draw axis
-	//this.axis.display();
+	this.axis.display();
 
 /*this.quad = new MyUnitCubeQuad(this);
 this.cylinder = new MyCylinder(this, 10, 10);
@@ -270,5 +290,6 @@ this.materialDefault.apply();
 	if (this.graph.loadedOk)
 	{
 		this.lights[0].update();
+    this.processGraph("root");
 	};
 };

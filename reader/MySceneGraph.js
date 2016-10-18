@@ -5,7 +5,7 @@ function MySceneGraph(filename, scene) {
 	// Establish bidirectional references between scene and graph
 	this.scene = scene;
 	scene.graph=this;
-	this.nodes = [];
+	this.nodes = {};
 	this.comps = [];
 	this.lights = [];
 	this.primitives = {};
@@ -253,19 +253,19 @@ var childs = node1.getElementsByTagName('children');
 var listchilds = childs[0].children;
 var nchilds = listchilds.length;
 //console.log(nchilds);
-
-var node = new MyNode(node1.attributes.getNamedItem("id").value);
+var idNode = node1.attributes.getNamedItem("id").value
+var node = new MyNode(idNode);
 
 for (var k = 0; k < nchilds; k++){
 	if(listchilds[k].tagName == "componentref")
 	node.push(listchilds[k].attributes.getNamedItem("id").value);
 	else {
 		if(listchilds[k].tagName == "primitiveref")
-		node.primitive = listchilds[k].attributes.getNamedItem("id").value;
+		node.primitive = this.primitives[listchilds[k].attributes.getNamedItem("id").value];
 	}
 }
 
-this.nodes[i] = node;
+this.nodes[idNode] = node;
 
 	for (var j = 0; j < ncomps; j++){
 		var temp = node1.children[j];
@@ -277,14 +277,12 @@ this.nodes[i] = node;
 
 }
 
-for (var i = 0; i < this.nodes.length; i++){
-	console.log(this.nodes[i].id);
-	console.log("   " + this.nodes[i].primitive);
+	console.log("root");
+	console.log("   " + this.nodes["root"].primitive);
 	console.log("children:");
-	for (var j = 0; j < this.nodes[i].getSize(); j++){
-		console.log("   " + this.nodes[i].children[j]);
+	for (var j = 0; j < this.nodes["root"].getSize(); j++){
+		console.log("   " + this.nodes["root"].children[j]);
 	}
-}
 
 
 ////////////////////////List////////////////////////
