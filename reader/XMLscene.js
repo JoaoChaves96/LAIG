@@ -117,7 +117,7 @@ this.loadLights();
 
 XMLscene.prototype.processGraph = function(nodeName){
   var material = null;
-  if(nodeName != null)
+  if(nodeName != null){
     var node = this.graph.nodes[nodeName];
   /*  if(node.material != null)
       material = node.material;
@@ -128,11 +128,13 @@ XMLscene.prototype.processGraph = function(nodeName){
     node.primitive.display();
 
   for (var i = 0; i < node.getSize(); i++){
+    console.log("ENTROU!");
     this.pushMatrix();
     //this.applyMaterial(material);
-    this.processGraph(node.children[i].id);
+    this.processGraph(node.children[i]);
     this.popMatrix();
   }
+}
 };
 
 XMLscene.prototype.display = function () {
@@ -280,6 +282,7 @@ this.popMatrix();
 
 this.materialDefault.apply();
 
+
 	this.setDefaultAppearance();*/
 
 	// ---- END Background, camera and axis setup
@@ -289,7 +292,7 @@ this.materialDefault.apply();
 	// This is one possible way to do it
 	if (this.graph.loadedOk)
 	{
+    this.processGraph("bottom_r");
 		this.lights[0].update();
-    this.processGraph("root");
 	};
 };

@@ -2,8 +2,7 @@
  * MyNode
  * @constructor
  */
- function MyNode(id){
-   this.id = id;
+ function MyNode(){
    this.material = null;
    this.texture = null;
    this.mat = null;

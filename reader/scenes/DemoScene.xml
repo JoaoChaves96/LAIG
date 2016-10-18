@@ -1,5 +1,5 @@
 <dsx>
-  
+
     <scene root="root" axis_length="3" />
 
     <views default="view1">
@@ -123,6 +123,7 @@
             <componentref id="floor" />
             <componentref id="desk" />
             <componentref id="chair" />
+            <componentref id="pillow" />
           </children>
 
         </component>

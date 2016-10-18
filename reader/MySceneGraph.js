@@ -182,6 +182,8 @@ console.log("Primitives:");
 			default:
 				return "Uknown primitive...";
 		}
+
+	//	console.log(this.primitives);
 	}
 
 ////////////////////////Transformations////////////////////////
@@ -254,7 +256,7 @@ var listchilds = childs[0].children;
 var nchilds = listchilds.length;
 //console.log(nchilds);
 var idNode = node1.attributes.getNamedItem("id").value
-var node = new MyNode(idNode);
+var node = new MyNode();
 
 for (var k = 0; k < nchilds; k++){
 	if(listchilds[k].tagName == "componentref")
@@ -262,6 +264,7 @@ for (var k = 0; k < nchilds; k++){
 	else {
 		if(listchilds[k].tagName == "primitiveref")
 		node.primitive = this.primitives[listchilds[k].attributes.getNamedItem("id").value];
+		//console.log(node.primitive);
 	}
 }
 
