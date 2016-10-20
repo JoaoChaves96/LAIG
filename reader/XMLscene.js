@@ -118,6 +118,7 @@ XMLscene.prototype.processGraph = function(nodeName){
     if(material != null)
     //this.applyMaterial(material);*/
 
+    this.multMatrix(node.mat);
     if(node.primitive != null)
     node.primitive.display();
 

@@ -10,6 +10,8 @@ function MySceneGraph(filename, scene) {
 	this.lights = [];
 	this.primitives = {};
 
+	this.degtoRad = Math.PI/180;
+
 	// File reading
 	this.reader = new CGFXMLreader();
 
@@ -196,7 +198,7 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 
 	////////////////////////Transformations////////////////////////
 
-	console.log("");
+	/*console.log("");
 	console.log("Transformations:");
 	var transf = rootElement.getElementsByTagName('transformations');
 
@@ -205,31 +207,31 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	var ntransf = listtransf.length;
 
 	for (var j = 0; j < ntransf; j++){
-		var transf1 = listtransf[j];
-		var nchild = transf1.children.length;
-		console.log(transf1.attributes.getNamedItem("id").value);
-		for (var k = 0; k < nchild; k++){
-			var child = transf1.children[k];
-			console.log(child.tagName);
+	var transf1 = listtransf[j];
+	var nchild = transf1.children.length;
+	console.log(transf1.attributes.getNamedItem("id").value);
+	for (var k = 0; k < nchild; k++){
+	var child = transf1.children[k];
+	console.log(child.tagName);
 
-			if (child.tagName == "rotate"){
-				console.log(child.attributes.getNamedItem("axis").value);
-				console.log(child.attributes.getNamedItem("angle").value);
-			}
-			else{
-				console.log(child.attributes.getNamedItem("x").value);
-				console.log(child.attributes.getNamedItem("y").value);
-				console.log(child.attributes.getNamedItem("z").value);
-			}
-			console.log("");
-		}
-	}
+	if (child.tagName == "rotate"){
+	console.log(child.attributes.getNamedItem("axis").value);
+	console.log(child.attributes.getNamedItem("angle").value);
+}
+else{
+console.log(child.attributes.getNamedItem("x").value);
+console.log(child.attributes.getNamedItem("y").value);
+console.log(child.attributes.getNamedItem("z").value);
+}
+console.log("");
+}
+}
+*/
 
-
-	////////////////////////Globals////////////////////////
-	/*var elems =  rootElement.getElementsByTagName('globals');
-	if (elems == null) {
-	return "globals element is missing.";
+////////////////////////Globals////////////////////////
+/*var elems =  rootElement.getElementsByTagName('globals');
+if (elems == null) {
+return "globals element is missing.";
 }
 
 if (elems.length != 1) {
@@ -257,7 +259,7 @@ for (var i = 0; i < nnodes; i++){
 	var node1 = listNodes[i];
 	var ncomps = node1.children.length;
 
-	//	console.log(node1.tagName + ": " + node1.attributes.getNamedItem("id").value);
+	///////////////////Load node and children////////////////////////////////
 
 	var childs = node1.getElementsByTagName('children');
 	var listchilds = childs[0].children;
@@ -278,6 +280,64 @@ for (var i = 0; i < nnodes; i++){
 		}
 	}
 
+	///////////////////////Load node transformations///////////////////////////////
+
+	var transf = node1.getElementsByTagName('transformation');
+	var listT = transf[0].children;
+
+	var ntransf = listT.length;
+
+	var matrix = mat4.create();
+
+	for (var j = 0; j < ntransf; j++){
+		switch(listT[j].tagName){
+			case "rotate":
+			var angle, axis, rotation;
+			axis = this.reader.getString(listT[j], 'axis');
+			angle = this.reader.getFloat(listT[j], 'angle') * this.degtoRad;
+
+			switch(axis){
+				case "x":
+				rotation = [1, 0, 0];
+				break;
+				case "y":
+				rotation = [0, 1, 0];
+				break;
+				case "z":
+				rotation = [0, 0, 1];
+				break;
+				default:
+				break;
+			}
+
+			mat4.rotate(matrix, matrix, angle, rotation);
+			break;
+
+			case "translate":
+			var translate = [];
+			translate[0] = this.reader.getFloat(listT[j], 'x');
+			translate[1] = this.reader.getFloat(listT[j], 'y');
+			translate[2] = this.reader.getFloat(listT[j], 'z');
+
+			mat4.translate(matrix, matrix, translate);
+			break;
+
+			case "scale":
+			var scale = [];
+			scale[0] = this.reader.getFloat(listT[j], 'x');
+			scale[1] = this.reader.getFloat(listT[j], 'y');
+			scale[2] = this.reader.getFloat(listT[j], 'z');
+
+			mat4.scale(matrix, matrix, scale);
+			break;
+
+			default:
+			break;
+		}
+	}
+	
+	node.mat = matrix;
+
 	this.nodes[idNode] = node;
 
 	/*for (var j = 0; j < ncomps; j++){
@@ -288,13 +348,6 @@ for (var i = 0; i < nnodes; i++){
 
 console.log("");
 
-}
-
-console.log("root");
-console.log("   " + this.nodes["root"].primitive);
-console.log("children:");
-for (var j = 0; j < this.nodes["root"].getSize(); j++){
-	console.log("   " + this.nodes["root"].children[j]);
 }
 
 
