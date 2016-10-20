@@ -101,7 +101,7 @@
     </primitive>
 
     <primitive id="torus1">
-      <torus inner="0.5" outer="1" slices="40" loops="40" />
+      <torus inner="0.5" outer="1" slices="20" loops="20" />
     </primitive>
 
   </primitives>
@@ -266,7 +266,9 @@
     <component id="chair">
 
       <transformation>
-        <translate x="-0.5" y="0.125" z="-0.5" />
+        <translate x="3" y="1" z="3" />
+        <rotate axis="y" angle="90" />
+        <scale x="0.75" y="0.75" z="0.75" />
       </transformation>
 
       <materials>
@@ -585,7 +587,7 @@
 
       <transformation>
         <scale x="0.25" y="0.15" z="0.25" />
-        <translate x="-0.25" y="0.5" z="2.5" />
+        <translate x="13.5" y="7.2" z="10.5" />
         <rotate axis="x" angle="-90" />
       </transformation>
 

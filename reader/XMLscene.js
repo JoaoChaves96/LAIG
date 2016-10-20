@@ -148,7 +148,7 @@ XMLscene.prototype.display = function () {
   // Draw axis
   this.axis.display();
 
-  /*this.quad = new MyUnitCubeQuad(this);
+/*  this.quad = new MyUnitCubeQuad(this);
   this.cylinder = new MyCylinder(this, 10, 10);
 
   this.floor = new MyQuad(this, 0, 7, 0, 7);
@@ -292,7 +292,6 @@ XMLscene.prototype.display = function () {
 if (this.graph.loadedOk)
 {
   this.processGraph("root");
-  //this.lights[0].update();
   this.loadLights();
   this.updateLights();
 };
