@@ -59,13 +59,6 @@ XMLscene.prototype.init = function (application) {
 XMLscene.prototype.initLights = function () {
 
   this.setGlobalAmbientLight(0,0,0, 1.0);
-  this.lights[0].setPosition(2, 3, 3, 1);
-  this.lights[0].setAmbient(0, 0, 0, 1);
-  this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
-  this.lights[0].setSpecular(1.0, 1.0, 0, 1.0);
-  this.lights[0].setVisible(true);
-  this.lights[0].enable();
-  this.lights[0].update();
 };
 
 XMLscene.prototype.initCameras = function () {
@@ -100,18 +93,18 @@ XMLscene.prototype.loadLights = function(){
 };
 
 XMLscene.prototype.updateLights = function(){
-  /*  for(var i = 0; i < this.lights.length; i++){
-  this.lights[i].setVisible(true);
-  /*if (this.graph.lights[i].enabled)
-  this.lights[i].enable();
-  else {
-  this.lights[i].disable();
-}
-}*/
+  for(var i = 0; i < this.graph.lights.length; i++){
+    var light = this.graph.lights[i];
+    if (light.enabled)
+      this.lights[i].enable();
+    else {
+      this.lights[i].disable();
+    }
+  };
 
-this.loadLights();
-for (var i = 0; i < this.lights.length; i++)
-this.lights[i].update();
+  this.loadLights();
+  for (var i = 0; i < this.lights.length; i++)
+  this.lights[i].update();
 
 };
 
@@ -126,7 +119,7 @@ XMLscene.prototype.processGraph = function(nodeName){
     //this.applyMaterial(material);*/
 
     if(node.primitive != null)
-      node.primitive.display();
+    node.primitive.display();
 
     for (var i = 0; i < node.getSize(); i++){
       this.pushMatrix();
@@ -286,18 +279,20 @@ XMLscene.prototype.display = function () {
   this.setDefaultAppearance();*/
 
 
-/*  for(var i = 0; i < Object.keys(this.graph.primitives).length; i++){
+  /*  for(var i = 0; i < Object.keys(this.graph.primitives).length; i++){
   console.log(this.graph.primitives["cylinder1"].slices);
 }*/
 
-  // ---- END Background, camera and axis setup
+// ---- END Background, camera and axis setup
 
-  // it is important that things depending on the proper loading of the graph
-  // only get executed after the graph has loaded correctly.
-  // This is one possible way to do it
-  if (this.graph.loadedOk)
-  {
-    this.processGraph("root");
-    this.lights[0].update();
-  };
+// it is important that things depending on the proper loading of the graph
+// only get executed after the graph has loaded correctly.
+// This is one possible way to do it
+if (this.graph.loadedOk)
+{
+  this.processGraph("root");
+  //this.lights[0].update();
+  this.loadLights();
+  this.updateLights();
+};
 };

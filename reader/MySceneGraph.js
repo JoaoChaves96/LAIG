@@ -72,7 +72,6 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	var listlights = lights[0].getElementsByTagName('omni');
 
 	var nlight = listlights.length;
-	console.log(nlight);
 
 	for(var i = 0; i < nlight; i++){
 		var light1 = listlights[i];
@@ -83,31 +82,32 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 		var diffuse = [];
 		var specular = [];
 
-		/*id = this.reader.getString(light1, 'id');
+		id = this.reader.getString(light1, 'id');
 		enabled = this.reader.getBoolean(light1, 'enabled');
+		console.log(enabled);
 
 		location[0] = this.reader.getFloat(light1.getElementsByTagName('location')[0], 'x');
 		location[1] = this.reader.getFloat(light1.getElementsByTagName('location')[0], 'y');
 		location[2] = this.reader.getFloat(light1.getElementsByTagName('location')[0], 'z');
 		location[3] = this.reader.getFloat(light1.getElementsByTagName('location')[0], 'w');
 
-		ambient[0] = this.reader.getFloat(light1.getElementsByTagName('ambient')[0], 'x');
-		ambient[1] = this.reader.getFloat(light1.getElementsByTagName('ambient')[0], 'y');
-		ambient[2] = this.reader.getFloat(light1.getElementsByTagName('ambient')[0], 'z');
+		ambient[0] = this.reader.getFloat(light1.getElementsByTagName('ambient')[0], 'r');
+		ambient[1] = this.reader.getFloat(light1.getElementsByTagName('ambient')[0], 'g');
+		ambient[2] = this.reader.getFloat(light1.getElementsByTagName('ambient')[0], 'b');
 		ambient[3] = this.reader.getFloat(light1.getElementsByTagName('ambient')[0], 'a');
 
-		diffuse[0] = this.reader.getFloat(light1.getElementsByTagName('diffuse')[0], 'x');
-		diffuse[1] = this.reader.getFloat(light1.getElementsByTagName('diffuse')[0], 'y');
-		diffuse[2] = this.reader.getFloat(light1.getElementsByTagName('diffuse')[0], 'z');
+		diffuse[0] = this.reader.getFloat(light1.getElementsByTagName('diffuse')[0], 'r');
+		diffuse[1] = this.reader.getFloat(light1.getElementsByTagName('diffuse')[0], 'g');
+		diffuse[2] = this.reader.getFloat(light1.getElementsByTagName('diffuse')[0], 'b');
 		diffuse[3] = this.reader.getFloat(light1.getElementsByTagName('diffuse')[0], 'a');
 
-		specular[0] = this.reader.getFloat(light1.getElementsByTagName('specular')[0], 'x');
-		specular[1] = this.reader.getFloat(light1.getElementsByTagName('specular')[0], 'y');
-		specular[2] = this.reader.getFloat(light1.getElementsByTagName('specular')[0], 'z');
+		specular[0] = this.reader.getFloat(light1.getElementsByTagName('specular')[0], 'r');
+		specular[1] = this.reader.getFloat(light1.getElementsByTagName('specular')[0], 'g');
+		specular[2] = this.reader.getFloat(light1.getElementsByTagName('specular')[0], 'b');
 		specular[3] = this.reader.getFloat(light1.getElementsByTagName('specular')[0], 'a');
 
 		var light = new Light(id, enabled, location, ambient, diffuse, specular);
-		this.lights[i] = light;*/
+		this.lights[i] = light;
 	}
 
 
