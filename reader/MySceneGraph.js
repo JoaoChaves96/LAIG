@@ -128,56 +128,61 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 
 		switch(prim1.tagName){
 			case "rectangle":
+			var temp = listprim[i].getElementsByTagName('rectangle');
 			var x1, y1, x2, y2;
-			x1 = prim1.attributes.getNamedItem("x1").value;
-			x2 = prim1.attributes.getNamedItem("x2").value;
-			y1 = prim1.attributes.getNamedItem("y1").value;
-			y2 = prim1.attributes.getNamedItem("y2").value;
+			x1 = this.reader.getFloat(temp[0], 'x1');
+			x2 =this.reader.getFloat(temp[0], 'x2');
+			y1 = this.reader.getFloat(temp[0], 'y1');
+			y2 = this.reader.getFloat(temp[0], 'y2');
 
 			this.primitives[id] = new MyQuad(this.scene, x1, y1, x2, y2);
 			break;
 
 			case "triangle":
+			var temp = listprim[i].getElementsByTagName('triangle');
 			var x1, y1, z1, x2, y2, z2, x3, y3, z3;
-			x1 = prim1.attributes.getNamedItem("x1").value;
-			x2 = prim1.attributes.getNamedItem("x2").value;
-			x3 = prim1.attributes.getNamedItem("x3").value;
-			y1 = prim1.attributes.getNamedItem("y1").value;
-			y2 = prim1.attributes.getNamedItem("y2").value;
-			y3 = prim1.attributes.getNamedItem("y3").value;
-			z1 = prim1.attributes.getNamedItem("z1").value;
-			z2 = prim1.attributes.getNamedItem("z2").value;
-			z3 = prim1.attributes.getNamedItem("z3").value;
+			x1 = this.reader.getFloat(temp[0], 'x1');
+			x2 =this.reader.getFloat(temp[0], 'x2');
+			x3 = this.reader.getFloat(temp[0], 'x3');
+			y1 = this.reader.getFloat(temp[0], 'y1');
+			y2 = this.reader.getFloat(temp[0], 'y2');
+			y3 = this.reader.getFloat(temp[0], 'y3');
+			z1 = this.reader.getFloat(temp[0], 'z1');
+			z2 = this.reader.getFloat(temp[0], 'z2');
+			z3 = this.reader.getFloat(temp[0], 'z3');
 
 			this.primitives[id] = new MyTriangle(this.scene, x1, y1, z1, x2, y2, z2, x3, y3, z3);
 			break;
 
 			case "sphere":
+			var temp = listprim[i].getElementsByTagName('sphere');
 			var radius, slices, stacks;
-			radius = prim1.attributes.getNamedItem("radius").value;
-			slices = prim1.attributes.getNamedItem("slices").value;
-			stacks = prim1.attributes.getNamedItem("stacks").value;
+			radius = this.reader.getFloat(temp[0], 'radius');
+			slices = this.reader.getFloat(temp[0], 'slices');
+			stacks = this.reader.getFloat(temp[0], 'stacks');
 
 			this.primitives[id] = new MySphere(this.scene, radius, slices, stacks);
 			break;
 
 			case "cylinder":
+			var temp = listprim[i].getElementsByTagName('cylinder');
 			var base, top, height, slices, stacks;
-			base = prim1.attributes.getNamedItem("base").value;
-			top = prim1.attributes.getNamedItem("top").value;
-			height = prim1.attributes.getNamedItem("height").value;
-			slices = prim1.attributes.getNamedItem("slices").value;
-			stacks = prim1.attributes.getNamedItem("stacks").value;
+			base = this.reader.getFloat(temp[0], 'base');
+			top = this.reader.getFloat(temp[0], 'top');
+			height = this.reader.getFloat(temp[0], 'height');
+			slices = this.reader.getFloat(temp[0], 'slices');
+			stacks = this.reader.getFloat(temp[0], 'stacks');
 
 			this.primitives[id] = new MyCylinder(this.scene, base, top, height, slices, stacks);
 			break;
 
 			case "torus":
+			var temp = listprim[i].getElementsByTagName('torus');
 			var inner, outer, slices, loops;
-			inner = prim1.attributes.getNamedItem("inner").value;
-			outer = prim1.attributes.getNamedItem("outer").value;
-			slices = prim1.attributes.getNamedItem("slices").value;
-			loops = prim1.attributes.getNamedItem("loops").value;
+			inner = this.reader.getFloat(temp[0], 'inner');
+			outer = this.reader.getFloat(temp[0], 'outer');
+			slices = this.reader.getFloat(temp[0], 'slices');
+			loops = this.reader.getFloat(temp[0], 'loops');
 
 			this.primitives[id] = new MyTorus(this.scene, inner, outer, slices, loops);
 			break;

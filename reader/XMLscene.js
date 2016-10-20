@@ -119,7 +119,7 @@ XMLscene.prototype.processGraph = function(nodeName){
   var material = null;
   if(nodeName != null){
     var node = this.graph.nodes[nodeName];
-    console.log(nodeName);
+    //console.log(nodeName);
     /*  if(node.material != null)
     material = node.material;
     if(material != null)
@@ -284,7 +284,7 @@ XMLscene.prototype.display = function () {
 
 
   this.setDefaultAppearance();*/
-  
+
 
 /*  for(var i = 0; i < Object.keys(this.graph.primitives).length; i++){
   console.log(this.graph.primitives["cylinder1"].slices);
