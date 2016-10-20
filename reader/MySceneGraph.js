@@ -124,6 +124,8 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	for(var i = 0; i < nprim; i++){
 		var prim1 = listprim[i].children[0];
 		var id = listprim[i].attributes.getNamedItem("id").value;
+		console.log(prim1.tagName);
+
 		switch(prim1.tagName){
 			case "rectangle":
 			var x1, y1, x2, y2;

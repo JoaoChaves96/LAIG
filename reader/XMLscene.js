@@ -119,6 +119,7 @@ XMLscene.prototype.processGraph = function(nodeName){
   var material = null;
   if(nodeName != null){
     var node = this.graph.nodes[nodeName];
+    console.log(nodeName);
     /*  if(node.material != null)
     material = node.material;
     if(material != null)
@@ -128,7 +129,6 @@ XMLscene.prototype.processGraph = function(nodeName){
       node.primitive.display();
 
     for (var i = 0; i < node.getSize(); i++){
-      console.log("ENTROU!");
       this.pushMatrix();
       //this.applyMaterial(material);
       this.processGraph(node.children[i]);
@@ -284,10 +284,11 @@ XMLscene.prototype.display = function () {
 
 
   this.setDefaultAppearance();*/
+  
 
-  for(var i = 0; i < Object.keys(this.graph.primitives).length; i++){
+/*  for(var i = 0; i < Object.keys(this.graph.primitives).length; i++){
   console.log(this.graph.primitives["cylinder1"].slices);
-}
+}*/
 
   // ---- END Background, camera and axis setup
 
@@ -296,8 +297,7 @@ XMLscene.prototype.display = function () {
   // This is one possible way to do it
   if (this.graph.loadedOk)
   {
-    //this.processGraph("deskleg3");
+    this.processGraph("root");
     this.lights[0].update();
-      console.log(Object.keys(this.graph.primitives).length);
   };
 };

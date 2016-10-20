@@ -7,7 +7,7 @@
    this.texture = null;
    this.mat = null;
    this.children =[];
-   this.primitive;
+   this.primitive = null;
  };
 
  MyNode.prototype.push = function(nodeName){
