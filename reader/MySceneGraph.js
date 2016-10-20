@@ -9,6 +9,7 @@ function MySceneGraph(filename, scene) {
 	this.comps = [];
 	this.lights = [];
 	this.primitives = {};
+	this.materials = {};
 
 	this.degtoRad = Math.PI/180;
 
@@ -86,7 +87,6 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 
 		id = this.reader.getString(light1, 'id');
 		enabled = this.reader.getBoolean(light1, 'enabled');
-		console.log(enabled);
 
 		location[0] = this.reader.getFloat(light1.getElementsByTagName('location')[0], 'x');
 		location[1] = this.reader.getFloat(light1.getElementsByTagName('location')[0], 'y');
@@ -335,64 +335,66 @@ for (var i = 0; i < nnodes; i++){
 			break;
 		}
 	}
-	
+
 	node.mat = matrix;
 
 	this.nodes[idNode] = node;
 
-	/*for (var j = 0; j < ncomps; j++){
-	var temp = node1.children[j];
-	//console.log(temp.attributes.getNamedItem("id").value);
-
-}*/
-
-console.log("");
-
 }
 
+/////////////////////Materials///////////////////////////
+var listMaterials = rootElement.getElementsByTagName('materials');
+var materials = listMaterials[0].getElementsByTagName('material');
 
-////////////////////////List////////////////////////
-/*	var tempList=rootElement.getElementsByTagName('list');
+var nmat = materials.length;
 
-if (tempList == null  || tempList.length==0) {
-return "list element is missing.";
+for (var i = 0; i < nmat; i++){
+	var mat = materials[i];
+	var idMat = mat.tagName;
+	var emission = [];
+
+	emission[0] = this.reader.getFloat(mat.getElementsByTagName('emission')[0], 'r');
+	emission[1] = this.reader.getFloat(mat.getElementsByTagName('emission')[0], 'g');
+	emission[2] = this.reader.getFloat(mat.getElementsByTagName('emission')[0], 'b');
+	emission[3] = this.reader.getFloat(mat.getElementsByTagName('emission')[0], 'a');
+
+	var ambient = [];
+
+	ambient[0] = this.reader.getFloat(mat.getElementsByTagName('ambient')[0], 'r');
+	ambient[1] = this.reader.getFloat(mat.getElementsByTagName('ambient')[0], 'g');
+	ambient[2] = this.reader.getFloat(mat.getElementsByTagName('ambient')[0], 'b');
+	ambient[3] = this.reader.getFloat(mat.getElementsByTagName('ambient')[0], 'a');
+
+	var diffuse = [];
+
+	diffuse[0] = this.reader.getFloat(mat.getElementsByTagName('diffuse')[0], 'r');
+	diffuse[1] = this.reader.getFloat(mat.getElementsByTagName('diffuse')[0], 'g');
+	diffuse[2] = this.reader.getFloat(mat.getElementsByTagName('diffuse')[0], 'b');
+	diffuse[3] = this.reader.getFloat(mat.getElementsByTagName('diffuse')[0], 'a');
+
+	var specular = [];
+
+	specular[0] = this.reader.getFloat(mat.getElementsByTagName('specular')[0], 'r');
+	specular[1] = this.reader.getFloat(mat.getElementsByTagName('specular')[0], 'g');
+	specular[2] = this.reader.getFloat(mat.getElementsByTagName('specular')[0], 'b');
+	specular[3] = this.reader.getFloat(mat.getElementsByTagName('specular')[0], 'a');
+
+	var shininess = this.reader.getFloat(mat.getElementsByTagName('shininess')[0], 'value');
+
+	var material = new CGFappearance(this.scene);
+	material.setEmission(emission[0], emission[1], emission[2], emission[3]);
+	material.setAmbient(ambient[0], ambient[1], ambient[2], ambient[3]);
+	material.setDiffuse(diffuse[0], diffuse[1], diffuse[2], diffuse[3]);
+	material.setSpecular(specular[0], specular[1], specular[2], specular[3]);
+	material.setShininess(shininess);
+
+	this.materials(idmat) = material;
 }
-
-this.list=[];
-// iterate over every element
-var nnodes=tempList[0].children.length;
-for (var i=0; i< nnodes; i++)
-{
-var e=tempList[0].children[i];
-
-// process each element and store its information
-this.list[e.id]=e.attributes.getNamedItem("coords").value;
-console.log("Read list item id "+ e.id+" with value "+this.list[e.id]);
-};*/
-
 };
 
 /*
 * Callback to be executed on any read error
 */
-
-MySceneGraph.prototype.readComponents=function(){
-	var nodes = rootElement.getElementsByTagName('components');
-	var listNodes = nodes[0].getElementsByTagName('component');
-
-	var nnodes = listNodes.length;
-
-	for (var i = 0; i < nnodes; i++){
-		var node1 = listNodes[i];
-		var nchild = node1.children.length;
-		console.log(node1.tagName + ": " + node1.attributes.getNamedItem("id").value);
-
-		for (var j = 0; j < nchild; j++){
-			var temp = node1.children[j];
-		}
-	}
-}
-
 MySceneGraph.prototype.onXMLError=function (message) {
 	console.error("XML Loading Error: "+message);
 	this.loadedOk=false;
