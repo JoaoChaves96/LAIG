@@ -97,7 +97,7 @@
     </primitive>
 
     <primitive id="cylinder1">
-      <cylinder base="1" top="1" height="1.0" slices="50" stacks="20" />
+      <cylinder base="1" top="1" height="1" slices="50" stacks="20" />
     </primitive>
 
     <primitive id="torus1">
