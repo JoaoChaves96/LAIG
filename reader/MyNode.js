@@ -3,7 +3,7 @@
  * @constructor
  */
  function MyNode(){
-   this.material = null;
+   this.material = [];
    this.texture = null;
    this.mat = null;
    this.children =[];

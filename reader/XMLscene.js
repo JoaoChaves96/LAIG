@@ -113,14 +113,14 @@ XMLscene.prototype.processGraph = function(nodeName){
   if(nodeName != null){
     var node = this.graph.nodes[nodeName];
     //console.log(nodeName);
-    /*  if(node.material != null)
-    material = node.material;
+      if(node.material != null)
+    material = node.material[0];
     if(material != null)
-    //this.applyMaterial(material);*/
+      material.apply();
 
     this.multMatrix(node.mat);
     if(node.primitive != null)
-    node.primitive.display();
+      node.primitive.display();
 
     for (var i = 0; i < node.getSize(); i++){
       this.pushMatrix();
@@ -260,6 +260,8 @@ XMLscene.prototype.display = function () {
   this.translate(-1.2,-0.5,0);
   this.scale(0.1,0.1,2);
   this.cylinder.display();
+  this.popMatrix();
+
   this.popMatrix();
 
   this.materialDefault.apply();

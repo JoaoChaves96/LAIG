@@ -10,6 +10,7 @@ function MySceneGraph(filename, scene) {
 	this.lights = [];
 	this.primitives = {};
 	this.materials = {};
+	this.textures = {};
 
 	this.degtoRad = Math.PI/180;
 
@@ -111,6 +112,72 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 		var light = new Light(id, enabled, location, ambient, diffuse, specular);
 		this.lights[i] = light;
 	}
+
+	/////////////////////Materials///////////////////////////
+	var listMaterials = rootElement.getElementsByTagName('materials');
+	var materials = listMaterials[0].getElementsByTagName('material');
+
+	var nmat = materials.length;
+
+	for (var i = 0; i < nmat; i++){
+		var mat = materials[i];
+		var idMat = mat.tagName;
+		var emission = [];
+
+		emission[0] = this.reader.getFloat(mat.getElementsByTagName('emission')[0], 'r');
+		emission[1] = this.reader.getFloat(mat.getElementsByTagName('emission')[0], 'g');
+		emission[2] = this.reader.getFloat(mat.getElementsByTagName('emission')[0], 'b');
+		emission[3] = this.reader.getFloat(mat.getElementsByTagName('emission')[0], 'a');
+
+		var ambient = [];
+
+		ambient[0] = this.reader.getFloat(mat.getElementsByTagName('ambient')[0], 'r');
+		ambient[1] = this.reader.getFloat(mat.getElementsByTagName('ambient')[0], 'g');
+		ambient[2] = this.reader.getFloat(mat.getElementsByTagName('ambient')[0], 'b');
+		ambient[3] = this.reader.getFloat(mat.getElementsByTagName('ambient')[0], 'a');
+
+		var diffuse = [];
+
+		diffuse[0] = this.reader.getFloat(mat.getElementsByTagName('diffuse')[0], 'r');
+		diffuse[1] = this.reader.getFloat(mat.getElementsByTagName('diffuse')[0], 'g');
+		diffuse[2] = this.reader.getFloat(mat.getElementsByTagName('diffuse')[0], 'b');
+		diffuse[3] = this.reader.getFloat(mat.getElementsByTagName('diffuse')[0], 'a');
+
+		var specular = [];
+
+		specular[0] = this.reader.getFloat(mat.getElementsByTagName('specular')[0], 'r');
+		specular[1] = this.reader.getFloat(mat.getElementsByTagName('specular')[0], 'g');
+		specular[2] = this.reader.getFloat(mat.getElementsByTagName('specular')[0], 'b');
+		specular[3] = this.reader.getFloat(mat.getElementsByTagName('specular')[0], 'a');
+
+		var shininess = this.reader.getFloat(mat.getElementsByTagName('shininess')[0], 'value');
+
+		var material = new CGFappearance(this.scene);
+		material.setEmission(emission[0], emission[1], emission[2], emission[3]);
+		material.setAmbient(ambient[0], ambient[1], ambient[2], ambient[3]);
+		material.setDiffuse(diffuse[0], diffuse[1], diffuse[2], diffuse[3]);
+		material.setSpecular(specular[0], specular[1], specular[2], specular[3]);
+		material.setShininess(shininess);
+
+		this.materials[idMat] = material;
+	}
+
+
+	////////////////////////Textures/////////////////////////
+var textures = rootElement.getElementsByTagName('textures');
+var listT = textures[0].getElementsByTagName('texture');
+
+var nlistT = listT.length;
+
+for (var i = 0; i < nlistT; i++){
+	var id = listT[i].attributes.getNamedItem("id").value;
+	var file = listT[i].attributes.getNamedItem("file").value;
+	var length_s = this.reader.getFloat(listT[i], 'length_s');
+	var length_t = this.reader.getFloat(listT[i], 'length_t');
+	var text = new Texture(id, file, length_s, length_t);
+	this.textures[id] = text;
+}
+
 
 
 	////////////////////////Primitives////////////////////////
@@ -338,57 +405,22 @@ for (var i = 0; i < nnodes; i++){
 
 	node.mat = matrix;
 
-	this.nodes[idNode] = node;
 
+///////////////////////Load node material////////////////////////
+
+var nodeMaterials = node1.getElementsByTagName('materials');
+var listNm = nodeMaterials[0].children;
+
+var nlist = listNm.length;
+
+for (var x = 0; x < nlist; x++){
+	var idmaterial = listNm[x].attributes.getNamedItem("id").value;
+	if(idmaterial != "inherit")
+		node.material.push(this.materials[idmaterial]);
 }
 
-/////////////////////Materials///////////////////////////
-var listMaterials = rootElement.getElementsByTagName('materials');
-var materials = listMaterials[0].getElementsByTagName('material');
+	this.nodes[idNode] = node;
 
-var nmat = materials.length;
-
-for (var i = 0; i < nmat; i++){
-	var mat = materials[i];
-	var idMat = mat.tagName;
-	var emission = [];
-
-	emission[0] = this.reader.getFloat(mat.getElementsByTagName('emission')[0], 'r');
-	emission[1] = this.reader.getFloat(mat.getElementsByTagName('emission')[0], 'g');
-	emission[2] = this.reader.getFloat(mat.getElementsByTagName('emission')[0], 'b');
-	emission[3] = this.reader.getFloat(mat.getElementsByTagName('emission')[0], 'a');
-
-	var ambient = [];
-
-	ambient[0] = this.reader.getFloat(mat.getElementsByTagName('ambient')[0], 'r');
-	ambient[1] = this.reader.getFloat(mat.getElementsByTagName('ambient')[0], 'g');
-	ambient[2] = this.reader.getFloat(mat.getElementsByTagName('ambient')[0], 'b');
-	ambient[3] = this.reader.getFloat(mat.getElementsByTagName('ambient')[0], 'a');
-
-	var diffuse = [];
-
-	diffuse[0] = this.reader.getFloat(mat.getElementsByTagName('diffuse')[0], 'r');
-	diffuse[1] = this.reader.getFloat(mat.getElementsByTagName('diffuse')[0], 'g');
-	diffuse[2] = this.reader.getFloat(mat.getElementsByTagName('diffuse')[0], 'b');
-	diffuse[3] = this.reader.getFloat(mat.getElementsByTagName('diffuse')[0], 'a');
-
-	var specular = [];
-
-	specular[0] = this.reader.getFloat(mat.getElementsByTagName('specular')[0], 'r');
-	specular[1] = this.reader.getFloat(mat.getElementsByTagName('specular')[0], 'g');
-	specular[2] = this.reader.getFloat(mat.getElementsByTagName('specular')[0], 'b');
-	specular[3] = this.reader.getFloat(mat.getElementsByTagName('specular')[0], 'a');
-
-	var shininess = this.reader.getFloat(mat.getElementsByTagName('shininess')[0], 'value');
-
-	var material = new CGFappearance(this.scene);
-	material.setEmission(emission[0], emission[1], emission[2], emission[3]);
-	material.setAmbient(ambient[0], ambient[1], ambient[2], ambient[3]);
-	material.setDiffuse(diffuse[0], diffuse[1], diffuse[2], diffuse[3]);
-	material.setSpecular(specular[0], specular[1], specular[2], specular[3]);
-	material.setShininess(shininess);
-
-	this.materials(idmat) = material;
 }
 };
 
