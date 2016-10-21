@@ -121,7 +121,7 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 
 	for (var i = 0; i < nmat; i++){
 		var mat = materials[i];
-		var idMat = mat.tagName;
+		var idMat = mat.attributes.getNamedItem("id").value;
 		var emission = [];
 
 		emission[0] = this.reader.getFloat(mat.getElementsByTagName('emission')[0], 'r');
@@ -161,7 +161,6 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 
 		this.materials[idMat] = material;
 	}
-
 
 	////////////////////////Textures/////////////////////////
 var textures = rootElement.getElementsByTagName('textures');
@@ -406,7 +405,7 @@ for (var i = 0; i < nnodes; i++){
 	node.mat = matrix;
 
 
-///////////////////////Load node material////////////////////////
+///////////////////////Load node materials////////////////////////
 
 var nodeMaterials = node1.getElementsByTagName('materials');
 var listNm = nodeMaterials[0].children;
@@ -417,9 +416,22 @@ for (var x = 0; x < nlist; x++){
 	var idmaterial = listNm[x].attributes.getNamedItem("id").value;
 	if(idmaterial != "inherit")
 		node.material.push(this.materials[idmaterial]);
+	//	console.log(node.material);
 }
 
-	this.nodes[idNode] = node;
+//////////////////////Load node textures/////////////////////
+var nodeTexture = node1.getElementsByTagName('texture')[0];
+var textureId = this.reader.getString(nodeTexture, 'id', true);
+
+if(textureId != "inherit" && textureId != "none"){
+	node.texture = this.textures[textureId];
+	for(var y = 0; y < node.material.length; y++){
+		node.material[y].loadTexture(node.texture.file);
+}
+//console.log(node.material[0]);
+}
+
+this.nodes[idNode] = node;
 
 }
 };

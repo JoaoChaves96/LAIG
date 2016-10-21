@@ -117,7 +117,7 @@
         <material id="matA" />
       </materials>
 
-      <texture id="null" />
+      <texture id="none" />
 
       <children>
         <componentref id="floor" />
@@ -137,7 +137,7 @@
         <material id="inherit" />
       </materials>
 
-      <texture id="null" />
+      <texture id="inherit" />
 
       <children>
         <componentref id="front_r" />
@@ -160,7 +160,7 @@
         <material id="inherit" />
       </materials>
 
-      <texture id="null" />
+      <texture id="inherit" />
 
       <children>
         <primitiveref id="rect1"/>
@@ -179,7 +179,7 @@
         <material id="inherit" />
       </materials>
 
-      <texture id="null" />
+      <texture id="inherit" />
 
       <children>
         <primitiveref id="rect1"/>
@@ -198,7 +198,7 @@
         <material id="inherit" />
       </materials>
 
-      <texture id="null" />
+      <texture id="inherit" />
 
       <children>
         <primitiveref id="rect1"/>
@@ -217,7 +217,7 @@
         <material id="inherit" />
       </materials>
 
-      <texture id="null" />
+      <texture id="inherit" />
 
       <children>
         <primitiveref id="rect1"/>
@@ -236,7 +236,7 @@
         <material id="inherit" />
       </materials>
 
-      <texture id="null" />
+      <texture id="inherit" />
 
       <children>
         <primitiveref id="rect1"/>
@@ -255,7 +255,7 @@
         <material id="inherit" />
       </materials>
 
-      <texture id="null" />
+      <texture id="inherit" />
 
       <children>
         <primitiveref id="rect1"/>
@@ -298,10 +298,10 @@
       </transformation>
 
       <materials>
-        <material id="inherit" />
+        <material id="matA" />
       </materials>
 
-      <texture id="null" />
+      <texture id="inherit" />
 
       <children>
         <componentref id="cube" />
@@ -320,7 +320,7 @@
         <material id="inherit" />
       </materials>
 
-      <texture id="null" />
+      <texture id="inherit" />
 
       <children>
         <componentref id="cube" />
@@ -339,7 +339,7 @@
         <material id="inherit" />
       </materials>
 
-      <texture id="null" />
+      <texture id="inherit" />
 
       <children>
         <componentref id="cube" />
@@ -358,7 +358,7 @@
         <material id="inherit" />
       </materials>
 
-      <texture id="null" />
+      <texture id="inherit" />
 
       <children>
         <componentref id="cube" />
@@ -377,7 +377,7 @@
         <material id="inherit" />
       </materials>
 
-      <texture id="null" />
+      <texture id="inherit" />
 
       <children>
         <componentref id="cube" />
@@ -396,7 +396,7 @@
         <material id="inherit" />
       </materials>
 
-      <texture id="null" />
+      <texture id="inherit" />
 
       <children>
         <componentref id="cube" />
@@ -415,7 +415,7 @@
         <material id="inherit" />
       </materials>
 
-      <texture id="null" />
+      <texture id="inherit" />
 
       <children>
         <componentref id="cube" />
@@ -434,7 +434,7 @@
         <material id="inherit" />
       </materials>
 
-      <texture id="null" />
+      <texture id="inherit" />
 
       <children>
         <componentref id="cube" />
@@ -475,7 +475,7 @@
         <material id="inherit" />
       </materials>
 
-      <texture id="null" />
+      <texture id="inherit" />
 
       <children>
         <componentref id="cube"/>
@@ -495,7 +495,7 @@
         <material id="inherit" />
       </materials>
 
-      <texture id="null" />
+      <texture id="inherit" />
 
       <children>
         <primitiveref id="cylinder1" />
@@ -515,7 +515,7 @@
         <material id="inherit" />
       </materials>
 
-      <texture id="null" />
+      <texture id="inherit" />
 
       <children>
         <primitiveref id="cylinder1" />
@@ -535,7 +535,7 @@
         <material id="inherit" />
       </materials>
 
-      <texture id="null" />
+      <texture id="inherit" />
 
       <children>
         <primitiveref id="cylinder1" />
@@ -555,7 +555,7 @@
         <material id="inherit" />
       </materials>
 
-      <texture id="null" />
+      <texture id="inherit" />
 
       <children>
         <primitiveref id="cylinder1" />

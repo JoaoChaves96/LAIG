@@ -24,7 +24,7 @@ XMLscene.prototype.init = function (application) {
 
   this.enableTextures(true);
 
-  this.materialDefault = new CGFappearance(this);
+  /*this.materialDefault = new CGFappearance(this);
 
   this.floorAppearance = new CGFappearance(this);
   this.floorAppearance.setAmbient(0.3,0.3,0.3,1);
@@ -53,7 +53,7 @@ XMLscene.prototype.init = function (application) {
   this.materialC.setDiffuse(1,1,1,1);
   this.materialC.setSpecular(0,0.2,0.2,1);
   this.materialC.setShininess(100);
-  this.materialC.loadTexture("resources/images/pillow.jpg");
+  this.materialC.loadTexture("resources/images/pillow.jpg");*/
 };
 
 XMLscene.prototype.initLights = function () {
@@ -109,26 +109,33 @@ XMLscene.prototype.updateLights = function(){
 };
 
 XMLscene.prototype.processGraph = function(nodeName){
+var def = new CGFappearance(this);
+  this.pushMatrix();
   var material = null;
   if(nodeName != null){
     var node = this.graph.nodes[nodeName];
     //console.log(nodeName);
-      if(node.material != null)
-    material = node.material[0];
-    if(material != null)
+    if(node.material != null)
+      material = node.material[0];
+    if(material != null){
       material.apply();
+    }
 
     this.multMatrix(node.mat);
-    if(node.primitive != null)
-      node.primitive.display();
+    if(node.primitive != null){
+      node.primitive.display()
+    }
 
     for (var i = 0; i < node.getSize(); i++){
       this.pushMatrix();
-      //this.applyMaterial(material);
       this.processGraph(node.children[i]);
       this.popMatrix();
+      def.apply();
     }
   }
+
+  this.popMatrix();
+    def.apply();
 };
 
 XMLscene.prototype.display = function () {
