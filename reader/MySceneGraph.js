@@ -73,12 +73,11 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	//////////////////////////Lights//////////////////////////
 	var lights = rootElement.getElementsByTagName('lights');
 
-	var listlights = lights[0].getElementsByTagName('omni');
+	var listomni = lights[0].getElementsByTagName('omni');
+	var nomni = listomni.length;
 
-	var nlight = listlights.length;
-
-	for(var i = 0; i < nlight; i++){
-		var light1 = listlights[i];
+	for(var i = 0; i < nomni; i++){
+		var light1 = listomni[i];
 		var id, enabled;
 
 		var location = [];
@@ -109,7 +108,52 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 		specular[2] = this.reader.getFloat(light1.getElementsByTagName('specular')[0], 'b');
 		specular[3] = this.reader.getFloat(light1.getElementsByTagName('specular')[0], 'a');
 
-		var light = new Light(id, enabled, location, ambient, diffuse, specular);
+		var light = new Light(id, "omni", enabled, null, null, null, location, ambient, diffuse, specular);
+		this.lights[i] = light;
+	}
+
+	var listspot = lights[0].getElementsByTagName('spot');
+	var nspot = listspot.length;
+
+	for(var i = 0; i < nspot; i++){
+		var light1 = listspot[i];
+		var id, enabled, angle, exponent;
+
+		var target = [];
+		var location = [];
+		var ambient = [];
+		var diffuse = [];
+		var specular = [];
+
+		id = this.reader.getString(light1, 'id');
+		enabled = this.reader.getBoolean(light1, 'enabled');
+		angle = this.reader.getFloat(light1, 'angle');
+		exponent = this.reader.getFloat(light1, 'exponent');
+
+		target[0] = this.reader.getFloat(light1.getElementsByTagName('target')[0], 'x');
+		target[1] = this.reader.getFloat(light1.getElementsByTagName('target')[0], 'y');
+		target[2] = this.reader.getFloat(light1.getElementsByTagName('target')[0], 'z');
+
+		location[0] = this.reader.getFloat(light1.getElementsByTagName('location')[0], 'x');
+		location[1] = this.reader.getFloat(light1.getElementsByTagName('location')[0], 'y');
+		location[2] = this.reader.getFloat(light1.getElementsByTagName('location')[0], 'z');
+
+		ambient[0] = this.reader.getFloat(light1.getElementsByTagName('ambient')[0], 'r');
+		ambient[1] = this.reader.getFloat(light1.getElementsByTagName('ambient')[0], 'g');
+		ambient[2] = this.reader.getFloat(light1.getElementsByTagName('ambient')[0], 'b');
+		ambient[3] = this.reader.getFloat(light1.getElementsByTagName('ambient')[0], 'a');
+
+		diffuse[0] = this.reader.getFloat(light1.getElementsByTagName('diffuse')[0], 'r');
+		diffuse[1] = this.reader.getFloat(light1.getElementsByTagName('diffuse')[0], 'g');
+		diffuse[2] = this.reader.getFloat(light1.getElementsByTagName('diffuse')[0], 'b');
+		diffuse[3] = this.reader.getFloat(light1.getElementsByTagName('diffuse')[0], 'a');
+
+		specular[0] = this.reader.getFloat(light1.getElementsByTagName('specular')[0], 'r');
+		specular[1] = this.reader.getFloat(light1.getElementsByTagName('specular')[0], 'g');
+		specular[2] = this.reader.getFloat(light1.getElementsByTagName('specular')[0], 'b');
+		specular[3] = this.reader.getFloat(light1.getElementsByTagName('specular')[0], 'a');
+
+		var light = new Light(id, "spot", enabled, angle, exponent, target, location, ambient, diffuse, specular);
 		this.lights[i] = light;
 	}
 
@@ -158,7 +202,6 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 		material.setDiffuse(diffuse[0], diffuse[1], diffuse[2], diffuse[3]);
 		material.setSpecular(specular[0], specular[1], specular[2], specular[3]);
 		material.setShininess(shininess);
-		material.setTextureWrap('REPEAT', 'REPEAT');
 
 		this.materials[idMat] = material;
 	}
@@ -172,9 +215,9 @@ var nlistT = listT.length;
 for (var i = 0; i < nlistT; i++){
 	var id = listT[i].attributes.getNamedItem("id").value;
 	var file = listT[i].attributes.getNamedItem("file").value;
-	var texture = new CGFtexture(this.scene, file);
 	var length_s = this.reader.getFloat(listT[i], 'length_s');
 	var length_t = this.reader.getFloat(listT[i], 'length_t');
+	var texture = new CGFtexture(this.scene, file);
 	var text = new Texture(id, texture, length_s, length_t);
 	this.textures[id] = text;
 }
@@ -205,7 +248,7 @@ for (var i = 0; i < nlistT; i++){
 			y1 = this.reader.getFloat(temp[0], 'y1');
 			y2 = this.reader.getFloat(temp[0], 'y2');
 
-			this.primitives[id] = new MyQuad(this.scene, x1, y1, x2, y2);
+			this.primitives[id] = new MyQuad(this.scene, x1, x2, y1, y2);
 			break;
 
 			case "triangle":

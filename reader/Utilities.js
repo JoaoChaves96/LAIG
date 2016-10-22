@@ -1,7 +1,11 @@
 class Light{
-  constructor(id, enabled, location, ambient, diffuse, specular){
+  constructor(id, type, enabled, angle, exponent, target, location, ambient, diffuse, specular){
+    this.type = type;
     this.id = id;
     this.enabled = enabled;
+    this.angle = angle;
+    this.exponent = exponent;
+    this.target = target;
     this.location = location;
     this.ambient = ambient;
     this.diffuse = diffuse;
