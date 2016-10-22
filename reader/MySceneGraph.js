@@ -158,6 +158,7 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 		material.setDiffuse(diffuse[0], diffuse[1], diffuse[2], diffuse[3]);
 		material.setSpecular(specular[0], specular[1], specular[2], specular[3]);
 		material.setShininess(shininess);
+		material.setTextureWrap('REPEAT', 'REPEAT');
 
 		this.materials[idMat] = material;
 	}
@@ -171,9 +172,10 @@ var nlistT = listT.length;
 for (var i = 0; i < nlistT; i++){
 	var id = listT[i].attributes.getNamedItem("id").value;
 	var file = listT[i].attributes.getNamedItem("file").value;
+	var texture = new CGFtexture(this.scene, file);
 	var length_s = this.reader.getFloat(listT[i], 'length_s');
 	var length_t = this.reader.getFloat(listT[i], 'length_t');
-	var text = new Texture(id, file, length_s, length_t);
+	var text = new Texture(id, texture, length_s, length_t);
 	this.textures[id] = text;
 }
 
@@ -414,22 +416,14 @@ var nlist = listNm.length;
 
 for (var x = 0; x < nlist; x++){
 	var idmaterial = listNm[x].attributes.getNamedItem("id").value;
-	if(idmaterial != "inherit")
-		node.material.push(this.materials[idmaterial]);
-	//	console.log(node.material);
+	node.material.push(idmaterial);
 }
 
 //////////////////////Load node textures/////////////////////
 var nodeTexture = node1.getElementsByTagName('texture')[0];
 var textureId = this.reader.getString(nodeTexture, 'id', true);
 
-if(textureId != "inherit" && textureId != "none"){
-	node.texture = this.textures[textureId];
-	for(var y = 0; y < node.material.length; y++){
-		node.material[y].loadTexture(node.texture.file);
-}
-//console.log(node.material[0]);
-}
+node.texture = textureId;
 
 this.nodes[idNode] = node;
 

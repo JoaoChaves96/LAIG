@@ -24,6 +24,9 @@ XMLscene.prototype.init = function (application) {
 
   this.enableTextures(true);
 
+  this.materials = new Stack(null);
+  this.textures = new Stack(null);
+
   /*this.materialDefault = new CGFappearance(this);
 
   this.floorAppearance = new CGFappearance(this);
@@ -109,33 +112,47 @@ XMLscene.prototype.updateLights = function(){
 };
 
 XMLscene.prototype.processGraph = function(nodeName){
-var def = new CGFappearance(this);
-  this.pushMatrix();
+  var texture = new CGFappearance(this);
   var material = null;
   if(nodeName != null){
     var node = this.graph.nodes[nodeName];
-    //console.log(nodeName);
-    if(node.material != null)
-      material = node.material[0];
+    if(node.material[0] != "inherit"){
+      this.materials.push(this.graph.materials[node.material[0]]);
+      material = this.materials.top();
+    }
+    else {
+      this.materials.push(this.materials.top());
+    }
     if(material != null){
       material.apply();
+      this.materials.pop();
     }
+
+    if (node.texture != "none"){
+      if (node.texture != "inherit"){
+        this.textures.push(this.graph.textures[node.texture].file);
+        texture.setTexture(this.textures.top());
+        texture.apply();
+      }else {
+        this.textures.push(this.textures.top());
+      }
+    }
+
+    this.textures.pop();
 
     this.multMatrix(node.mat);
     if(node.primitive != null){
-      node.primitive.display()
+      this.pushMatrix();
+        node.primitive.display();
+      this.popMatrix();
     }
 
     for (var i = 0; i < node.getSize(); i++){
       this.pushMatrix();
       this.processGraph(node.children[i]);
       this.popMatrix();
-      def.apply();
     }
   }
-
-  this.popMatrix();
-    def.apply();
 };
 
 XMLscene.prototype.display = function () {

@@ -3,12 +3,12 @@
  * @param gl {WebGLRenderingContext}
  * @constructor
  */
-function MyQuad(scene, minS = 0, maxS = 1, minT = 0, maxT = 1) {
+function MyQuad(scene, minS, maxS, minT, maxT) {
 	CGFobject.call(this,scene);
-	this.minS = minS;
-	this.maxS = maxS;
-	this.minT = minT;
-	this.maxT = maxT;
+	this.minS = minS || 0;
+	this.maxS = maxS || 1;
+	this.minT = minT || 0;
+	this.maxT = maxT || 1;
 
 	this.initBuffers();
 };

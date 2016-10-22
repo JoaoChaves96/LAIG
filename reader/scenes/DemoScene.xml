@@ -52,10 +52,10 @@
   </lights>
 
   <textures>
-    <texture id="floor" file="resources/images/floor.png" length_s="1.0" length_t="1.0" />
-    <texture id="chair" file="resources/images/wood.jpg" length_s="1.0" length_t="1.0" />
-    <texture id="table" file="resources/images/marmore.jpg" length_s="1.0" length_t="1.0" />
-    <texture id="pillow" file="resources/images/pillow.jpg" length_s="1.0" length_t="1.0" />
+    <texture id="floor" file="./resources/images/floor.png" length_s="1.0" length_t="1.0" />
+    <texture id="chair" file="./resources/images/wood.jpg" length_s="1.0" length_t="1.0" />
+    <texture id="table" file="./resources/images/marmore.jpg" length_s="1.0" length_t="1.0" />
+    <texture id="pillow" file="./resources/images/pillow.jpg" length_s="1.0" length_t="1.0" />
   </textures>
 
   <materials>
@@ -272,7 +272,7 @@
       </transformation>
 
       <materials>
-        <material id="matA" />
+        <material id="inherit" />
       </materials>
 
       <texture id="chair" />
@@ -298,7 +298,7 @@
       </transformation>
 
       <materials>
-        <material id="matA" />
+        <material id="inherit" />
       </materials>
 
       <texture id="inherit" />
@@ -449,7 +449,7 @@
       </transformation>
 
       <materials>
-        <material id="matA" />
+        <material id="inherit" />
       </materials>
 
       <texture id="table" />
@@ -592,7 +592,7 @@
       </transformation>
 
       <materials>
-        <material id="matA" />
+        <material id="inherit" />
       </materials>
 
       <texture id="pillow" />

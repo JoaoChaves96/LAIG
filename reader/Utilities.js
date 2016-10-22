@@ -21,10 +21,29 @@ class Material{
 }
 
 class Texture{
-  constructor(id, file, length_s, length_t){
+  constructor(id, text, length_s, length_t){
     this.id = id;
-    this.file = file;
+    this.file = text;
     this.length_s = length_s;
     this.length_t = length_t;
   }
+}
+
+function Stack(item){
+  this.stack = [];
+  if(item != null){
+    this.stack.push(item);
+  }
+}
+
+Stack.prototype.push = function(item){
+  this.stack.push(item);
+}
+
+Stack.prototype.pop = function(){
+  this.stack.pop();
+}
+
+Stack.prototype.top = function(){
+  return this.stack[this.stack.length - 1];
 }
