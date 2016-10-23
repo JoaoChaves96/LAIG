@@ -8,6 +8,7 @@
    this.mat = null;
    this.children =[];
    this.primitive = null;
+   this.transformation = null;
  };
 
  MyNode.prototype.push = function(nodeName){

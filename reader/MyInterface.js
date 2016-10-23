@@ -63,11 +63,11 @@ MyInterface.prototype.processKeyboard = function(event) {
 	{
 		case (77):
 		case (109): // 'm' and 'M' ascii code
-
+			this.scene.updateMaterial();
 			break;
 		case (86):
 		case (118): // 'v' and 'V' ascii code
-
+			this.scene.updateViews();
 			break;
 		default:
 			break;

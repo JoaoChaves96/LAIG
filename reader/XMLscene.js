@@ -27,6 +27,8 @@ XMLscene.prototype.init = function (application) {
 
   this.materials = new Stack(null);
   this.textures = new Stack(null);
+  this.viewsIndex = 0;
+  this.materialIndex = 0;
 
   /*this.materialDefault = new CGFappearance(this);
 
@@ -82,9 +84,8 @@ XMLscene.prototype.onGraphLoaded = function ()
 {
   //this.gl.clearColor(this.graph.background[0],this.graph.background[1],this.graph.background[2],this.graph.background[3]);
   this.gl.clearColor(0,0,0,1);
-  this.lights[0].setVisible(true);
-  this.lights[0].enable();
   this.loadLights();
+  this.updateViews();
 };
 
 XMLscene.prototype.loadLights = function(){
@@ -95,6 +96,13 @@ XMLscene.prototype.loadLights = function(){
     this.lights[i].setAmbient(light.ambient[0],light.ambient[1],light.ambient[2],light.ambient[3]);
     this.lights[i].setDiffuse(light.diffuse[0],light.diffuse[1],light.diffuse[2],light.diffuse[3]);
     this.lights[i].setSpecular(light.specular[0],light.specular[1],light.specular[2],light.specular[3]);
+
+    if(light.type == "spot"){
+      this.lights[i].setSpotExponent(light.exponent);
+      this.lights[i].setSpotDirection(light.target[0], light.target[1], light.target[2],light.target[3]);
+    }
+
+
     this.lightStatus[i] = light.enabled;
     this.interface.addLight(light.type, i, light.id);
 
@@ -127,8 +135,8 @@ XMLscene.prototype.processGraph = function(nodeName){
   var material = null;
   if(nodeName != null){
     var node = this.graph.nodes[nodeName];
-    if(node.material[0] != "inherit"){
-      this.materials.push(this.graph.materials[node.material[0]]);
+    if(node.material[this.materialIndex] != "inherit"){
+      this.materials.push(this.graph.materials[node.material[this.materialIndex]]);
       material = this.materials.top();
     }
     else {
@@ -165,6 +173,24 @@ XMLscene.prototype.processGraph = function(nodeName){
     }
   }
 };
+
+XMLscene.prototype.updateViews = function(){
+  this.camera = this.graph.views[this.viewsIndex];
+  this.interface.setActiveCamera(this.camera);
+
+  this.viewsIndex++;
+  if (this.viewsIndex >= this.graph.views.length)
+    this.viewsIndex = 0;
+}
+
+XMLscene.prototype.updateMaterial = function(){
+  if (this.materialIndex < this.graph.materialIndex)
+    this.materialIndex++;
+  else {
+    this.materialIndex = 0;
+  }
+  console.log(this.materialIndex);
+}
 
 XMLscene.prototype.display = function () {
   // ---- BEGIN Background, camera and axis setup

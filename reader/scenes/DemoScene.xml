@@ -4,9 +4,19 @@
 
   <views default="view1">
 
-    <perspective id="view1" near="0.1" far="500" angle="22">
+    <perspective id="view1" near="0.1" far="300" angle="40">
+      <from x="15" y="15" z="15" />
+      <to x="0" y="0" z="0" />
+    </perspective>
+
+    <perspective id="view2" near="0.1" far="500" angle="40">
       <from x="15" y="20" z="35" />
       <to x="5" y="5" z="5" />
+    </perspective>
+
+    <perspective id="view3" near="0.1" far="1500" angle="60">
+        <from x="25" y="25" z="25" />
+        <to x="0" y="0" z="0" />
     </perspective>
 
   </views>
@@ -84,7 +94,11 @@
   </materials>
 
   <transformations>
-    <scale x="1" y="1" z="1" />
+
+    <transformation id="root">
+      <scale x="3" y="3" z="3" />
+    </transformation>
+
   </transformations>
 
   <primitives>
@@ -118,8 +132,9 @@
   <components>
 
     <component id="root">
+
       <transformation>
-        <scale x="1" y="1" z="1" />
+        <transformationref id="root" />
       </transformation>
 
       <materials>
@@ -585,6 +600,7 @@
 
       <materials>
         <material id="floor" />
+        <material id="matA" />
       </materials>
 
       <texture id="sand" />
