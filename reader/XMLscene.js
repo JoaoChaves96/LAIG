@@ -21,50 +21,27 @@ XMLscene.prototype.init = function (application) {
   this.gl.enable(this.gl.CULL_FACE);
   this.gl.depthFunc(this.gl.LEQUAL);
 
-  this.axis=new CGFaxis(this);
-
   this.enableTextures(true);
 
   this.materials = new Stack(null);
   this.textures = new Stack(null);
   this.viewsIndex = 0;
   this.materialIndex = 0;
+  this.rootID =null;
 
-  /*this.materialDefault = new CGFappearance(this);
-
-  this.floorAppearance = new CGFappearance(this);
-  this.floorAppearance.setAmbient(0.3,0.3,0.3,1);
-  this.floorAppearance.setDiffuse(1,1, 1, 1);
-  this.floorAppearance.setSpecular(0.2, 0.2, 0.2, 1);
-  this.floorAppearance.setShininess(100);
-  this.floorAppearance.loadTexture("resources/images/floor.png");
-  this.floorAppearance.setTextureWrap('REPEAT', 'REPEAT');
-
-  this.materialB = new CGFappearance(this);
-  this.materialB.setAmbient(0.3,0.3,0.3,1);
-  this.materialB.setDiffuse(1,1,1,1);
-  this.materialB.setSpecular(0,0.2,0.2,1);
-  this.materialB.setShininess(100);
-  this.materialB.loadTexture("resources/images/marmore.jpg");
-
-  this.materialA = new CGFappearance(this);
-  this.materialA.setAmbient(0.3,0.3,0.3,1);
-  this.materialA.setDiffuse(1,1,1,1);
-  this.materialA.setSpecular(0,0.2,0.2,1);
-  this.materialA.setShininess(100);
-  this.materialA.loadTexture("resources/images/wood.jpg");
-
-  this.materialC = new CGFappearance(this);
-  this.materialC.setAmbient(0.3,0.3,0.3,1);
-  this.materialC.setDiffuse(1,1,1,1);
-  this.materialC.setSpecular(0,0.2,0.2,1);
-  this.materialC.setShininess(100);
-  this.materialC.loadTexture("resources/images/pillow.jpg");*/
+  this.axis=new CGFaxis(this);
 };
 
 XMLscene.prototype.initLights = function () {
 
   this.setGlobalAmbientLight(0,0,0, 1.0);
+  this.lights[0].setPosition(2, 3, 3, 1);
+  this.lights[0].setAmbient(0, 0, 0, 1);
+  this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
+  this.lights[0].setSpecular(1.0, 1.0, 1.0, 1.0);
+  this.lights[0].setVisible(true);
+  this.lights[0].enable();
+  this.lights[0].update();
 };
 
 XMLscene.prototype.initCameras = function () {
@@ -82,10 +59,13 @@ XMLscene.prototype.setDefaultAppearance = function () {
 // As loading is asynchronous, this may be called already after the application has started the run loop
 XMLscene.prototype.onGraphLoaded = function ()
 {
-  //this.gl.clearColor(this.graph.background[0],this.graph.background[1],this.graph.background[2],this.graph.background[3]);
-  this.gl.clearColor(0,0,0,1);
+  this.gl.clearColor(this.graph.background[0],this.graph.background[1],this.graph.background[2],this.graph.background[3]);
+  this.setGlobalAmbientLight(this.graph.ambient[0], this.graph.ambient[1], this.graph.ambient[2], this.graph.ambient[3]);
   this.loadLights();
   this.updateViews();
+
+  this.axis=new CGFaxis(this, this.graph.axisL, 0.1);
+  this.rootID = this.graph.firstID;
 };
 
 XMLscene.prototype.loadLights = function(){
@@ -356,6 +336,6 @@ if (this.graph.loadedOk)
 {
 
   this.updateLights();
-  this.processGraph("root");
+  this.processGraph(this.rootID);
 };
 };

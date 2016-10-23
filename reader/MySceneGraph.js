@@ -13,6 +13,10 @@ function MySceneGraph(filename, scene) {
 	this.textures = {};
 	this.views = [];
 	this.transformations = {};
+	this.background = [];
+	this.ambient = [];
+	this.firstID = null;
+	this.axisL = null;
 
 		this.materialIndex = 0;
 
@@ -63,15 +67,30 @@ function MySceneGraph(filename, scene) {
 	*/
 	MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 
+
+var rootscene = rootElement.getElementsByTagName("scene");
+var root = rootscene[0];
+this.firstID = this.reader.getString(root, "root");
+this.axisL = this.reader.getFloat(root, "axis_length");
+
+////////////////////////////Illumination/////////////////////////
 		var ilums =  rootElement.getElementsByTagName('illumination');
 
-		var illumination = ilums[0];
-		var background = illumination.getElementsByTagName('background');
-		this.bR = this.reader.getFloat(background[0], 'r', false);
+		var illumination = ilums[0].children;
+		var nillum = illumination.length;
+		if(nillum != 2)
+		return "error on illumination tag..."
 
-		if (ilums == null) {
-			return "globals element is missing.";
-		}
+		this.ambient[0] = this.reader.getFloat(illumination[0], 'r');
+		this.ambient[1] = this.reader.getFloat(illumination[0], 'g');
+		this.ambient[2] = this.reader.getFloat(illumination[0], 'b');
+		this.ambient[3] = this.reader.getFloat(illumination[0], 'a');
+
+		this.background[0] = this.reader.getFloat(illumination[1], 'r');
+		this.background[1] = this.reader.getFloat(illumination[1], 'g');
+		this.background[2] = this.reader.getFloat(illumination[1], 'b');
+		this.background[3] = this.reader.getFloat(illumination[0], 'a');
+
 
 		/////////////////////////Views////////////////////////////
 		var views = rootElement.getElementsByTagName('views');

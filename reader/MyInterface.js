@@ -31,7 +31,10 @@ MyInterface.prototype.init = function(application) {
 
 	// add a group of controls (and open/expand by defult)
 
-	this.lights=this.gui.addFolder("Lights");
+	this.omnilights = this.gui.addFolder("Omnilights");
+	this.omnilights.open();
+	this.spotlights = this.gui.addFolder("Spotlights");
+	this.spotlights.open();
 
 	// add two check boxes to the group. The identifiers must be members variables of the scene initialized in scene.init as boolean
 	// e.g. this.option1=true; this.option2=false;
@@ -45,7 +48,10 @@ MyInterface.prototype.init = function(application) {
 };
 
 MyInterface.prototype.addLight = function(type, index, name){
-  	this.lights.add(this.scene.lightStatus, index, this.scene.lightStatus[index]).name(name);
+	if(type == "omni")
+  	this.omnilights.add(this.scene.lightStatus, index, this.scene.lightStatus[index]).name(name);
+	else
+		this.spotlights.add(this.scene.lightStatus, index, this.scene.lightStatus[index]).name(name);
 }
 
 /**
