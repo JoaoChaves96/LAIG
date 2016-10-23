@@ -106,10 +106,6 @@ XMLscene.prototype.loadLights = function(){
 
     this.lights[i].setVisible(true);
     this.lights[i].update();
-<<<<<<< HEAD
-    //this.interface.addLight(1,i);
-=======
->>>>>>> origin/master
   }
 };
 

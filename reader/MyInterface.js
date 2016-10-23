@@ -44,8 +44,8 @@ MyInterface.prototype.init = function(application) {
 	return true;
 };
 
-MyInterface.prototype.addLight = function(light, index){
-  	this.lights.add(this.scene,index);
+MyInterface.prototype.addLight = function(type, index, name){
+  	this.lights.add(this.scene.lightStatus, index, this.scene.lightStatus[index]).name(name);
 }
 
 /**

@@ -587,10 +587,10 @@
         <material id="floor" />
       </materials>
 
-      <texture id="floor" />
+      <texture id="sand" />
 
       <children>
-        <primitiveref id="floor_rect" />
+        <primitiveref id="rect1" />
       </children>
 
     </component>
