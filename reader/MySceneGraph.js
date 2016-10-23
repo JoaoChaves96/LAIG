@@ -152,8 +152,8 @@ MySceneGraph.prototype.loadScene = function(rootElement){
 		return "'scene' element is missing";
 	}
 
-	this.firstID = this.reader.getString(rootscene[0], "root");
-	this.axisL = this.reader.getFloat(rootscene[0], "axis_length");
+	this.firstID = this.reader.getString(rootscene[0], "root", true);
+	this.axisL = this.reader.getFloat(rootscene[0], "axis_length", true);
 };
 
 MySceneGraph.prototype.loadIllumination = function(rootElement){
@@ -167,15 +167,15 @@ MySceneGraph.prototype.loadIllumination = function(rootElement){
 	if(nillum != 2)
 	return "error on illumination tag..."
 
-	this.ambient[0] = this.reader.getFloat(illumination[0], 'r');
-	this.ambient[1] = this.reader.getFloat(illumination[0], 'g');
-	this.ambient[2] = this.reader.getFloat(illumination[0], 'b');
-	this.ambient[3] = this.reader.getFloat(illumination[0], 'a');
+	this.ambient[0] = this.reader.getFloat(illumination[0], 'r', true);
+	this.ambient[1] = this.reader.getFloat(illumination[0], 'g', true);
+	this.ambient[2] = this.reader.getFloat(illumination[0], 'b', true);
+	this.ambient[3] = this.reader.getFloat(illumination[0], 'a', true);
 
-	this.background[0] = this.reader.getFloat(illumination[1], 'r');
-	this.background[1] = this.reader.getFloat(illumination[1], 'g');
-	this.background[2] = this.reader.getFloat(illumination[1], 'b');
-	this.background[3] = this.reader.getFloat(illumination[0], 'a');
+	this.background[0] = this.reader.getFloat(illumination[1], 'r', true);
+	this.background[1] = this.reader.getFloat(illumination[1], 'g', true);
+	this.background[2] = this.reader.getFloat(illumination[1], 'b', true);
+	this.background[3] = this.reader.getFloat(illumination[0], 'a', true);
 };
 
 MySceneGraph.prototype.loadViews = function(rootElement){
@@ -190,16 +190,16 @@ MySceneGraph.prototype.loadViews = function(rootElement){
 	for (var i = 0; i < nlist; i++){
 		var view = listviews[i];
 		var id, near, far, angle, fx, fy, fz, tx, ty, tz;
-		id = this.reader.getString(view, "id");
-		near = this.reader.getFloat(view, "near");
-		far = this.reader.getFloat(view, "far");
-		angle = this.reader.getFloat(view, "angle") * this.degtoRad;
-		fx = this.reader.getFloat(view.children[0], "x");
-		fy = this.reader.getFloat(view.children[0], "y");
-		fz = this.reader.getFloat(view.children[0], "z");
-		tx = this.reader.getFloat(view.children[1], "x");
-		ty = this.reader.getFloat(view.children[1], "y");
-		tz = this.reader.getFloat(view.children[1], "z");
+		id = this.reader.getString(view, "id", true);
+		near = this.reader.getFloat(view, "near", true);
+		far = this.reader.getFloat(view, "far", true);
+		angle = this.reader.getFloat(view, "angle", true) * this.degtoRad;
+		fx = this.reader.getFloat(view.children[0], "x", true);
+		fy = this.reader.getFloat(view.children[0], "y", true);
+		fz = this.reader.getFloat(view.children[0], "z", true);
+		tx = this.reader.getFloat(view.children[1], "x", true);
+		ty = this.reader.getFloat(view.children[1], "y", true);
+		tz = this.reader.getFloat(view.children[1], "z", true);
 
 		this.views.push(new CGFcamera(angle, near, far, vec3.fromValues(fx, fy, fz), vec3.fromValues(tx, ty, tz)));
 	}
@@ -225,28 +225,28 @@ MySceneGraph.prototype.loadLights = function(rootElement){
 		var diffuse = [];
 		var specular = [];
 
-		id = this.reader.getString(light1, 'id');
+		id = this.reader.getString(light1, 'id', true);
 		enabled = this.reader.getBoolean(light1, 'enabled');
 
-		location[0] = this.reader.getFloat(light1.getElementsByTagName('location')[0], 'x');
-		location[1] = this.reader.getFloat(light1.getElementsByTagName('location')[0], 'y');
-		location[2] = this.reader.getFloat(light1.getElementsByTagName('location')[0], 'z');
-		location[3] = this.reader.getFloat(light1.getElementsByTagName('location')[0], 'w');
+		location[0] = this.reader.getFloat(light1.getElementsByTagName('location')[0], 'x', true);
+		location[1] = this.reader.getFloat(light1.getElementsByTagName('location')[0], 'y', true);
+		location[2] = this.reader.getFloat(light1.getElementsByTagName('location')[0], 'z', true);
+		location[3] = this.reader.getFloat(light1.getElementsByTagName('location')[0], 'w', true);
 
-		ambient[0] = this.reader.getFloat(light1.getElementsByTagName('ambient')[0], 'r');
-		ambient[1] = this.reader.getFloat(light1.getElementsByTagName('ambient')[0], 'g');
-		ambient[2] = this.reader.getFloat(light1.getElementsByTagName('ambient')[0], 'b');
-		ambient[3] = this.reader.getFloat(light1.getElementsByTagName('ambient')[0], 'a');
+		ambient[0] = this.reader.getFloat(light1.getElementsByTagName('ambient')[0], 'r', true);
+		ambient[1] = this.reader.getFloat(light1.getElementsByTagName('ambient')[0], 'g', true);
+		ambient[2] = this.reader.getFloat(light1.getElementsByTagName('ambient')[0], 'b', true);
+		ambient[3] = this.reader.getFloat(light1.getElementsByTagName('ambient')[0], 'a', true);
 
-		diffuse[0] = this.reader.getFloat(light1.getElementsByTagName('diffuse')[0], 'r');
-		diffuse[1] = this.reader.getFloat(light1.getElementsByTagName('diffuse')[0], 'g');
-		diffuse[2] = this.reader.getFloat(light1.getElementsByTagName('diffuse')[0], 'b');
-		diffuse[3] = this.reader.getFloat(light1.getElementsByTagName('diffuse')[0], 'a');
+		diffuse[0] = this.reader.getFloat(light1.getElementsByTagName('diffuse')[0], 'r', true);
+		diffuse[1] = this.reader.getFloat(light1.getElementsByTagName('diffuse')[0], 'g', true);
+		diffuse[2] = this.reader.getFloat(light1.getElementsByTagName('diffuse')[0], 'b', true);
+		diffuse[3] = this.reader.getFloat(light1.getElementsByTagName('diffuse')[0], 'a', true);
 
-		specular[0] = this.reader.getFloat(light1.getElementsByTagName('specular')[0], 'r');
-		specular[1] = this.reader.getFloat(light1.getElementsByTagName('specular')[0], 'g');
-		specular[2] = this.reader.getFloat(light1.getElementsByTagName('specular')[0], 'b');
-		specular[3] = this.reader.getFloat(light1.getElementsByTagName('specular')[0], 'a');
+		specular[0] = this.reader.getFloat(light1.getElementsByTagName('specular')[0], 'r', true);
+		specular[1] = this.reader.getFloat(light1.getElementsByTagName('specular')[0], 'g', true);
+		specular[2] = this.reader.getFloat(light1.getElementsByTagName('specular')[0], 'b', true);
+		specular[3] = this.reader.getFloat(light1.getElementsByTagName('specular')[0], 'a', true);
 
 		var light = new Light(id, "omni", enabled, null, null, null, location, ambient, diffuse, specular);
 		this.lights[index] = light;
@@ -265,33 +265,33 @@ MySceneGraph.prototype.loadLights = function(rootElement){
 		var diffuse = [];
 		var specular = [];
 
-		id = this.reader.getString(light1, 'id');
+		id = this.reader.getString(light1, 'id', true);
 		enabled = this.reader.getBoolean(light1, 'enabled');
-		angle = this.reader.getFloat(light1, 'angle');
-		exponent = this.reader.getFloat(light1, 'exponent');
+		angle = this.reader.getFloat(light1, 'angle', true);
+		exponent = this.reader.getFloat(light1, 'exponent', true);
 
-		target[0] = this.reader.getFloat(light1.getElementsByTagName('target')[0], 'x');
-		target[1] = this.reader.getFloat(light1.getElementsByTagName('target')[0], 'y');
-		target[2] = this.reader.getFloat(light1.getElementsByTagName('target')[0], 'z');
+		target[0] = this.reader.getFloat(light1.getElementsByTagName('target')[0], 'x', true);
+		target[1] = this.reader.getFloat(light1.getElementsByTagName('target')[0], 'y', true);
+		target[2] = this.reader.getFloat(light1.getElementsByTagName('target')[0], 'z', true);
 
-		location[0] = this.reader.getFloat(light1.getElementsByTagName('location')[0], 'x');
-		location[1] = this.reader.getFloat(light1.getElementsByTagName('location')[0], 'y');
-		location[2] = this.reader.getFloat(light1.getElementsByTagName('location')[0], 'z');
+		location[0] = this.reader.getFloat(light1.getElementsByTagName('location')[0], 'x', true);
+		location[1] = this.reader.getFloat(light1.getElementsByTagName('location')[0], 'y', true);
+		location[2] = this.reader.getFloat(light1.getElementsByTagName('location')[0], 'z', true);
 
-		ambient[0] = this.reader.getFloat(light1.getElementsByTagName('ambient')[0], 'r');
-		ambient[1] = this.reader.getFloat(light1.getElementsByTagName('ambient')[0], 'g');
-		ambient[2] = this.reader.getFloat(light1.getElementsByTagName('ambient')[0], 'b');
-		ambient[3] = this.reader.getFloat(light1.getElementsByTagName('ambient')[0], 'a');
+		ambient[0] = this.reader.getFloat(light1.getElementsByTagName('ambient')[0], 'r', true);
+		ambient[1] = this.reader.getFloat(light1.getElementsByTagName('ambient')[0], 'g', true);
+		ambient[2] = this.reader.getFloat(light1.getElementsByTagName('ambient')[0], 'b', true);
+		ambient[3] = this.reader.getFloat(light1.getElementsByTagName('ambient')[0], 'a', true);
 
-		diffuse[0] = this.reader.getFloat(light1.getElementsByTagName('diffuse')[0], 'r');
-		diffuse[1] = this.reader.getFloat(light1.getElementsByTagName('diffuse')[0], 'g');
-		diffuse[2] = this.reader.getFloat(light1.getElementsByTagName('diffuse')[0], 'b');
-		diffuse[3] = this.reader.getFloat(light1.getElementsByTagName('diffuse')[0], 'a');
+		diffuse[0] = this.reader.getFloat(light1.getElementsByTagName('diffuse')[0], 'r', true);
+		diffuse[1] = this.reader.getFloat(light1.getElementsByTagName('diffuse')[0], 'g', true);
+		diffuse[2] = this.reader.getFloat(light1.getElementsByTagName('diffuse')[0], 'b', true);
+		diffuse[3] = this.reader.getFloat(light1.getElementsByTagName('diffuse')[0], 'a', true);
 
-		specular[0] = this.reader.getFloat(light1.getElementsByTagName('specular')[0], 'r');
-		specular[1] = this.reader.getFloat(light1.getElementsByTagName('specular')[0], 'g');
-		specular[2] = this.reader.getFloat(light1.getElementsByTagName('specular')[0], 'b');
-		specular[3] = this.reader.getFloat(light1.getElementsByTagName('specular')[0], 'a');
+		specular[0] = this.reader.getFloat(light1.getElementsByTagName('specular')[0], 'r', true);
+		specular[1] = this.reader.getFloat(light1.getElementsByTagName('specular')[0], 'g', true);
+		specular[2] = this.reader.getFloat(light1.getElementsByTagName('specular')[0], 'b', true);
+		specular[3] = this.reader.getFloat(light1.getElementsByTagName('specular')[0], 'a', true);
 
 		var light = new Light(id, "spot", enabled, angle, exponent, target, location, ambient, diffuse, specular);
 		this.lights[index] = light;
@@ -317,33 +317,33 @@ MySceneGraph.prototype.loadMaterials = function(rootElement){
 
 		var emission = [];
 
-		emission[0] = this.reader.getFloat(mat.getElementsByTagName('emission')[0], 'r');
-		emission[1] = this.reader.getFloat(mat.getElementsByTagName('emission')[0], 'g');
-		emission[2] = this.reader.getFloat(mat.getElementsByTagName('emission')[0], 'b');
-		emission[3] = this.reader.getFloat(mat.getElementsByTagName('emission')[0], 'a');
+		emission[0] = this.reader.getFloat(mat.getElementsByTagName('emission')[0], 'r', true);
+		emission[1] = this.reader.getFloat(mat.getElementsByTagName('emission')[0], 'g', true);
+		emission[2] = this.reader.getFloat(mat.getElementsByTagName('emission')[0], 'b', true);
+		emission[3] = this.reader.getFloat(mat.getElementsByTagName('emission')[0], 'a', true);
 
 		var ambient = [];
 
-		ambient[0] = this.reader.getFloat(mat.getElementsByTagName('ambient')[0], 'r');
-		ambient[1] = this.reader.getFloat(mat.getElementsByTagName('ambient')[0], 'g');
-		ambient[2] = this.reader.getFloat(mat.getElementsByTagName('ambient')[0], 'b');
-		ambient[3] = this.reader.getFloat(mat.getElementsByTagName('ambient')[0], 'a');
+		ambient[0] = this.reader.getFloat(mat.getElementsByTagName('ambient')[0], 'r', true);
+		ambient[1] = this.reader.getFloat(mat.getElementsByTagName('ambient')[0], 'g', true);
+		ambient[2] = this.reader.getFloat(mat.getElementsByTagName('ambient')[0], 'b', true);
+		ambient[3] = this.reader.getFloat(mat.getElementsByTagName('ambient')[0], 'a', true);
 
 		var diffuse = [];
 
-		diffuse[0] = this.reader.getFloat(mat.getElementsByTagName('diffuse')[0], 'r');
-		diffuse[1] = this.reader.getFloat(mat.getElementsByTagName('diffuse')[0], 'g');
-		diffuse[2] = this.reader.getFloat(mat.getElementsByTagName('diffuse')[0], 'b');
-		diffuse[3] = this.reader.getFloat(mat.getElementsByTagName('diffuse')[0], 'a');
+		diffuse[0] = this.reader.getFloat(mat.getElementsByTagName('diffuse')[0], 'r', true);
+		diffuse[1] = this.reader.getFloat(mat.getElementsByTagName('diffuse')[0], 'g', true);
+		diffuse[2] = this.reader.getFloat(mat.getElementsByTagName('diffuse')[0], 'b', true);
+		diffuse[3] = this.reader.getFloat(mat.getElementsByTagName('diffuse')[0], 'a', true);
 
 		var specular = [];
 
-		specular[0] = this.reader.getFloat(mat.getElementsByTagName('specular')[0], 'r');
-		specular[1] = this.reader.getFloat(mat.getElementsByTagName('specular')[0], 'g');
-		specular[2] = this.reader.getFloat(mat.getElementsByTagName('specular')[0], 'b');
-		specular[3] = this.reader.getFloat(mat.getElementsByTagName('specular')[0], 'a');
+		specular[0] = this.reader.getFloat(mat.getElementsByTagName('specular')[0], 'r', true);
+		specular[1] = this.reader.getFloat(mat.getElementsByTagName('specular')[0], 'g', true);
+		specular[2] = this.reader.getFloat(mat.getElementsByTagName('specular')[0], 'b', true);
+		specular[3] = this.reader.getFloat(mat.getElementsByTagName('specular')[0], 'a', true);
 
-		var shininess = this.reader.getFloat(mat.getElementsByTagName('shininess')[0], 'value');
+		var shininess = this.reader.getFloat(mat.getElementsByTagName('shininess')[0], 'value', true);
 
 		var material = new CGFappearance(this.scene);
 		material.setEmission(emission[0], emission[1], emission[2], emission[3]);
@@ -373,8 +373,8 @@ MySceneGraph.prototype.loadTextures = function(rootElement){
 			return "id already exists in textures array...";
 
 		var file = listT[i].attributes.getNamedItem("file").value;
-		var length_s = this.reader.getFloat(listT[i], 'length_s');
-		var length_t = this.reader.getFloat(listT[i], 'length_t');
+		var length_s = this.reader.getFloat(listT[i], 'length_s', true);
+		var length_t = this.reader.getFloat(listT[i], 'length_t', true);
 		var texture = new CGFtexture(this.scene, file);
 		var text = new Texture(id, texture, length_s, length_t);
 		this.textures[id] = text;
@@ -402,10 +402,10 @@ MySceneGraph.prototype.loadPrimitives = function(rootElement){
 			case "rectangle":
 			var temp = listprim[i].getElementsByTagName('rectangle');
 			var x1, y1, x2, y2;
-			x1 = this.reader.getFloat(temp[0], 'x1');
-			x2 =this.reader.getFloat(temp[0], 'x2');
-			y1 = this.reader.getFloat(temp[0], 'y1');
-			y2 = this.reader.getFloat(temp[0], 'y2');
+			x1 = this.reader.getFloat(temp[0], 'x1', true);
+			x2 =this.reader.getFloat(temp[0], 'x2', true);
+			y1 = this.reader.getFloat(temp[0], 'y1', true);
+			y2 = this.reader.getFloat(temp[0], 'y2', true);
 
 			this.primitives[id] = new MyQuad(this.scene, x1, x2, y1, y2);
 			break;
@@ -413,15 +413,15 @@ MySceneGraph.prototype.loadPrimitives = function(rootElement){
 			case "triangle":
 			var temp = listprim[i].getElementsByTagName('triangle');
 			var x1, y1, z1, x2, y2, z2, x3, y3, z3;
-			x1 = this.reader.getFloat(temp[0], 'x1');
-			x2 =this.reader.getFloat(temp[0], 'x2');
-			x3 = this.reader.getFloat(temp[0], 'x3');
-			y1 = this.reader.getFloat(temp[0], 'y1');
-			y2 = this.reader.getFloat(temp[0], 'y2');
-			y3 = this.reader.getFloat(temp[0], 'y3');
-			z1 = this.reader.getFloat(temp[0], 'z1');
-			z2 = this.reader.getFloat(temp[0], 'z2');
-			z3 = this.reader.getFloat(temp[0], 'z3');
+			x1 = this.reader.getFloat(temp[0], 'x1', true);
+			x2 =this.reader.getFloat(temp[0], 'x2', true);
+			x3 = this.reader.getFloat(temp[0], 'x3', true);
+			y1 = this.reader.getFloat(temp[0], 'y1', true);
+			y2 = this.reader.getFloat(temp[0], 'y2', true);
+			y3 = this.reader.getFloat(temp[0], 'y3', true);
+			z1 = this.reader.getFloat(temp[0], 'z1', true);
+			z2 = this.reader.getFloat(temp[0], 'z2', true);
+			z3 = this.reader.getFloat(temp[0], 'z3', true);
 
 			this.primitives[id] = new MyTriangle(this.scene, x1, y1, z1, x2, y2, z2, x3, y3, z3);
 			break;
@@ -429,9 +429,9 @@ MySceneGraph.prototype.loadPrimitives = function(rootElement){
 			case "sphere":
 			var temp = listprim[i].getElementsByTagName('sphere');
 			var radius, slices, stacks;
-			radius = this.reader.getFloat(temp[0], 'radius');
-			slices = this.reader.getFloat(temp[0], 'slices');
-			stacks = this.reader.getFloat(temp[0], 'stacks');
+			radius = this.reader.getFloat(temp[0], 'radius', true);
+			slices = this.reader.getFloat(temp[0], 'slices', true);
+			stacks = this.reader.getFloat(temp[0], 'stacks', true);
 
 			this.primitives[id] = new MySphere(this.scene, radius, slices, stacks);
 			break;
@@ -439,11 +439,11 @@ MySceneGraph.prototype.loadPrimitives = function(rootElement){
 			case "cylinder":
 			var temp = listprim[i].getElementsByTagName('cylinder');
 			var base, top, height, slices, stacks;
-			base = this.reader.getFloat(temp[0], 'base');
-			top = this.reader.getFloat(temp[0], 'top');
-			height = this.reader.getFloat(temp[0], 'height');
-			slices = this.reader.getFloat(temp[0], 'slices');
-			stacks = this.reader.getFloat(temp[0], 'stacks');
+			base = this.reader.getFloat(temp[0], 'base', true);
+			top = this.reader.getFloat(temp[0], 'top', true);
+			height = this.reader.getFloat(temp[0], 'height', true);
+			slices = this.reader.getFloat(temp[0], 'slices', true);
+			stacks = this.reader.getFloat(temp[0], 'stacks', true);
 
 			this.primitives[id] = new MyCylinder(this.scene, base, top, height, slices, stacks);
 			break;
@@ -451,10 +451,10 @@ MySceneGraph.prototype.loadPrimitives = function(rootElement){
 			case "torus":
 			var temp = listprim[i].getElementsByTagName('torus');
 			var inner, outer, slices, loops;
-			inner = this.reader.getFloat(temp[0], 'inner');
-			outer = this.reader.getFloat(temp[0], 'outer');
-			slices = this.reader.getFloat(temp[0], 'slices');
-			loops = this.reader.getFloat(temp[0], 'loops');
+			inner = this.reader.getFloat(temp[0], 'inner', true);
+			outer = this.reader.getFloat(temp[0], 'outer', true);
+			slices = this.reader.getFloat(temp[0], 'slices', true);
+			loops = this.reader.getFloat(temp[0], 'loops', true);
 
 			this.primitives[id] = new MyTorus(this.scene, inner, outer, slices, loops);
 			break;
@@ -477,7 +477,7 @@ MySceneGraph.prototype.loadTransformations = function(rootElement){
 
 	for (var j = 0; j < ntransf; j++){
 		var transf1 = listtransf[j];
-		var id = this.reader.getString(transf1, "id");
+		var id = this.reader.getString(transf1, "id", true);
 
 		if(id in this.transformations)
 			return "id already exists in transformations array...";
@@ -488,40 +488,37 @@ MySceneGraph.prototype.loadTransformations = function(rootElement){
 			switch(child.tagName){
 				case "rotate":
 				var angle, axis, rotation;
-				axis = this.reader.getString(child, 'axis');
-				angle = this.reader.getFloat(child, 'angle') * this.degtoRad;
+				axis = this.reader.getString(child, 'axis', true);
+				angle = this.reader.getFloat(child, 'angle', true) * this.degtoRad;
 
-				switch(axis){
-					case "x":
-					rotation = [1, 0, 0];
-					break;
-					case "y":
-					rotation = [0, 1, 0];
-					break;
-					case "z":
-					rotation = [0, 0, 1];
-					break;
-					default:
-					break;
-				}
+				if(axis == 'x')
+							rotation= [1,0,0];
+				else if(axis == 'y')
+							rotation = [0,1,0];
+				else if(axis == 'z')
+							rotation = [0,0,1];
 
 				mat4.rotate(matrix, matrix, angle, rotation);
 				break;
 
 				case "translate":
-				var translate = [];
-				translate[0] = this.reader.getFloat(child, 'x');
-				translate[1] = this.reader.getFloat(child, 'y');
-				translate[2] = this.reader.getFloat(child, 'z');
+				var translate, x, y, z;
+				x = this.reader.getFloat(child, 'x', true);
+				y = this.reader.getFloat(child, 'y', true);
+				z = this.reader.getFloat(child, 'z', true);
+
+				translate = [x, y, z];
 
 				mat4.translate(matrix, matrix, translate);
 				break;
 
 				case "scale":
-				var scale = [];
-				scale[0] = this.reader.getFloat(child, 'x');
-				scale[1] = this.reader.getFloat(child, 'y');
-				scale[2] = this.reader.getFloat(child, 'z');
+				var scale, x, y, z;
+				x = this.reader.getFloat(child, 'x', true);
+				y = this.reader.getFloat(child, 'y', true);
+				z = this.reader.getFloat(child, 'z', true);
+
+				scale = [x, y, z];
 
 				mat4.scale(matrix, matrix, scale);
 				break;
@@ -593,22 +590,15 @@ MySceneGraph.prototype.loadNodes = function(rootElement){
 				return "error! tagName should be 'transformationref'...";
 
 				var angle, axis, rotation;
-				axis = this.reader.getString(listT[j], 'axis');
-				angle = this.reader.getFloat(listT[j], 'angle') * this.degtoRad;
+				axis = this.reader.getString(listT[j], 'axis', true);
+				angle = this.reader.getFloat(listT[j], 'angle', true) * this.degtoRad;
 
-				switch(axis){
-					case "x":
-					rotation = [1, 0, 0];
-					break;
-					case "y":
-					rotation = [0, 1, 0];
-					break;
-					case "z":
-					rotation = [0, 0, 1];
-					break;
-					default:
-					break;
-				}
+				if(axis == 'x')
+						rotation= [1,0,0];
+					if(axis == 'y')
+						rotation = [0,1,0];
+					if(axis == 'z')
+						rotation = [0,0,1];
 
 				mat4.rotate(matrix, matrix, angle, rotation);
 				break;
@@ -617,10 +607,12 @@ MySceneGraph.prototype.loadNodes = function(rootElement){
 				if(type == 1)
 				return "error! tagName should be 'transformationref'...";
 
-				var translate = [];
-				translate[0] = this.reader.getFloat(listT[j], 'x');
-				translate[1] = this.reader.getFloat(listT[j], 'y');
-				translate[2] = this.reader.getFloat(listT[j], 'z');
+				var x, y, z;
+				x = this.reader.getFloat(listT[j], 'x', true);
+				y = this.reader.getFloat(listT[j], 'y', true);
+				z = this.reader.getFloat(listT[j], 'z', true);
+
+				var translate = [x, y, z];
 
 				mat4.translate(matrix, matrix, translate);
 				break;
@@ -629,10 +621,12 @@ MySceneGraph.prototype.loadNodes = function(rootElement){
 				if(type == 1)
 				return "error! tagName should be 'transformationref'...";
 
-				var scale = [];
-				scale[0] = this.reader.getFloat(listT[j], 'x');
-				scale[1] = this.reader.getFloat(listT[j], 'y');
-				scale[2] = this.reader.getFloat(listT[j], 'z');
+				var scale, x, y, z;
+				x = this.reader.getFloat(listT[j], 'x', true);
+				y = this.reader.getFloat(listT[j], 'y', true);
+				z = this.reader.getFloat(listT[j], 'z', true);
+
+				scale = [x, y, z];
 
 				mat4.scale(matrix, matrix, scale);
 				break;
@@ -641,7 +635,7 @@ MySceneGraph.prototype.loadNodes = function(rootElement){
 				if(type == 0)
 				return "error! tagName should be 'scale' 'rotate' or 'translate'...";
 
-				var id = this.reader.getString(listT[j], "id");
+				var id = this.reader.getString(listT[j], "id", true);
 				matrix = this.transformations[id];
 				break;
 

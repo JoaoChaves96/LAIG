@@ -21,8 +21,6 @@ XMLscene.prototype.init = function (application) {
   this.gl.enable(this.gl.CULL_FACE);
   this.gl.depthFunc(this.gl.LEQUAL);
 
-  this.enableTextures(true);
-
   this.materials = new Stack(null);
   this.textures = new Stack(null);
   this.viewsIndex = 0;
@@ -46,6 +44,7 @@ XMLscene.prototype.initLights = function () {
 
 XMLscene.prototype.initCameras = function () {
   this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+  this.interface.setActiveCamera(this.camera);
 };
 
 XMLscene.prototype.setDefaultAppearance = function () {
@@ -61,8 +60,9 @@ XMLscene.prototype.onGraphLoaded = function ()
 {
   this.gl.clearColor(this.graph.background[0],this.graph.background[1],this.graph.background[2],this.graph.background[3]);
   this.setGlobalAmbientLight(this.graph.ambient[0], this.graph.ambient[1], this.graph.ambient[2], this.graph.ambient[3]);
+  this.lights[0].setVisible(true);
+  this.lights[0].enable;
   this.loadLights();
-  this.updateViews();
 
   this.axis=new CGFaxis(this, this.graph.axisL, 0.1);
   this.rootID = this.graph.firstID;
@@ -113,18 +113,26 @@ XMLscene.prototype.updateLights = function(){
 XMLscene.prototype.processGraph = function(nodeName){
   var texture = new CGFappearance(this);
   var material = null;
+
   if(nodeName != null){
     var node = this.graph.nodes[nodeName];
     if(node.material[this.materialIndex] != "inherit"){
       this.materials.push(this.graph.materials[node.material[this.materialIndex]]);
       material = this.materials.top();
+      this.materials.pop();
     }
     else {
       this.materials.push(this.materials.top());
     }
+
     if(material != null){
-      material.apply();
-      this.materials.pop();
+      texture.setEmission(material.emission[0], material.emission[1],material.emission[2], material.emission[3]);
+      texture.setAmbient(material.ambient[0], material.ambient[1],material.ambient[2], material.ambient[3]);
+      texture.setDiffuse(material.diffuse[0], material.diffuse[1],material.diffuse[2], material.diffuse[3]);
+      texture.setSpecular(material.specular[0], material.specular[1],material.specular[2], material.specular[3]);
+      texture.setShininess(material.shininess);
+    /*  material.apply();
+      this.materials.pop();*/
     }
 
     if (node.texture != "none"){
@@ -183,155 +191,14 @@ XMLscene.prototype.display = function () {
   this.updateProjectionMatrix();
   this.loadIdentity();
 
+  this.enableTextures(true);
+
   // Apply transformations corresponding to the camera position relative to the origin
   this.applyViewMatrix();
 
   // Draw axis
   this.axis.display();
 
-/*  this.quad = new MyUnitCubeQuad(this);
-  this.cylinder = new MyCylinder(this, 10, 10);
-
-  this.floor = new MyQuad(this, 0, 7, 0, 7);
-
-  this.pushMatrix();
-  this.translate(2.5,0,2.5);
-  this.scale(5, 0.2, 5);
-  this.rotate(-Math.PI/2, 1, 0, 0);
-  this.floorAppearance.apply();
-  this.floor.display();
-  this.popMatrix();
-  this.materialDefault.apply();
-
-  this.pushMatrix();
-
-  this.translate(3, 1, 3);
-  this.rotate(Math.PI/2, 0, 1, 0);
-  this.scale(0.75,0.75,0.75);
-
-  this.materialA.apply();
-
-  this.pushMatrix();
-  this.translate(0, 1, 0);
-  this.scale(0.25,2,0.25);
-  this.quad.display();
-  this.popMatrix();
-
-  this.pushMatrix();
-  this.translate(0, 1, 1);
-  this.scale(0.25,2,0.25);
-  this.quad.display();
-  this.popMatrix();
-
-  this.pushMatrix();
-  this.scale(0.25, 0.75, 1);
-  this.translate(0, 1.35, 0.5);
-  this.quad.display();
-  this.popMatrix();
-
-  this.pushMatrix();
-  this.scale(1.25,0.25,1.25);
-  this.translate(0.4,-0.5,0.4);
-  this.quad.display();
-  this.popMatrix();
-
-  this.pushMatrix();
-  this.translate(0, -0.8, 0);
-  this.scale(0.25,1.2,0.25);
-  this.quad.display();
-  this.popMatrix();
-
-  this.pushMatrix();
-  this.translate(0, -0.8, 1);
-  this.scale(0.25,1.2,0.25);
-  this.quad.display();
-  this.popMatrix();
-
-  this.pushMatrix();
-  this.translate(1, -0.8, 0);
-  this.scale(0.25,1.2,0.25);
-  this.quad.display();
-  this.popMatrix();
-
-  this.pushMatrix();
-  this.translate(1, -0.8, 1);
-  this.scale(0.25,1.2,0.25);
-  this.quad.display();
-  this.popMatrix();
-
-  this.popMatrix();
-
-  this.materialDefault.apply();
-
-  this.pushMatrix();
-
-  this.translate(3.5, 1, 2);
-
-  this.materialB.apply();
-  this.pushMatrix();
-  this.translate(0,1,0);
-  this.scale(3, 0.125, 1.5);
-  this.quad.display();
-  this.popMatrix();
-
-
-  this.pushMatrix();
-  this.rotate(Math.PI/2, 1,0,0);
-  this.translate(1.2,0.5,0);
-  this.scale(0.1,0.1,2);
-  this.cylinder.display();
-  this.popMatrix();
-
-  this.pushMatrix();
-  this.rotate(Math.PI/2, 1,0,0);
-  this.translate(1.2,-0.5,0);
-  this.scale(0.1,0.1,2);
-  this.cylinder.display();
-  this.popMatrix();
-
-  this.pushMatrix();
-  this.rotate(Math.PI/2, 1,0,0);
-  this.translate(-1.2,0.5,0);
-  this.scale(0.1,0.1,2);
-  this.cylinder.display();
-  this.popMatrix();
-
-  this.pushMatrix();
-  this.rotate(Math.PI/2, 1,0,0);
-  this.translate(-1.2,-0.5,0);
-  this.scale(0.1,0.1,2);
-  this.cylinder.display();
-  this.popMatrix();
-
-  this.popMatrix();
-
-  this.materialDefault.apply();
-
-  this.pillow=new MyTorus(this, 0.5, 1, 20, 20);
-
-  this.pushMatrix();
-  this.scale(0.25, 0.15, 0.25);
-  this.translate(-0.25,0.5,2.5);
-  this.rotate(-Math.PI/2,1, 0, 0);
-  this.materialC.apply();
-  this.pillow.display();
-  this.popMatrix();
-
-  this.materialDefault.apply();
-
-
-  this.setDefaultAppearance();*/
-
-
-  /*  for(var i = 0; i < Object.keys(this.graph.primitives).length; i++){
-  console.log(this.graph.primitives["cylinder1"].slices);
-}*/
-
-// ---- END Background, camera and axis setup
-
-// it is important that things depending on the proper loading of the graph
-// only get executed after the graph has loaded correctly.
-// This is one possible way to do it
 if (this.graph.loadedOk)
 {
 
