@@ -75,17 +75,18 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 
 	var listomni = lights[0].getElementsByTagName('omni');
 	var nomni = listomni.length;
+	var index = 0;
 
-	for(var i = 0; i < nomni; i++){
+	for(var i = 0; i < nomni; i++, index++){
 		var light1 = listomni[i];
 		var id, enabled;
-
 		var location = [];
 		var ambient = [];
 		var diffuse = [];
 		var specular = [];
 
 		id = this.reader.getString(light1, 'id');
+		console.log((id));
 		enabled = this.reader.getBoolean(light1, 'enabled');
 
 		location[0] = this.reader.getFloat(light1.getElementsByTagName('location')[0], 'x');
@@ -109,13 +110,14 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 		specular[3] = this.reader.getFloat(light1.getElementsByTagName('specular')[0], 'a');
 
 		var light = new Light(id, "omni", enabled, null, null, null, location, ambient, diffuse, specular);
-		this.lights[i] = light;
+		this.lights[index] = light;
+		console.log(light);
 	}
 
 	var listspot = lights[0].getElementsByTagName('spot');
 	var nspot = listspot.length;
 
-	for(var i = 0; i < nspot; i++){
+	for(var i = 0; i < nspot; i++, index++){
 		var light1 = listspot[i];
 		var id, enabled, angle, exponent;
 
@@ -154,7 +156,7 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 		specular[3] = this.reader.getFloat(light1.getElementsByTagName('specular')[0], 'a');
 
 		var light = new Light(id, "spot", enabled, angle, exponent, target, location, ambient, diffuse, specular);
-		this.lights[i] = light;
+		this.lights[index] = light;
 	}
 
 	/////////////////////Materials///////////////////////////
