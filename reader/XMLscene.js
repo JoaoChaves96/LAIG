@@ -93,7 +93,7 @@ XMLscene.prototype.loadLights = function(){
     this.lights[i].setDiffuse(this.graph.lights[i].diffuse[0],this.graph.lights[i].diffuse[1],this.graph.lights[i].diffuse[2],this.graph.lights[i].diffuse[3]);
     this.lights[i].setSpecular(this.graph.lights[i].specular[0],this.graph.lights[i].specular[1],this.graph.lights[i].specular[2],this.graph.lights[i].specular[3]);
     this.lights[i].update();
-    this.interface.addLight(1,i);
+    //this.interface.addLight(1,i);
   }
 };
 
