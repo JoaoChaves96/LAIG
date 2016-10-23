@@ -84,30 +84,43 @@ XMLscene.prototype.onGraphLoaded = function ()
   this.gl.clearColor(0,0,0,1);
   this.lights[0].setVisible(true);
   this.lights[0].enable();
+  this.loadLights();
 };
 
 XMLscene.prototype.loadLights = function(){
+    this.lightStatus = new Array(this.graph.lights.length);
   for(var i = 0; i < this.graph.lights.length; i++){
-    this.lights[i].setPosition(this.graph.lights[i].location[0],this.graph.lights[i].location[1],this.graph.lights[i].location[2],this.graph.lights[i].location[3]);
-    this.lights[i].setAmbient(this.graph.lights[i].ambient[0],this.graph.lights[i].ambient[1],this.graph.lights[i].ambient[2],this.graph.lights[i].ambient[3]);
-    this.lights[i].setDiffuse(this.graph.lights[i].diffuse[0],this.graph.lights[i].diffuse[1],this.graph.lights[i].diffuse[2],this.graph.lights[i].diffuse[3]);
-    this.lights[i].setSpecular(this.graph.lights[i].specular[0],this.graph.lights[i].specular[1],this.graph.lights[i].specular[2],this.graph.lights[i].specular[3]);
+    var light = this.graph.lights[i];
+    this.lights[i].setPosition(light.location[0],light.location[1],light.location[2],light.location[3]);
+    this.lights[i].setAmbient(light.ambient[0],light.ambient[1],light.ambient[2],light.ambient[3]);
+    this.lights[i].setDiffuse(light.diffuse[0],light.diffuse[1],light.diffuse[2],light.diffuse[3]);
+    this.lights[i].setSpecular(light.specular[0],light.specular[1],light.specular[2],light.specular[3]);
+    this.lightStatus[i] = light.enabled;
+    this.interface.addLight(light.type, i, light.id);
+
+    if(light.enabled)
+    this.lights[i].enable();
+    else {
+      this.lights[i].disable();
+    }
+
+    this.lights[i].setVisible(true);
     this.lights[i].update();
+<<<<<<< HEAD
     //this.interface.addLight(1,i);
+=======
+>>>>>>> origin/master
   }
 };
 
 XMLscene.prototype.updateLights = function(){
-  for(var i = 0; i < this.graph.lights.length; i++){
-    var light = this.graph.lights[i];
-    if (light.enabled)
+  for(var i = 0; i < this.lightStatus.length; i++){
+    if (this.lightStatus[i])
       this.lights[i].enable();
     else {
       this.lights[i].disable();
     }
   };
-
-  this.loadLights();
   for (var i = 0; i < this.lights.length; i++)
   this.lights[i].update();
 
@@ -319,8 +332,8 @@ XMLscene.prototype.display = function () {
 // This is one possible way to do it
 if (this.graph.loadedOk)
 {
-  this.processGraph("root");
-  this.loadLights();
+
   this.updateLights();
+  this.processGraph("root");
 };
 };
