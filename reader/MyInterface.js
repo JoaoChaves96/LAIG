@@ -33,6 +33,7 @@ MyInterface.prototype.init = function(application) {
 
 	this.omnilights = this.gui.addFolder("Omnilights");
 	this.omnilights.open();
+	
 	this.spotlights = this.gui.addFolder("Spotlights");
 	this.spotlights.open();
 
@@ -47,6 +48,9 @@ MyInterface.prototype.init = function(application) {
 	return true;
 };
 
+/*
+* Adds a new light to the interface
+*/
 MyInterface.prototype.addLight = function(type, index, name){
 	if(type == "omni")
   	this.omnilights.add(this.scene.lightStatus, index, this.scene.lightStatus[index]).name(name);
@@ -69,10 +73,12 @@ MyInterface.prototype.processKeyboard = function(event) {
 	{
 		case (77):
 		case (109): // 'm' and 'M' ascii code
+			//updates the material, if 'm' or 'M' is pressed
 			this.scene.updateMaterial();
 			break;
 		case (86):
 		case (118): // 'v' and 'V' ascii code
+		//updates the camera, if 'v' or 'V' is presed
 			this.scene.updateViews();
 			break;
 		default:

@@ -3,46 +3,44 @@
  * @param gl {WebGLRenderingContext}
  * @constructor
  */
-function MyQuad(scene, minS, maxS, minT, maxT) {
-	CGFobject.call(this,scene);
-	this.minS = minS || 0;
-	this.maxS = maxS || 1;
-	this.minT = minT || 0;
-	this.maxT = maxT || 1;
+ function MyQuad(scene, minX, minY, maxX, maxY) {
+  	CGFobject.call(this,scene);
 
-	this.initBuffers();
-};
+   this.minS = 0;
+   this.maxS = 1;
+   this.minT = 0;
+   this.maxT = 1;
 
-MyQuad.prototype = Object.create(CGFobject.prototype);
-MyQuad.prototype.constructor=MyQuad;
+   this.minX = minX;
+   this.minY = minY;
+   this.maxX = maxX;
+   this.maxY = maxY;
 
-MyQuad.prototype.initBuffers = function () {
-	this.vertices = [
-            -0.5, -0.5, 0,
-            0.5, -0.5, 0,
-            -0.5, 0.5, 0,
-            0.5, 0.5, 0,
-	];
+  	this.initBuffers();
+  };
 
-	this.indices = [
-            0, 1, 2,
-            3, 2, 1
-    ];
+  MyQuad.prototype = Object.create(CGFobject.prototype);
+  MyQuad.prototype.constructor = MyQuad;
 
-    this.normals = [
-            0, 0, 1,
-            0, 0, 1,
-            0, 0, 1,
-            0, 0, 1
-    ];
+  MyQuad.prototype.initBuffers = function() {
+   this.vertices = [ this.minX, this.minY, 0,
+                     this.maxX, this.minY, 0,
+                     this.minX, this.maxY, 0,
+                     this.maxX, this.maxY, 0];
+ 
+   this.indices = [  0, 1, 2,
+                     3, 2, 1];
 
-	this.texCoords = [
-			this.minS, this.minS,
-			this.maxS, this.minS,
-			this.minS, this.maxS,
-			this.maxS, this.maxS
-	]
+   this.normals = [ 0, 0, 1,
+                    0, 0, 1,
+                    0, 0, 1,
+                    0, 0, 1];
 
-	this.primitiveType=this.scene.gl.TRIANGLES;
-	this.initGLBuffers();
-};
+   this.texCoords = [this.minS, this.maxT,
+                     this.maxS, this.maxT,
+                     this.minS, this.minT,
+                     this.maxS, this.minT];
+
+   this.primitiveType = this.scene.gl.TRIANGLES;
+   this.initGLBuffers();
+  };

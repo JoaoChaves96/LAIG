@@ -45,12 +45,13 @@ MySceneGraph.prototype.onXMLReady=function()
 	console.log("XML Loading finished.");
 	var rootElement = this.reader.xmlDoc.documentElement;
 
-	// Here should go the calls for different functions to parse the various blocks
+	//checks for errors while loading all elements of the parser
 	var error = this.checkDSXorder(rootElement);
 	if (error != null) {
 		this.onXMLError(error);
 		return;
 	}
+
 
 	error = this.loadScene(rootElement);
 	if (error != null) {
@@ -112,6 +113,11 @@ MySceneGraph.prototype.onXMLReady=function()
 	this.scene.onGraphLoaded();
 };
 
+/*
+* Checks if the dsx file has the right order:
+*	scene-views-illumination-lights-textures-materials-transformations-primitives-components
+* Returns an error if the dsx file doesn't check this order
+*/
 MySceneGraph.prototype.checkDSXorder = function(rootElement){
 	if(rootElement.children[0].tagName != "scene"){
 		return "Incorrect order of dsx file. First tag should be 'scene'...";
@@ -142,12 +148,14 @@ MySceneGraph.prototype.checkDSXorder = function(rootElement){
 	}
 };
 
+/*
+*	Loads the elements with the 'scene' tag
+*	Returns null or an error
+*/
 MySceneGraph.prototype.loadScene = function(rootElement){
 	var rootscene = rootElement.getElementsByTagName("scene");
-	if (rootscene.length != 1){
-		return "either zero or more than 1 'scene' elements found...";
-	}
 
+	//checks if the tag exist on the file
 	if(rootscene == null){
 		return "'scene' element is missing";
 	}
@@ -156,9 +164,14 @@ MySceneGraph.prototype.loadScene = function(rootElement){
 	this.axisL = this.reader.getFloat(rootscene[0], "axis_length", true);
 };
 
+/*
+*	Loads the elements with the 'illumination' tag
+*	Returns null or an error
+*/
 MySceneGraph.prototype.loadIllumination = function(rootElement){
 	var ilums =  rootElement.getElementsByTagName('illumination');
 
+	//checks if the tag exist on the file
 	if(ilums[0] == null)
 		return "either 'illumination' element is missing...";
 
@@ -178,9 +191,15 @@ MySceneGraph.prototype.loadIllumination = function(rootElement){
 	this.background[3] = this.reader.getFloat(illumination[0], 'a', true);
 };
 
+
+/*
+*	Loads the elements with the 'views' tag
+*	Returns null or an error
+*/
 MySceneGraph.prototype.loadViews = function(rootElement){
 	var views = rootElement.getElementsByTagName('views');
 
+	//checks if the tag exist on the file
 	if(views[0] == null)
 		return "'views' element is missing...";
 
@@ -206,9 +225,14 @@ MySceneGraph.prototype.loadViews = function(rootElement){
 
 };
 
+/*
+*	Loads the elements with the 'lights' tag
+*	Returns null or an error
+*/
 MySceneGraph.prototype.loadLights = function(rootElement){
 	var lights = rootElement.getElementsByTagName('lights');
 
+	//checks if the tag exist on the file
 	if(lights[0] == null)
 		return "'lights' element is missing...";
 
@@ -298,9 +322,14 @@ MySceneGraph.prototype.loadLights = function(rootElement){
 	}
 };
 
+/*
+*	Loads the elements with the 'materials' tag
+*	Returns null or an error
+*/
 MySceneGraph.prototype.loadMaterials = function(rootElement){
 	var listMaterials = rootElement.getElementsByTagName('materials');
 
+	//checks if the tag exist on the file
 	if(listMaterials[0] == null)
 		return "'materials' element is missing...";
 
@@ -356,9 +385,14 @@ MySceneGraph.prototype.loadMaterials = function(rootElement){
 	}
 };
 
+/*
+*	Loads the elements with the 'textures' tag
+*	Returns null or an error
+*/
 MySceneGraph.prototype.loadTextures = function(rootElement){
 	var textures = rootElement.getElementsByTagName('textures');
 
+	//checks if the tag exists on the file
 	if(textures[0] == null)
 		return "'textures' element is missing";
 
@@ -381,9 +415,14 @@ MySceneGraph.prototype.loadTextures = function(rootElement){
 	}
 };
 
+/*
+*	Loads the elements with the 'primitives' tag
+*	Returns null or an error
+*/
 MySceneGraph.prototype.loadPrimitives = function(rootElement){
 	var prim = rootElement.getElementsByTagName('primitives');
 
+	//checks if the tag wxists on the file
 	if(prim[0] == null)
 		return "'primitives' element is missing...";
 
@@ -407,7 +446,7 @@ MySceneGraph.prototype.loadPrimitives = function(rootElement){
 			y1 = this.reader.getFloat(temp[0], 'y1', true);
 			y2 = this.reader.getFloat(temp[0], 'y2', true);
 
-			this.primitives[id] = new MyQuad(this.scene, x1, x2, y1, y2);
+			this.primitives[id] = new MyQuad(this.scene, x1, y1, x2, y2);
 			break;
 
 			case "triangle":
@@ -465,9 +504,14 @@ MySceneGraph.prototype.loadPrimitives = function(rootElement){
 	}
 };
 
+/*
+*	Loads the elements with the 'transformations' tag
+*	Returns null or an error
+*/
 MySceneGraph.prototype.loadTransformations = function(rootElement){
 	var transf = rootElement.getElementsByTagName('transformations');
 
+	//checks if the tag exists on the file
 	if(transf[0] == null)
 		return "'transformations' element is missing...";
 
@@ -531,10 +575,14 @@ MySceneGraph.prototype.loadTransformations = function(rootElement){
 	}
 };
 
-
+/*
+*	Loads the elements with the 'components' tag
+*	Returns null or an error
+*/
 MySceneGraph.prototype.loadNodes = function(rootElement){
 	var nodes = rootElement.getElementsByTagName('components');
 
+	//checks if the tag exists on the file
 	if(nodes[0] == null)
 		return "'components' element is missing...";
 

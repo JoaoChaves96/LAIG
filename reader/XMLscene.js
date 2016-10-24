@@ -21,8 +21,8 @@ XMLscene.prototype.init = function (application) {
   this.gl.enable(this.gl.CULL_FACE);
   this.gl.depthFunc(this.gl.LEQUAL);
 
-  this.materials = new Stack(null);
-  this.textures = new Stack(null);
+  this.materials = new Stack(null); //stack with the different materials of a component
+  this.textures = new Stack(null); //stack with the different textures of a component
   this.viewsIndex = 0;
   this.materialIndex = 0;
   this.rootID =null;
@@ -68,10 +68,17 @@ XMLscene.prototype.onGraphLoaded = function ()
   this.rootID = this.graph.firstID;
 };
 
+/*
+* Loads the graph lights to the scene
+*/
 XMLscene.prototype.loadLights = function(){
-    this.lightStatus = new Array(this.graph.lights.length);
+
+  //Array that contains the state of each light(enabled or disabled)
+  this.lightStatus = new Array(this.graph.lights.length);
+
   for(var i = 0; i < this.graph.lights.length; i++){
     var light = this.graph.lights[i];
+
     this.lights[i].setPosition(light.location[0],light.location[1],light.location[2],light.location[3]);
     this.lights[i].setAmbient(light.ambient[0],light.ambient[1],light.ambient[2],light.ambient[3]);
     this.lights[i].setDiffuse(light.diffuse[0],light.diffuse[1],light.diffuse[2],light.diffuse[3]);
@@ -97,6 +104,9 @@ XMLscene.prototype.loadLights = function(){
   }
 };
 
+/*
+* Updates all lights depending on their state on the interface
+*/
 XMLscene.prototype.updateLights = function(){
   for(var i = 0; i < this.lightStatus.length; i++){
     if (this.lightStatus[i])
@@ -110,12 +120,17 @@ XMLscene.prototype.updateLights = function(){
 
 };
 
+/*
+* Processes all the information of the graph and displays the components on the scene
+* Starts with the rootNode
+*/
 XMLscene.prototype.processGraph = function(nodeName){
   var texture = new CGFappearance(this);
   var material = null;
 
   if(nodeName != null){
     var node = this.graph.nodes[nodeName];
+
     if(node.material[this.materialIndex] != "inherit"){
       this.materials.push(this.graph.materials[node.material[this.materialIndex]]);
       material = this.materials.top();
@@ -131,8 +146,6 @@ XMLscene.prototype.processGraph = function(nodeName){
       texture.setDiffuse(material.diffuse[0], material.diffuse[1],material.diffuse[2], material.diffuse[3]);
       texture.setSpecular(material.specular[0], material.specular[1],material.specular[2], material.specular[3]);
       texture.setShininess(material.shininess);
-    /*  material.apply();
-      this.materials.pop();*/
     }
 
     if (node.texture != "none"){
@@ -147,21 +160,27 @@ XMLscene.prototype.processGraph = function(nodeName){
 
     this.textures.pop();
 
+    //Applies the transformation matrix of each component
     this.multMatrix(node.mat);
+    
     if(node.primitive != null){
       this.pushMatrix();
-        node.primitive.display();
+      node.primitive.display(); //displays the primitive on the scene
       this.popMatrix();
     }
 
+
     for (var i = 0; i < node.getSize(); i++){
       this.pushMatrix();
-      this.processGraph(node.children[i]);
+      this.processGraph(node.children[i]); //calls the fucntion with the childrens of the rootNode
       this.popMatrix();
     }
   }
 };
 
+/*
+* Updates the camera index to the current camera
+*/
 XMLscene.prototype.updateViews = function(){
   this.camera = this.graph.views[this.viewsIndex];
   this.interface.setActiveCamera(this.camera);
@@ -171,6 +190,9 @@ XMLscene.prototype.updateViews = function(){
     this.viewsIndex = 0;
 }
 
+/*
+* Updates the material index to the current material
+*/
 XMLscene.prototype.updateMaterial = function(){
   if (this.materialIndex < this.graph.materialIndex)
     this.materialIndex++;
@@ -203,6 +225,6 @@ if (this.graph.loadedOk)
 {
 
   this.updateLights();
-  this.processGraph(this.rootID);
+  this.processGraph(this.rootID); //processes the graph starting on the rootNode
 };
 };
