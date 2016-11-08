@@ -27,6 +27,8 @@ XMLscene.prototype.init = function (application) {
   this.materialIndex = 0;
   this.rootID =null;
 
+  this.diamond = new MyDiamond(this, 6);
+
   this.axis=new CGFaxis(this);
 };
 
@@ -124,7 +126,7 @@ XMLscene.prototype.updateLights = function(){
 * Processes all the information of the graph and displays the components on the scene
 * Starts with the rootNode
 */
-XMLscene.prototype.processGraph = function(nodeName){
+XMLscene.prototype.processGraph = function(nodeName, textureID){
   var texture = new CGFappearance(this);
   var material = null;
 
@@ -148,21 +150,33 @@ XMLscene.prototype.processGraph = function(nodeName){
       texture.setShininess(material.shininess);
     }
 
-    if (node.texture != "none"){
+    /*if (node.texture != "none"){
       if (node.texture != "inherit"){
-        this.textures.push(this.graph.textures[node.texture].file);
-        texture.setTexture(this.textures.top());
+        //this.textures.push(this.graph.textures[textureID].file);
+        texture.setTexture(this.graph.textures[textureID]);
         texture.apply();
       }else {
         this.textures.push(this.textures.top());
       }
+    }*/
+
+    if (node.texture != "none"){
+      if (node.texture != "inherit"){
+        //this.textures.push(this.graph.textures[textureID].file);
+        texture.setTexture(this.graph.textures[node.texture].file);
+      }else if (node.texture == "inherit"){
+        if(textureID != null)
+            texture.setTexture(this.graph.textures[textureID].file);
+      }
     }
 
-    this.textures.pop();
+      texture.apply();
+
+    //this.textures.pop();
 
     //Applies the transformation matrix of each component
     this.multMatrix(node.mat);
-    
+
     if(node.primitive != null){
       this.pushMatrix();
       node.primitive.display(); //displays the primitive on the scene
@@ -172,7 +186,11 @@ XMLscene.prototype.processGraph = function(nodeName){
 
     for (var i = 0; i < node.getSize(); i++){
       this.pushMatrix();
-      this.processGraph(node.children[i]); //calls the fucntion with the childrens of the rootNode
+      if(node.texture != "inherit")
+      this.processGraph(node.children[i], node.texture); //calls the fucntion with the childrens of the rootNode
+      else{
+        this.processGraph(node.children[i], textureID);
+      }
       this.popMatrix();
     }
   }
@@ -221,10 +239,14 @@ XMLscene.prototype.display = function () {
   // Draw axis
   this.axis.display();
 
+  console.log("criou o diamond no xml scene");
+
+  this.diamond.display();
+
 if (this.graph.loadedOk)
 {
 
   this.updateLights();
-  this.processGraph(this.rootID); //processes the graph starting on the rootNode
+  this.processGraph(this.rootID, null); //processes the graph starting on the rootNode
 };
 };
