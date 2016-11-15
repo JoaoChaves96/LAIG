@@ -11,6 +11,9 @@ XMLscene.prototype.init = function (application) {
   CGFscene.prototype.init.call(this, application);
 
   this.initCameras();
+  this.setUpdatePeriod(100/6);
+
+  this.startTime = 0;
 
   this.initLights();
 
@@ -261,7 +264,7 @@ XMLscene.prototype.display = function () {
 
   console.log("criou o diamond no xml scene");
 
-  this.patch.display();
+  this.patch.display(this.elapsedTime);
 
 if (this.graph.loadedOk)
 {
@@ -270,3 +273,10 @@ if (this.graph.loadedOk)
   this.processGraph(this.rootID, null); //processes the graph starting on the rootNode
 };
 };
+
+XMLscene.prototype.update = function(currTime) {
+  if (this.startTime == 0)
+    this.startTime = currTime;
+
+  this.elapsedTime = (currTime - this.startTime) / 1000;
+}
