@@ -6,7 +6,9 @@ function MyLinearAnimation(scene, id, type, span, points){
   this.segmentDistances = [];
 
   for(var i = 0; i < points.length - 1; i++){
+    console.log("sdfghn");
     this.distance += vec3.dist(vec3.fromValues(points[i][0], points[i][1], points[i][2]), vec3.fromValues(points[i+1][0], points[i+1][1], points[i+1][2]));
+    console.log("currDist: " + this.distance);
     this.segmentDistances.push(this.distance);
   }
 
@@ -21,7 +23,7 @@ MyLinearAnimation.prototype.apply = function(dt){
   if(dt > this.span)
     dt = this.span;
 
-  this.currDist = this.velocity * this.span;
+  this.currDist = this.velocity * dt;
 
   //finds current segment index - i
   var i = 0;
@@ -29,8 +31,8 @@ MyLinearAnimation.prototype.apply = function(dt){
     i++;
 
   //control points of the current segment
-  var p1 = this.points[i];
-  var p2 = this.points[i+1];
+  var p1 = this.controlPoints[i];
+  var p2 = this.controlPoints[i+1];
 
   var distPoint1 = p2[0] - p1[0];
   var distPoint2 = p2[1] - p1[1];
