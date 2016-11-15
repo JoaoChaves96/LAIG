@@ -27,7 +27,6 @@ XMLscene.prototype.init = function (application) {
   this.materialIndex = 0;
   this.rootID =null;
 
-  this.diamond = new MyDiamond(this, 6);
   this.plane = new MyPlane(this, 10, 10);
 
   var c = [	// U = 0
@@ -48,6 +47,7 @@ XMLscene.prototype.init = function (application) {
     ]
   ];
   this.patch = new MyPatch(this, 2, 1, 10, 10, c);
+    console.log("criou o patch");
 
   this.axis=new CGFaxis(this);
 };

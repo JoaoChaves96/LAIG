@@ -4,5 +4,3 @@ function MyAnimation(scene, id, type, span){
   this.type = type;
   this.span = span;
 }
-
-MyAnimation.prototype.apply = function(dt){}

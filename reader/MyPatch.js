@@ -22,6 +22,9 @@
 
     this.patch = new CGFnurbsObject(this.scene, getSurfacePoint, this.dX, this.dY);
 
+    var p = [[0, 0, 0], [10, 0, 0], [10, 10, 0]];
+    this.animation = new MyLinearAnimation(scene, "0", "linear", 5, p);
+
   };
 
   MyPatch.prototype = Object.create(CGFobject.prototype);
@@ -39,5 +42,6 @@
   }
 
   MyPatch.prototype.display = function(){
+    this.animation.apply();
     this.patch.display();
   };
