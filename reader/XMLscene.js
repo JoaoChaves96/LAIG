@@ -28,6 +28,26 @@ XMLscene.prototype.init = function (application) {
   this.rootID =null;
 
   this.diamond = new MyDiamond(this, 6);
+  this.plane = new MyPlane(this, 10, 10);
+
+  var c = [	// U = 0
+    [ // V = 0..1;
+       [ -1.5, -1.5, 0.0, 1 ],
+       [ -1.5,  1.5, 0.0, 1 ]
+
+    ],
+    // U = 1
+    [ // V = 0..1
+       [ 0, -1.5, 3.0, 1 ],
+       [ 0,  1.5, 3.0, 1 ]
+    ],
+    // U = 2
+    [ // V = 0..1
+      [ 1.5, -1.5, 0.0, 1 ],
+      [ 1.5,  1.5, 0.0, 1 ]
+    ]
+  ];
+  this.patch = new MyPatch(this, 2, 1, 10, 10, c);
 
   this.axis=new CGFaxis(this);
 };
@@ -241,7 +261,7 @@ XMLscene.prototype.display = function () {
 
   console.log("criou o diamond no xml scene");
 
-  this.diamond.display();
+  this.patch.display();
 
 if (this.graph.loadedOk)
 {
