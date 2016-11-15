@@ -18,6 +18,7 @@
     var nurbsSurface = new CGFnurbsSurface(this.orderU, this.orderV, knots1, knots2, this.controlPoints);
     getSurfacePoint = function(u, v){
       return nurbsSurface.getPoint(u,v);
+
     };
 
     this.patch = new CGFnurbsObject(this.scene, getSurfacePoint, this.dX, this.dY);
@@ -41,7 +42,8 @@
     return v;
   }
 
-  MyPatch.prototype.display = function(time){
-    this.animation.apply(time);
+
+  MyPatch.prototype.display = function(span){
+    this.animation.apply(span);
     this.patch.display();
   };
