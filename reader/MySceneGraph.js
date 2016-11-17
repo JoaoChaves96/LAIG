@@ -9,6 +9,7 @@ function MySceneGraph(filename, scene) {
 	this.lights = [];
 	this.primitives = {};
 	this.materials = {};
+	this.animations ={};
 	this.textures = {};
 	this.views = [];
 	this.transformations = {};
@@ -123,28 +124,31 @@ MySceneGraph.prototype.checkDSXorder = function(rootElement){
 		return "Incorrect order of dsx file. First tag should be 'scene'...";
 	}
 	else if(rootElement.children[1].tagName != "views"){
-		return "Incorrect order of dsx file. First tag should be 'views'...";
+		return "Incorrect order of dsx file. Second tag should be 'views'...";
 	}
 	else if(rootElement.children[2].tagName != "illumination"){
-		return "Incorrect order of dsx file. First tag should be 'illumination'...";
+		return "Incorrect order of dsx file. Third tag should be 'illumination'...";
 	}
 	else if(rootElement.children[3].tagName != "lights"){
-		return "Incorrect order of dsx file. First tag should be 'lights'...";
+		return "Incorrect order of dsx file. Fourth tag should be 'lights'...";
 	}
 	else if(rootElement.children[4].tagName != "textures"){
-		return "Incorrect order of dsx file. First tag should be 'textures'...";
+		return "Incorrect order of dsx file. Fifth tag should be 'textures'...";
 	}
 	else if(rootElement.children[5].tagName != "materials"){
-		return "Incorrect order of dsx file. First tag should be 'materials'...";
+		return "Incorrect order of dsx file. Sixth tag should be 'materials'...";
 	}
 	else if(rootElement.children[6].tagName != "transformations"){
-		return "Incorrect order of dsx file. First tag should be 'transformations'...";
+		return "Incorrect order of dsx file. Seventh tag should be 'transformations'...";
 	}
-	else if(rootElement.children[7].tagName != "primitives"){
-		return "Incorrect order of dsx file. First tag should be 'primitives'...";
+	else if(rootElement.children[7].tagName != "animations"){
+		return "Incorrect order of dsx file. Eighth tag should be 'transformations'...";
 	}
-	else if(rootElement.children[8].tagName != "components"){
-		return "Incorrect order of dsx file. First tag should be 'components'...";
+	else if(rootElement.children[8].tagName != "primitives"){
+		return "Incorrect order of dsx file. Ninth tag should be 'primitives'...";
+	}
+	else if(rootElement.children[9].tagName != "components"){
+		return "Incorrect order of dsx file. Tenth tag should be 'components'...";
 	}
 };
 
@@ -415,6 +419,29 @@ MySceneGraph.prototype.loadTextures = function(rootElement){
 	}
 };
 
+MySceneGraph.prototype.loadAnimations = function(rootElement){
+	var animations = rootElement.getElementsByTagName('animations');
+
+	//checks if the tag exists on the file
+	if(animations[0] == null)
+		return "'animations' element is missing";
+
+	var listA = animations[0].getElementsByTagName('aimation');
+
+	var nlistA = listA.length;
+
+	for (var i = 0; i < nlistA; i++){
+		var id = listA[i].attributes.getNamedItem("id").value;
+
+		if(id in this.animations)
+			return "id already exists in animations array...";
+			var span, type;
+			span = this.reader.getFloat(listA[0], 'span', true);
+			type = this.reader.getFloat(listA[0], 'type', true);
+
+	}
+};
+
 /*
 *	Loads the elements with the 'primitives' tag
 *	Returns null or an error
@@ -496,6 +523,48 @@ MySceneGraph.prototype.loadPrimitives = function(rootElement){
 			loops = this.reader.getFloat(temp[0], 'loops', true);
 
 			this.primitives[id] = new MyTorus(this.scene, inner, outer, slices, loops);
+			break;
+
+			case "plane":
+			var temp = listprim[i].getElementsByTagName('plane');
+			var dimX, dimY, partsX, partsY;
+			dimX = this.reader.getFloat(temp[0],'dimX', true);
+			dimY = this.reader.getFloat(temp[0],'dimY', true);
+			partsX = this.reader.getFloat(temp[0],'partsX', true);
+			partsY = this.reader.getFloat(temp[0],'partsY', true);
+
+			this.primitives[id] = new MyPlane(this.scene, dimX, dimY, partsX, partsY);
+			break;
+
+			case "patch":
+			var temp = listprim[i].getElementsByTagName('patch');
+			var orderU, orderV, partsU, partsV;
+			orderU = this.reader.getFloat(temp[0], 'orderU', true);
+			orderV = this.reader.getFloat(temp[0], 'orderV', true);
+			partsU = this.reader.getFloat(temp[0], 'partsU', true);
+			partsV = this.reader.getFloat(temp[0], 'partsV', true);
+
+			var control = [];
+			var l = 0;
+			for(var u = 0; u <= orderU; u++){
+				var tempU = [];
+				for(var v = 0; v <= orderV; v++){
+					var point = temp[0].children[l];
+					var tempV = [];
+					var x, y, z, a;
+					x = this.reader.getFloat(point, 'x', true);
+					y = this.reader.getFloat(point, 'y', true);
+					z = this.reader.getFloat(point, 'z', true);
+					a = 1;
+					tempV.push(x, y, z, a);
+					tempU.push(tempV);
+					l++;
+				}
+				control.push(tempU);
+			}
+
+			this.primitives[id] = new MyPatch(this.scene, orderU, orderV, partsU, partsV, control);
+
 			break;
 
 			default:

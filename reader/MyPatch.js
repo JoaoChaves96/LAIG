@@ -23,8 +23,8 @@
 
     this.patch = new CGFnurbsObject(this.scene, getSurfacePoint, this.dX, this.dY);
 
-    var p = [[0, 0, 0], [10, 0, 0], [10, 10, 0]];
-    this.animation = new MyCircularAnimation(scene, "0", "circular", 10, 0, 0, 0, 0, 0, 90);
+    /*var p = [[0, 0, 0], [10, 0, 0], [10, 10, 0]];
+    this.animation = new MyCircularAnimation(scene, "0", "circular", 10, 0, 0, 0, 0, 0, 90);*/
 
   };
 
@@ -43,7 +43,7 @@
   }
 
 
-  MyPatch.prototype.display = function(span){
-    this.animation.apply(span);
+  MyPatch.prototype.display = function(){
+    //this.animation.apply(span);
     this.patch.display();
   };

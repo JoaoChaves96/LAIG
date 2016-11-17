@@ -117,6 +117,19 @@
 
   </transformations>
 
+  <animations>
+    <animation id="patchanim" span="5" type="linear">
+      <controlpoint xx="0" yy="0" zz="0" />
+      <controlpoint xx="5" yy="0" zz="0" />
+      <controlpoint xx="5" yy="5" zz="0" />
+    </animation>
+
+    <animation id="patchanim2" span="10" type="circular"
+      centerx="0" centery="0" centerz="0"
+      radius="0" startang="0" rotang="90" />
+
+  </animations>
+
   <primitives>
 
     <primitive id="rect1">
@@ -126,7 +139,7 @@
     <primitive id="floor_rect">
       <rectangle x1="0" y1="0" x2="5" y2="5" />
     </primitive>
-
+"
     <primitive id="triang1">
       <triangle x1="-0.6" y1="0" z1="0.6" x2="0.6" y2="0" z2="0.6" x3="0" y3="0.6" z3="0" />
     </primitive>
@@ -141,6 +154,21 @@
 
     <primitive id="torus1">
       <torus inner="0.5" outer="1" slices="20" loops="20" />
+    </primitive>
+
+    <primitive id="plane1">
+      <plane dimX="1" dimY="1" partsX="5" partsY="5" />
+    </primitive>
+
+    <primitive id="patch1">
+      <patch orderU="2" orderV="1" partsU="10" partsV="10">
+        <controlpoint x="-1.5" y="-1.5" z="0" />
+        <controlpoint x="-1.5" y="1.5" z="0" />
+        <controlpoint x="0" y="-1.5" z="3" />
+        <controlpoint x="0" y="1.5" z="3" />
+        <controlpoint x="1.5" y="-1.5" z="0" />
+        <controlpoint x="1.5" y="1.5" z="0" />
+      </patch>
     </primitive>
 
   </primitives>
@@ -165,6 +193,7 @@
         <componentref id="towel" />
         <componentref id="tent" />
         <componentref id="football" />
+        <componentref id="patch" />
       </children>
 
     </component>
@@ -518,6 +547,24 @@
 
   <children>
     <primitiveref id="sphere1"/>
+  </children>
+
+</component>
+
+<component id="patch">
+
+  <transformation>
+    <!--translate x="3" y="0.3" z="3"/-->
+  </transformation>
+
+  <materials>
+    <material id="inherit" />
+  </materials>
+
+  <texture id="towel" />
+
+  <children>
+    <primitiveref id="patch1"/>
   </children>
 
 </component>

@@ -262,9 +262,7 @@ XMLscene.prototype.display = function () {
   // Draw axis
   this.axis.display();
 
-  console.log("criou o diamond no xml scene");
-
-  this.patch.display(this.elapsedTime);
+  //this.patch.display(this.elapsedTime);
 
 if (this.graph.loadedOk)
 {

@@ -1,7 +1,7 @@
 /**
  * @constructor
  */
- function MyPlane(scene, divX, divY) {
+ function MyPlane(scene, divX, divY, partsX, partsY) {
     this.scene = scene;
 
     this.dX = divX;
@@ -27,7 +27,7 @@
       return nurbsSurface.getPoint(u,v);
     };
 
-    this.plane = new CGFnurbsObject(this.scene, getSurfacePoint, this.dX, this.dY);
+    this.plane = new CGFnurbsObject(this.scene, getSurfacePoint, partsX, partsY);
 
   };
 
