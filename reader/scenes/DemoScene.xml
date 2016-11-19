@@ -171,6 +171,23 @@
       </patch>
     </primitive>
 
+    <primitive id="patch2">
+      <patch orderU="2" orderV="3" partsU="10" partsV="10">
+        <controlpoint x="-1.5" y="-1.5" z="0.5" />
+        <controlpoint x="-2.0" y="-2.0" z="0.5" />
+        <controlpoint x="-2.0" y="-2.0" z="0.5" />
+        <controlpoint x="-1.5" y="1.5" z="0.5" />
+        <controlpoint x="0" y="0" z="3.0" />
+        <controlpoint x="0" y="-2" z="3.0" />
+        <controlpoint x="0" y="-2" z="3.0" />
+        <controlpoint x="0" y="0" z="3.0" />
+        <controlpoint x="1.5" y="-1.5" z="0.5" />
+        <controlpoint x="2.0" y="-2" z="0.5" />
+        <controlpoint x="2" y="2" z="0.5" />
+        <controlpoint x="1.5" y="1.5" z="0.5" />
+      </patch>
+    </primitive>
+
   </primitives>
 
   <components>
@@ -178,7 +195,7 @@
     <component id="root">
 
       <transformation>
-        <transformationref id="root" />
+        <!--transformationref id="root" /-->
       </transformation>
 
       <materials>
@@ -193,7 +210,8 @@
         <componentref id="towel" />
         <componentref id="tent" />
         <componentref id="football" />
-        <componentref id="patch" />
+        <!--componentref id="patch" /-->
+        <componentref id="parachute" />
       </children>
 
     </component>
@@ -558,8 +576,8 @@
   </transformation>
 
   <animation>
-    <animationref id="patchanim" />
-    <animationref id="patchanim2"/>
+    <!--animationref id="patchanim" />
+    <animationref id="patchanim2"/-->
   </animation>
 
   <materials>
@@ -574,6 +592,152 @@
 
 </component>
 
-  </components>
+<component id="parachute">
+
+  <transformation>
+  </transformation>
+
+  <materials>
+    <material id="inherit" />
+  </materials>
+
+  <texture id="towel" />
+
+  <children>
+    <componentref id="parachute_top"/>
+    <componentref id="parachute_cube"/>
+    <componentref id="string1"/>
+    <componentref id="string2"/>
+    <componentref id="string3"/>
+    <componentref id="string4"/>
+  </children>
+
+</component>
+
+<component id="parachute_top">
+
+  <transformation>
+    <!--translate x="3" y="0.3" z="3"/-->
+    <translate x="1" y="2" z="0.5" />
+    <scale x="0.5" y="0.5" z="0.5" />
+    <rotate axis="x" angle="-90" />
+  </transformation>
+
+  <materials>
+    <material id="inherit" />
+  </materials>
+
+  <texture id="towel" />
+
+  <children>
+    <primitiveref id="patch2"/>
+  </children>
+
+</component>
+
+<component id="parachute_cube">
+
+  <transformation>
+    <translate x="1" y="1" z="0.75" />
+    <scale x="0.5" y="0.5" z="0.5" />
+  </transformation>
+
+  <materials>
+    <material id="inherit" />
+  </materials>
+
+  <texture id="towel" />
+
+  <children>
+    <componentref id="cube"/>
+  </children>
+
+</component>
+
+<component id="string1">
+
+  <transformation>
+    <rotate axis="z" angle="30" />
+    <translate x="1.25" y="0.65" z="1"/>
+    <scale x="0.05" y="1.2" z="1"/>
+
+    <!--rotate axis="z" angle="35" /-->
+  </transformation>
+
+  <materials>
+    <material id="inherit" />
+  </materials>
+
+  <texture id="towel" />
+
+  <children>
+    <primitiveref id="rect1"/>
+  </children>
+
+  </component>
+
+  <component id="string2">
+
+    <transformation>
+      <rotate axis="z" angle="30" />
+      <translate x="1.25" y="0.65" z="0.5"/>
+      <scale x="0.05" y="1.2" z="1"/>
+
+      <!--rotate axis="z" angle="35" /-->
+    </transformation>
+
+    <materials>
+      <material id="inherit" />
+    </materials>
+
+    <texture id="towel" />
+
+    <children>
+      <primitiveref id="rect1"/>
+    </children>
+
+    </component>
+
+    <component id="string3">
+
+      <transformation>
+        <rotate axis="z" angle="-30" />
+        <translate x="0.45" y="1.65" z="1"/>
+        <scale x="0.05" y="1.2" z="1"/>
+      </transformation>
+
+      <materials>
+        <material id="inherit" />
+      </materials>
+
+      <texture id="towel" />
+
+      <children>
+        <primitiveref id="rect1"/>
+      </children>
+
+      </component>
+
+    <component id="string4">
+
+        <transformation>
+          <rotate axis="z" angle="-30" />
+          <translate x="0.45" y="1.65" z="0.5"/>
+          <scale x="0.05" y="1.2" z="1"/>
+        </transformation>
+
+        <materials>
+          <material id="inherit" />
+        </materials>
+
+        <texture id="towel" />
+
+        <children>
+          <primitiveref id="rect1"/>
+        </children>
+
+        </component>
+
+</components>
 
 </dsx>
