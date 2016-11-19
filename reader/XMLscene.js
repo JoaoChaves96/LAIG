@@ -31,11 +31,6 @@ XMLscene.prototype.init = function (application) {
   this.materialIndex = 0;
   this.rootID =null;
 
-  c1 = [0, 0, 0, 1];
-  c2 = [1, 1, 1, 1];
-  cs = [1, 0, 0, 1];
-  this.board = new MyChessBoard(this, 8, 8, "resources/images/floor.png", 2, 1, c1, c2, cs);
-
   var c = [	// U = 0
     [ // V = 0..1;
        [ -1.5, -1.5, 0.0, 1 ],
@@ -274,15 +269,13 @@ XMLscene.prototype.display = function () {
   // Draw axis
   this.axis.display();
 
-  this.board.display();
-
   //this.patch.display(this.elapsedTime);
 
 if (this.graph.loadedOk)
 {
 
   this.updateLights();
-  //this.processGraph(this.rootID, null); //processes the graph starting on the rootNode
+  this.processGraph(this.rootID, null); //processes the graph starting on the rootNode
 };
 };
 

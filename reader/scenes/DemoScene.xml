@@ -188,6 +188,14 @@
       </patch>
     </primitive>
 
+    <primitive id="chessboard1">
+      <chessboard du="8" dv="8" textureref="table" su="2" sv="2">
+                   <c1 r="0" g="0" b="0" a="1" />
+                   <c2 r="1" g="1" b="1" a="1" />
+                   <cs r="1" g="0" b="0" a="1" />
+      </chessboard>
+    </primitive>
+
   </primitives>
 
   <components>
@@ -212,6 +220,7 @@
         <componentref id="football" />
         <!--componentref id="patch" /-->
         <componentref id="parachute" />
+        <componentref id="board" />
       </children>
 
     </component>
@@ -737,6 +746,22 @@
         </children>
 
         </component>
+
+    <component id="board">
+      <transformation>
+      </transformation>
+
+      <materials>
+        <material id="inherit" />
+      </materials>
+
+      <texture id="none" />
+
+      <children>
+        <primitiveref id="chessboard1"/>
+      </children>
+
+    </component>
 
 </components>
 

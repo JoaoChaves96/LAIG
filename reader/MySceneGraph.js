@@ -607,6 +607,42 @@ MySceneGraph.prototype.loadPrimitives = function(rootElement){
 
 			break;
 
+			case "chessboard":
+			var temp = listprim[i].getElementsByTagName('chessboard');
+			var du, dv, texturef, su, sv, c1, c2, cs;
+			du = this.reader.getFloat(temp[0], 'du', true);
+			dv = this.reader.getFloat(temp[0], 'dv', true);
+			su = this.reader.getFloat(temp[0], 'su', true);
+			sv = this.reader.getFloat(temp[0], 'sv', true);
+			texturef = this.reader.getString(temp[0], 'textureref', true);
+			var texture = this.textures[texturef].file;
+			var color1 = temp[0].children[0];
+			var color2 = temp[0].children[1];
+			var colors = temp[0].children[2];
+			var c1 = [];
+			var c2 = [];
+			var cs = [];
+
+			c1[0] = this.reader.getFloat(color1, 'r', true);
+			c1[1] = this.reader.getFloat(color1, 'g', true);
+			c1[2] = this.reader.getFloat(color1, 'b', true);
+			c1[3] = this.reader.getFloat(color1, 'a', true);
+			console.log(c1);
+			c2[0] = this.reader.getFloat(color2, 'r', true);
+			c2[1] = this.reader.getFloat(color2, 'g', true);
+			c2[2] = this.reader.getFloat(color2, 'b', true);
+			c2[3] = this.reader.getFloat(color2, 'a', true);
+			console.log(c2);
+			cs[0] = this.reader.getFloat(colors, 'r', true);
+			cs[1] = this.reader.getFloat(colors, 'g', true);
+			cs[2] = this.reader.getFloat(colors, 'b', true);
+			cs[3] = this.reader.getFloat(colors, 'a', true);
+			console.log(cs);
+
+			this.primitives[id] = new MyChessBoard(this.scene, du, dv, texture, su, sv, c1, c2, cs);
+
+			break;
+
 			default:
 			return "Uknown primitive...";
 		}
