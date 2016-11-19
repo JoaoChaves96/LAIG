@@ -8,6 +8,8 @@ function MyCircularAnimation(scene, id, type, span, centerx, centery, centerz, r
   this.radius = radius;
   this.startang = startang * Math.PI / 180;
   this.rotang = rotang * Math.PI / 180;
+  this.end = false;
+  this.angle = 0;
 
   this.velocity = this.rotang/this.span;
 };
@@ -15,10 +17,15 @@ function MyCircularAnimation(scene, id, type, span, centerx, centery, centerz, r
 MyCircularAnimation.prototype = Object.create(MyAnimation.prototype);
 MyCircularAnimation.prototype.constructor = MyCircularAnimation;
 
-MyCircularAnimation.prototype.apply = function(span){
+MyCircularAnimation.prototype.apply = function(span, node){
 
-  if(span > this.span)
+  if(span > this.span){
     span = this.span;
+    if(node.animationIndex < node.animations.length)
+      node.animationIndex++;
+    this.scene.startTime = 0;
+    this.scene.elapsedTime = 0;
+  }
 
   this.scene.translate(this.centerx, this.centery, this.centerz);
 

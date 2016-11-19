@@ -118,14 +118,14 @@
   </transformations>
 
   <animations>
-    <animation id="patchanim" span="5" type="linear">
+    <animation id="patchanim" span="3" type="linear">
       <controlpoint xx="0" yy="0" zz="0" />
       <controlpoint xx="5" yy="0" zz="0" />
       <controlpoint xx="5" yy="5" zz="0" />
     </animation>
 
-    <animation id="patchanim2" span="10" type="circular"
-      centerx="0" centery="0" centerz="0"
+    <animation id="patchanim2" span="3" type="circular"
+      centerx="5" centery="5" centerz="0"
       radius="0" startang="0" rotang="90" />
 
   </animations>
@@ -139,7 +139,7 @@
     <primitive id="floor_rect">
       <rectangle x1="0" y1="0" x2="5" y2="5" />
     </primitive>
-"
+
     <primitive id="triang1">
       <triangle x1="-0.6" y1="0" z1="0.6" x2="0.6" y2="0" z2="0.6" x3="0" y3="0.6" z3="0" />
     </primitive>
@@ -556,6 +556,11 @@
   <transformation>
     <!--translate x="3" y="0.3" z="3"/-->
   </transformation>
+
+  <animation>
+    <animationref id="patchanim" />
+    <animationref id="patchanim2"/>
+  </animation>
 
   <materials>
     <material id="inherit" />

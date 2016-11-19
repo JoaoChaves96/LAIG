@@ -9,6 +9,8 @@
    this.children =[];
    this.primitive = null;
    this.transformation = null;
+   this.animations = [];
+   this.animationIndex = 0;
  };
 
  MyNode.prototype.push = function(nodeName){

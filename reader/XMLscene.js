@@ -14,6 +14,7 @@ XMLscene.prototype.init = function (application) {
   this.setUpdatePeriod(100/6);
 
   this.startTime = 0;
+  this.elapsedTime = 0;
 
   this.initLights();
 
@@ -199,6 +200,14 @@ XMLscene.prototype.processGraph = function(nodeName, textureID){
 
     //Applies the transformation matrix of each component
     this.multMatrix(node.mat);
+
+
+    animation = this.graph.animations[node.animations[node.animationIndex]];
+    if(animation != null)
+      animation.apply(this.elapsedTime, node);
+
+    if(node.animationIndex == node.animations.length)
+      node.animationIndex = 0;
 
     if(node.primitive != null){
       this.pushMatrix();

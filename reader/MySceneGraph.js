@@ -96,6 +96,12 @@ MySceneGraph.prototype.onXMLReady=function()
 		return;
 	}
 
+	error = this.loadAnimations(rootElement);
+	if (error != null) {
+		this.onXMLError(error);
+		return;
+	}
+
 	error = this.loadPrimitives(rootElement);
 	if (error != null) {
 		this.onXMLError(error);
@@ -426,7 +432,7 @@ MySceneGraph.prototype.loadAnimations = function(rootElement){
 	if(animations[0] == null)
 		return "'animations' element is missing";
 
-	var listA = animations[0].getElementsByTagName('aimation');
+	var listA = animations[0].getElementsByTagName('animation');
 
 	var nlistA = listA.length;
 
@@ -435,10 +441,44 @@ MySceneGraph.prototype.loadAnimations = function(rootElement){
 
 		if(id in this.animations)
 			return "id already exists in animations array...";
-			var span, type;
-			span = this.reader.getFloat(listA[0], 'span', true);
-			type = this.reader.getFloat(listA[0], 'type', true);
 
+
+			var span, type;
+			span = this.reader.getFloat(listA[i], 'span', true);
+			type = this.reader.getString(listA[i], 'type', true);
+
+			var control = [];
+			console.log(type);
+
+			if (type == "linear"){
+				var points = listA[i].getElementsByTagName('controlpoint');
+				for (var j = 0; j < points.length; j++){
+					var point = points[j];
+					var c = [];
+					var x, y, z;
+					x = this.reader.getFloat(point, 'xx', true);
+					y = this.reader.getFloat(point, 'yy', true);
+					z = this.reader.getFloat(point, 'zz', true);
+					c.push(x, y, z);
+					control.push(c);
+				}
+
+				this.animations[id] = new MyLinearAnimation(this.scene, id, type, span, control);
+			}
+			else if(type == "circular"){
+				var centerx, centery, centerz, radius, startang, rotang;
+				centerx = this.reader.getFloat(listA[i], 'centerx', true);
+				centery = this.reader.getFloat(listA[i], 'centery', true);
+				centerz = this.reader.getFloat(listA[i], 'centerz', true);
+				radius = this.reader.getFloat(listA[i], 'radius', true);
+				startang = this.reader.getFloat(listA[i], 'startang', true);
+				rotang = this.reader.getFloat(listA[i], 'rotang', true);
+
+				this.animations[id] = new MyCircularAnimation(this.scene, id, type, span, centerx, centery, centerz, radius, startang, rotang);
+			}
+			else {
+				return "Uknown type of animation...";
+			}
 	}
 };
 
@@ -763,9 +803,22 @@ MySceneGraph.prototype.loadNodes = function(rootElement){
 
 		node.mat = matrix;
 
+		//Load animations
+		var nodeAnimations = node1.getElementsByTagName('animation');
+		if(nodeAnimations.length != 0){
+			console.log(nodeAnimations[0]);
+		var listA = nodeAnimations[0].children;
 
+		var nlistA = listA.length;
+
+		for(var x = 0; x < nlistA; x++){
+			var idAnim = listA[x].attributes.getNamedItem("id").value;
+			node.animations.push(idAnim);
+		}
+		}
 		//Load materials
 		var nodeMaterials = node1.getElementsByTagName('materials');
+
 		var listNm = nodeMaterials[0].children;
 
 		var nlist = listNm.length;

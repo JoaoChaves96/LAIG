@@ -4,6 +4,7 @@ function MyLinearAnimation(scene, id, type, span, points){
   this.controlPoints = points;
   this.distance = 0;
   this.segmentDistances = [];
+  this.end = false;
 
   for(var i = 0; i < points.length - 1; i++){
     console.log("sdfghn");
@@ -19,9 +20,14 @@ function MyLinearAnimation(scene, id, type, span, points){
 MyLinearAnimation.prototype = Object.create(MyAnimation.prototype);
 MyLinearAnimation.prototype.constructor = MyLinearAnimation;
 
-MyLinearAnimation.prototype.apply = function(dt){
-  if(dt > this.span)
+MyLinearAnimation.prototype.apply = function(dt, node){
+  if(dt > this.span){
     dt = this.span;
+    if(node.animationIndex < node.animations.length)
+      node.animationIndex++;
+    this.scene.startTime = 0;
+    this.scene.elapsedTime = 0;
+  }
 
   this.currDist = this.velocity * dt;
 
@@ -45,5 +51,19 @@ MyLinearAnimation.prototype.apply = function(dt){
     lastDist = this.segmentDistances[i - 1];
 
   var displacement = (this.currDist - lastDist) / (this.segmentDistances[i] - lastDist);
+
+  var rotAngle = Math.atan((p2[0] - p1[0]) / (p2[2] - p1[2]));
+
+  if (p2[2] - p1[2] < 0){
+    rotAngle += Math.PI;
+  }
+
+  if (p2[0] - p1[0] == 0 && p2[2] - p1[2] == 0){
+    rotAngle = this.angle;
+  }
+
+  this.angle = rotAngle;
+
   this.scene.translate(distPoint1 * displacement + p1[0], distPoint2 * displacement + p1[1], distPoint3 * displacement * p1[2]);
+  this.scene.rotate(rotAngle, 0, 1, 0);
 };
