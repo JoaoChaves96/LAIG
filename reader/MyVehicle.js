@@ -42,10 +42,10 @@
     this.patchAppearance.loadTexture("./resources/images/parachute.png");
 
     this.cubeAppearance =  new CGFappearance(this.scene);
-    this.cubeAppearance.loadTexture("../resources/images/parachutecube.png");
+    this.cubeAppearance.loadTexture("./resources/images/parachutecube.png");
 
     this.stringAppearance =  new CGFappearance(this.scene);
-    this.stringAppearance.loadTexture("../resources/images/string.png");
+    this.stringAppearance.loadTexture("./resources/images/string.png");
 
 
   };
@@ -68,6 +68,7 @@
     this.scene.pushMatrix();
     this.scene.translate(1,1,0.75);
     this.scene.scale(0.5,0.5,0.5);
+    this.cubeAppearance.apply();
     this.cube.display();
     this.scene.popMatrix();
 
@@ -78,8 +79,16 @@
     this.scene.rotate(30*Math.PI/180, 0,0,1);
     this.scene.translate(1.25,0.65,1);
     this.scene.scale(0.05,1.2,1);
+    this.stringAppearance.apply();
     this.string1.display();
-    this.ro
+    this.scene.popMatrix();
+
+    this.scene.pushMatrix();
+    this.scene.rotate(30*Math.PI/180, 0,0,1);
+    this.scene.translate(1.25,0.65,1);
+    this.scene.scale(0.05,1.2,1);
+    this.stringAppearance.apply();
+    this.string1.display();
     this.scene.popMatrix();
 
     //2
@@ -87,6 +96,7 @@
     this.scene.rotate(30*Math.PI/180, 0,0,1);
     this.scene.translate(1.25,0.65,0.5);
     this.scene.scale(0.05,1.2,1);
+    this.stringAppearance.apply();
     this.string1.display();
     this.scene.popMatrix();
 
@@ -95,6 +105,7 @@
     this.scene.rotate(-30*Math.PI/180, 0,0,1);
     this.scene.translate(0.45,1.65,1);
     this.scene.scale(0.05,1.2,1);
+    this.stringAppearance.apply();
     this.string1.display();
     this.scene.popMatrix();
 
@@ -103,6 +114,7 @@
     this.scene.rotate(-30*Math.PI/180, 0,0,1);
     this.scene.translate(0.45,1.65,0.5);
     this.scene.scale(0.05,1.2,1);
+    this.stringAppearance.apply();
     this.string1.display();
     this.scene.popMatrix();
 
