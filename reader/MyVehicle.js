@@ -41,11 +41,11 @@
     this.patchAppearance =  new CGFappearance(this.scene);
     this.patchAppearance.loadTexture("./resources/images/parachute.png");
 
-    /*this.cubeAppearance =  new CGFappearance(this.scene);
+    this.cubeAppearance =  new CGFappearance(this.scene);
     this.cubeAppearance.loadTexture("../resources/images/parachutecube.png");
 
     this.stringAppearance =  new CGFappearance(this.scene);
-    this.stringAppearance.loadTexture("../resources/images/string.png");*/
+    this.stringAppearance.loadTexture("../resources/images/string.png");
 
 
   };
