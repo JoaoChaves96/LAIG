@@ -235,6 +235,7 @@
         <componentref id="bar_bars2" />
         <componentref id="bar_bars3" />
         <componentref id="bar_bars4" />
+        <componentref id="bar_logos" />
         <!--componentref id="board" /-->
       </children>
 
@@ -970,6 +971,99 @@
 
       <children>
         <primitiveref id="cylinder1"/>
+      </children>
+
+    </component>
+
+    <component id="bar_logos">
+      <transformation>
+      </transformation>
+
+      <materials>
+        <material id="inherit" />
+      </materials>
+
+      <texture id="towel" />
+
+      <children>
+        <componentref id="bar_logo1"/>
+        <componentref id="bar_logo2"/>
+        <componentref id="bar_logo3"/>
+        <componentref id="bar_logo4"/>
+      </children>
+
+    </component>
+
+    <component id="bar_logo1">
+      <transformation>
+        <translate x="4.4" y="0.3" z="0.0525" />
+        <scale x="1.1" y="0.3" z="0.03" />
+        <rotate axis="y" angle="90" />
+      </transformation>
+
+      <materials>
+        <material id="inherit" />
+      </materials>
+
+      <texture id="inherit" />
+
+      <children>
+        <componentref id="cube"/>
+      </children>
+
+    </component>
+
+    <component id="bar_logo2">
+      <transformation>
+        <translate x="4.4" y="0.3" z="4.925" />
+        <scale x="1.1" y="0.3" z="0.03" />
+        <rotate axis="y" angle="90" />
+      </transformation>
+
+      <materials>
+        <material id="inherit" />
+      </materials>
+
+      <texture id="inherit" />
+
+      <children>
+        <componentref id="cube"/>
+      </children>
+
+    </component>
+
+    <component id="bar_logo3">
+      <transformation>
+        <translate x="3.8" y="0.3" z="4.2" />
+        <scale x="0.03" y="0.3" z="1.5" />
+      </transformation>
+
+      <materials>
+        <material id="inherit" />
+      </materials>
+
+      <texture id="inherit" />
+
+      <children>
+        <componentref id="cube"/>
+      </children>
+
+    </component>
+
+    <component id="bar_logo4">
+      <transformation>
+        <translate x="3.8" y="0.3" z="0.8" />
+        <scale x="0.03" y="0.3" z="1.5" />
+      </transformation>
+
+      <materials>
+        <material id="inherit" />
+      </materials>
+
+      <texture id="inherit" />
+
+      <children>
+        <componentref id="cube"/>
       </children>
 
     </component>
