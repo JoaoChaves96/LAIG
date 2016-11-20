@@ -425,6 +425,10 @@ MySceneGraph.prototype.loadTextures = function(rootElement){
 	}
 };
 
+/*
+*	Loads the elements with the 'animation' tag
+*	Returns null or an error
+*/
 MySceneGraph.prototype.loadAnimations = function(rootElement){
 	var animations = rootElement.getElementsByTagName('animations');
 

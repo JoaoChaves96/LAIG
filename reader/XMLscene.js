@@ -32,26 +32,6 @@ XMLscene.prototype.init = function (application) {
   this.materialIndex = 0;
   this.rootID =null;
 
-  var c = [	// U = 0
-    [ // V = 0..1;
-       [ -1.5, -1.5, 0.0, 1 ],
-       [ -1.5,  1.5, 0.0, 1 ]
-
-    ],
-    // U = 1
-    [ // V = 0..1
-       [ 0, -1.5, 3.0, 1 ],
-       [ 0,  1.5, 3.0, 1 ]
-    ],
-    // U = 2
-    [ // V = 0..1
-      [ 1.5, -1.5, 0.0, 1 ],
-      [ 1.5,  1.5, 0.0, 1 ]
-    ]
-  ];
-  this.patch = new MyPatch(this, 2, 1, 10, 10, c);
-    console.log("criou o patch");
-
   this.axis=new CGFaxis(this);
 };
 
@@ -173,15 +153,6 @@ XMLscene.prototype.processGraph = function(nodeName, textureID){
       texture.setShininess(material.shininess);
     }
 
-    /*if (node.texture != "none"){
-      if (node.texture != "inherit"){
-        //this.textures.push(this.graph.textures[textureID].file);
-        texture.setTexture(this.graph.textures[textureID]);
-        texture.apply();
-      }else {
-        this.textures.push(this.textures.top());
-      }
-    }*/
 
     if (node.texture != "none"){
       if (node.texture != "inherit"){
@@ -195,11 +166,12 @@ XMLscene.prototype.processGraph = function(nodeName, textureID){
 
       texture.apply();
 
-    //this.textures.pop();
 
     //Applies the transformation matrix of each component
     this.multMatrix(node.mat);
 
+
+  //Applies the animations to the node
    for(var x = 0; x < node.animations.length; x++){
    var anim = this.graph.animations[node.animations[x]];
    anim.apply(this.elapsedTime, node);
@@ -207,19 +179,11 @@ XMLscene.prototype.processGraph = function(nodeName, textureID){
      break;
    }
 
-   /*animation = this.graph.animations[node.animations[node.animationIndex]];
-    if(animation != null)
-      animation.apply(this.elapsedTime, node);*/
-
-
-    /*if(node.animationIndex == node.animations.length)
-      node.animationIndex = 0;*/
-
-    if(node.primitive != null){
-      this.pushMatrix();
-      node.primitive.display(); //displays the primitive on the scene
-      this.popMatrix();
-    }
+  if(node.primitive != null){
+    this.pushMatrix();
+    node.primitive.display(); //displays the primitive on the scene
+    this.popMatrix();
+  }
 
 
     for (var i = 0; i < node.getSize(); i++){
@@ -276,8 +240,6 @@ XMLscene.prototype.display = function () {
 
   // Draw axis
   this.axis.display();
-//this.c.display();
-  //this.patch.display(this.elapsedTime);
 
 if (this.graph.loadedOk)
 {
@@ -288,8 +250,5 @@ if (this.graph.loadedOk)
 };
 
 XMLscene.prototype.update = function(currTime) {
-  /*if (this.startTime == 0)
-    this.startTime = currTime;*/
-
   this.elapsedTime = currTime / 1000;
 }

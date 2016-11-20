@@ -71,6 +71,7 @@
     <texture id="tent" file="./resources/images/tent.jpg" length_s="1.0" length_t="1.0" />
     <texture id="ball" file="./resources/images/ball.png" length_s="1.0" length_t="1.0" />
     <texture id="sand" file="./resources/images/sand.jpg" length_s="10" length_t="10" />
+    <texture id="logo" file="./resources/images/logo.png" length_s="10" length_t="10" />
 
   </textures>
 
@@ -119,23 +120,31 @@
   </transformations>
 
   <animations>
-    <animation id="patchanim" span="3" type="linear">
-      <controlpoint xx="0" yy="0" zz="0" />
-      <!--controlpoint xx="0" yy="1" zz="0" /-->
-      <controlpoint xx="2" yy="2" zz="1" />
-    </animation>
+     <animation id="patchanim" span="3" type="linear">
+       <controlpoint xx="5" yy="5" zz="5" />
+       <controlpoint xx="3" yy="3" zz="3" />
+     </animation>
 
-    <animation id="patchanim3" span="3" type="linear">
-      <controlpoint xx="0" yy="0" zz="0" />
-      <controlpoint xx="0" yy="2" zz="1" />
-      <controlpoint xx="0" yy="0" zz="0" />
-    </animation>
+     <animation id="patchanim3" span="3" type="linear">
+       <controlpoint xx="0" yy="0" zz="0" />
+       <controlpoint xx="-2" yy="-1" zz="2" />
+     </animation>
 
-    <animation id="patchanim2" span="2" type="circular"
-      centerx="0" centery="0" centerz="0"
-      radius="2" startang="0" rotang="90" />
+     <animation id="patchanim2" span="3" type="circular"
+       centerx="-2" centery="0" centerz="0"
+       radius="2" startang="0" rotang="45" />
 
-    </animations>
+     <animation id="patchanim4" span="3" type="circular"
+       centerx="-2" centery="0" centerz="0"
+       radius="2" startang="0" rotang="45" />
+
+     <animation id="patchanim5" span="3" type="linear">
+       <controlpoint xx="0" yy="0" zz="0" />
+       <controlpoint xx="0.1" yy="-0.05" zz="-0.5" />
+       <controlpoint xx="2" yy="-0.6" zz="-0.5" />
+     </animation>
+
+   </animations>
 
     <primitives>
 
@@ -206,6 +215,14 @@
         </chessboard>
       </primitive>
 
+      <primitive id="chessboard2">
+        <chessboard du="12" dv="12" textureref="floor" su="5" sv="3">
+          <c1 r="1" g="0" b="0" a="1" />
+          <c2 r="0" g="1" b="0" a="1" />
+          <cs r="0" g="0" b="1" a="1" />
+        </chessboard>
+      </primitive>
+
       <primitive id="parachute">
         <vehicle />
       </primitive>
@@ -240,7 +257,8 @@
           <componentref id="bar_bars3" />
           <componentref id="bar_bars4" />
           <componentref id="bar_logos" />
-          <!--componentref id="board" /-->
+          <componentref id="board1" />
+          <componentref id="board2" />
           <componentref id="chair1" />
           <componentref id="chair2" />
           <componentref id="chair3" />
@@ -628,159 +646,11 @@
 
       </component>
 
-      <component id="parachute">
-
+      <component id="board1">
         <transformation>
-        </transformation>
-
-        <animation>
-          <animationref id="patchanim"/>
-          <animationref id="patchanim2"/>
-        </animation>
-
-        <materials>
-          <material id="inherit" />
-        </materials>
-
-        <texture id="towel" />
-
-        <children>
-          <componentref id="parachute_top"/>
-          <componentref id="parachute_cube"/>
-          <componentref id="string1"/>
-          <componentref id="string2"/>
-          <componentref id="string3"/>
-          <componentref id="string4"/>
-        </children>
-
-      </component>
-
-      <component id="parachute_top">
-
-        <transformation>
-          <!--translate x="3" y="0.3" z="3"/-->
-          <translate x="1" y="2" z="0.5" />
-          <scale x="0.5" y="0.5" z="0.5" />
+          <translate x="4.4" y="0.52" z="1.2" />
+          <scale x="0.3" y="1" z="0.3" />
           <rotate axis="x" angle="-90" />
-        </transformation>
-
-        <materials>
-          <material id="inherit" />
-        </materials>
-
-        <texture id="towel" />
-
-        <children>
-          <primitiveref id="patch2"/>
-        </children>
-
-      </component>
-
-      <component id="parachute_cube">
-
-        <transformation>
-          <translate x="1" y="1" z="0.75" />
-          <scale x="0.5" y="0.5" z="0.5" />
-        </transformation>
-
-        <materials>
-          <material id="inherit" />
-        </materials>
-
-        <texture id="towel" />
-
-        <children>
-          <componentref id="cube"/>
-        </children>
-
-      </component>
-
-      <component id="string1">
-
-        <transformation>
-          <rotate axis="z" angle="30" />
-          <translate x="1.25" y="0.65" z="1"/>
-          <scale x="0.05" y="1.2" z="1"/>
-
-          <!--rotate axis="z" angle="35" /-->
-        </transformation>
-
-        <materials>
-          <material id="inherit" />
-        </materials>
-
-        <texture id="towel" />
-
-        <children>
-          <primitiveref id="rect1"/>
-        </children>
-
-      </component>
-
-      <component id="string2">
-
-        <transformation>
-          <rotate axis="z" angle="30" />
-          <translate x="1.25" y="0.65" z="0.5"/>
-          <scale x="0.05" y="1.2" z="1"/>
-
-          <!--rotate axis="z" angle="35" /-->
-        </transformation>
-
-        <materials>
-          <material id="inherit" />
-        </materials>
-
-        <texture id="towel" />
-
-        <children>
-          <primitiveref id="rect1"/>
-        </children>
-
-      </component>
-
-      <component id="string3">
-
-        <transformation>
-          <rotate axis="z" angle="-30" />
-          <translate x="0.45" y="1.65" z="1"/>
-          <scale x="0.05" y="1.2" z="1"/>
-        </transformation>
-
-        <materials>
-          <material id="inherit" />
-        </materials>
-
-        <texture id="towel" />
-
-        <children>
-          <primitiveref id="rect1"/>
-        </children>
-
-      </component>
-
-      <component id="string4">
-
-        <transformation>
-          <rotate axis="z" angle="-30" />
-          <translate x="0.45" y="1.65" z="0.5"/>
-          <scale x="0.05" y="1.2" z="1"/>
-        </transformation>
-
-        <materials>
-          <material id="inherit" />
-        </materials>
-
-        <texture id="towel" />
-
-        <children>
-          <primitiveref id="rect1"/>
-        </children>
-
-      </component>
-
-      <component id="board">
-        <transformation>
         </transformation>
 
         <materials>
@@ -795,6 +665,25 @@
 
       </component>
 
+      <component id="board2">
+        <transformation>
+          <translate x="4.4" y="0.52" z="2.5" />
+          <scale x="0.3" y="1" z="0.3" />
+          <rotate axis="x" angle="-90" />
+        </transformation>
+
+        <materials>
+          <material id="inherit" />
+        </materials>
+
+        <texture id="none" />
+
+        <children>
+          <primitiveref id="chessboard2"/>
+        </children>
+
+      </component>
+
       <component id="vehicle">
         <transformation>
         </transformation>
@@ -802,6 +691,9 @@
         <animation>
           <animationref id="patchanim" />
           <animationref id="patchanim2" />
+          <animationref id="patchanim3" />
+          <animationref id="patchanim4" />
+          <animationref id="patchanim5" />
         </animation>
 
         <materials>
@@ -921,7 +813,7 @@
           <material id="inherit" />
         </materials>
 
-        <texture id="floor" />
+        <texture id="table" />
 
         <children>
           <primitiveref id="cylinder1"/>
@@ -939,7 +831,7 @@
           <material id="inherit" />
         </materials>
 
-        <texture id="floor" />
+        <texture id="table" />
 
         <children>
           <primitiveref id="cylinder1"/>
@@ -958,7 +850,7 @@
           <material id="inherit" />
         </materials>
 
-        <texture id="floor" />
+        <texture id="table" />
 
         <children>
           <primitiveref id="cylinder1"/>
@@ -977,7 +869,7 @@
           <material id="inherit" />
         </materials>
 
-        <texture id="floor" />
+        <texture id="table" />
 
         <children>
           <primitiveref id="cylinder1"/>
@@ -990,10 +882,10 @@
         </transformation>
 
         <materials>
-          <material id="inherit" />
+          <material id="matA" />
         </materials>
 
-        <texture id="towel" />
+        <texture id="logo" />
 
         <children>
           <componentref id="bar_logo1"/>
