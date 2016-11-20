@@ -155,7 +155,7 @@
     </primitive>
 
     <primitive id="cylinder1">
-      <cylinder base="1" top="1" height="1" slices="50" stacks="20" />
+      <cylinder base="0.05" top="0.05" height="1" slices="50" stacks="20" />
     </primitive>
 
     <primitive id="torus1">
@@ -213,7 +213,7 @@
     <component id="root">
 
       <transformation>
-        <!--transformationref id="root" /-->
+        <transformationref id="root" />
       </transformation>
 
       <materials>
@@ -226,10 +226,16 @@
         <componentref id="floor" />
         <componentref id="buoy" />
         <componentref id="towel" />
-        <componentref id="tent" />
+        <!--componentref id="tent" /-->
         <componentref id="football" />
         <componentref id="vehicle" />
-        <componentref id="board" />
+        <componentref id="stairs" />
+        <componentref id="bar_floor" />
+        <componentref id="bar_bars1" />
+        <componentref id="bar_bars2" />
+        <componentref id="bar_bars3" />
+        <componentref id="bar_bars4" />
+        <!--componentref id="board" /-->
       </children>
 
     </component>
@@ -267,7 +273,7 @@
         <material id="inherit" />
       </materials>
 
-      <texture id="towel" />
+      <texture id="inherit" />
 
       <children>
         <primitiveref id="rect1"/>
@@ -437,7 +443,8 @@
     <component id="tent">
 
       <transformation>
-        <translate x="4" y="0.6" z="3" />
+        <translate x="3.5" y="0.6" z="1.5" />
+
       </transformation>
 
       <materials>
@@ -572,7 +579,7 @@
 <component id="football">
 
   <transformation>
-    <translate x="3" y="0.3" z="3"/>
+    <translate x="2" y="0.3" z="2"/>
   </transformation>
 
   <materials>
@@ -794,6 +801,175 @@
 
       <children>
         <primitiveref id="parachute"/>
+      </children>
+
+    </component>
+
+    <component id="stairs">
+      <transformation>
+        <translate x="3.5" y="0" z="1.55" />
+        <scale x="1" y="1" z="0.38" />
+      </transformation>
+
+      <materials>
+        <material id="inherit" />
+      </materials>
+
+      <texture id="floor" />
+
+      <children>
+        <componentref id="step1" />
+        <componentref id="step2" />
+        <componentref id="step3" />
+      </children>
+
+    </component>
+
+    <component id="step1">
+      <transformation>
+        <scale x="0.1" y="0.05" z="5" />
+        <translate x="0.5" y="0.5" z="0.5" />
+      </transformation>
+
+      <materials>
+        <material id="inherit" />
+      </materials>
+
+      <texture id="inherit" />
+
+      <children>
+        <componentref id="cube"/>
+      </children>
+
+    </component>
+
+    <component id="step2">
+      <transformation>
+        <translate x="0.1" y="0" z="0" />
+        <scale x="0.1" y="0.1" z="5" />
+        <translate x="0.5" y="0.5" z="0.5" />
+      </transformation>
+
+      <materials>
+        <material id="inherit" />
+      </materials>
+
+      <texture id="inherit" />
+
+      <children>
+        <componentref id="cube"/>
+      </children>
+
+    </component>
+
+    <component id="step3">
+      <transformation>
+        <translate x="0.2" y="0" z="0" />
+        <scale x="0.1" y="0.15" z="5" />
+        <translate x="0.5" y="0.5" z="0.5" />
+      </transformation>
+
+      <materials>
+        <material id="inherit" />
+      </materials>
+
+      <texture id="inherit" />
+
+      <children>
+        <componentref id="cube"/>
+      </children>
+
+    </component>
+
+    <component id="bar_floor">
+      <transformation>
+        <translate x="3.8" y="0" z="0" />
+        <scale x="1.2" y="0.15" z="5" />
+        <translate x="0.5" y="0.5" z="0.5" />
+      </transformation>
+
+      <materials>
+        <material id="inherit" />
+      </materials>
+
+      <texture id="floor" />
+
+      <children>
+        <componentref id="cube"/>
+      </children>
+
+    </component>
+
+    <component id="bar_bars1">
+      <transformation>
+        <translate x="3.8" y="0.5" z="0.05" />
+        <scale x="0.5" y="0.5" z="1.5" />
+      </transformation>
+
+      <materials>
+        <material id="inherit" />
+      </materials>
+
+      <texture id="floor" />
+
+      <children>
+        <primitiveref id="cylinder1"/>
+      </children>
+
+    </component>
+
+    <component id="bar_bars2">
+      <transformation>
+        <translate x="3.8" y="0.5" z="3.45" />
+        <scale x="0.5" y="0.5" z="1.5" />
+      </transformation>
+
+      <materials>
+        <material id="inherit" />
+      </materials>
+
+      <texture id="floor" />
+
+      <children>
+        <primitiveref id="cylinder1"/>
+      </children>
+
+    </component>
+
+    <component id="bar_bars3">
+      <transformation>
+        <translate x="3.8" y="0.5" z="0.0525" />
+        <scale x="1.2" y="0.5" z="0.5" />
+        <rotate axis="y" angle="90" />
+      </transformation>
+
+      <materials>
+        <material id="inherit" />
+      </materials>
+
+      <texture id="floor" />
+
+      <children>
+        <primitiveref id="cylinder1"/>
+      </children>
+
+    </component>
+
+    <component id="bar_bars4">
+      <transformation>
+        <translate x="3.8" y="0.5" z="4.925" />
+        <scale x="1.2" y="0.5" z="0.5" />
+        <rotate axis="y" angle="90" />
+      </transformation>
+
+      <materials>
+        <material id="inherit" />
+      </materials>
+
+      <texture id="floor" />
+
+      <children>
+        <primitiveref id="cylinder1"/>
       </children>
 
     </component>

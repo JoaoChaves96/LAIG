@@ -27,8 +27,10 @@
                      this.maxX, this.minY, 0,
                      this.minX, this.maxY, 0,
                      this.maxX, this.maxY, 0];
- 
+
    this.indices = [  0, 1, 2,
+                     2, 1, 0,
+                     1, 2, 3,
                      3, 2, 1];
 
    this.normals = [ 0, 0, 1,

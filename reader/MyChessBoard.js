@@ -31,8 +31,10 @@ MyChessBoard.prototype = Object.create(CGFobject.prototype);
 MyChessBoard.prototype.constructor = MyChessBoard;
 
 MyChessBoard.prototype.display = function(){
+  this.scene.pushMatrix();
   this.mat.apply();
   this.scene.setActiveShader(this.shader);
     this.plane.display();
   this.scene.setActiveShader(this.scene.defaultShader);
+  this.scene.popMatrix();
 }
