@@ -24,7 +24,6 @@ MyLinearAnimation.prototype.apply = function(currTime, node){
      var span = currTime-this.elapsedTime;
      if(span > this.span){
        span = this.span;
-
        this.complete = true;
      }
 
@@ -67,5 +66,5 @@ MyLinearAnimation.prototype.apply = function(currTime, node){
   this.angle = rotAngle;
 
   this.scene.translate(distPoint1 * displacement + p1[0], distPoint2 * displacement + p1[1], distPoint3 * displacement + p1[2]);
-  this.scene.rotate(rotAngle, 0, 1, 0);
+  this.scene.rotate(this.angle, 0, 1, 0);
 };
