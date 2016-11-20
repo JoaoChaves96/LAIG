@@ -4,36 +4,38 @@ function MyLinearAnimation(scene, id, type, span, points){
   this.controlPoints = points;
   this.distance = 0;
   this.segmentDistances = [];
-  this.end = false;
+  this.angle = 0;
 
   for(var i = 0; i < points.length - 1; i++){
-    console.log("sdfghn");
-    this.distance += vec3.dist(vec3.fromValues(points[i][0], points[i][1], points[i][2]), vec3.fromValues(points[i+1][0], points[i+1][1], points[i+1][2]));
-    console.log("currDist: " + this.distance);
+    this.distance += vec3.dist(vec3.fromValues(points[i+1][0], points[i+1][1], points[i+1][2]), vec3.fromValues(points[i][0], points[i][1], points[i][2]));
     this.segmentDistances.push(this.distance);
   }
 
-  console.log(this.span);
   this.velocity = this.distance / this.span;
+  this.complete = false;
+  this.elapsedTime = 0;
 };
 
 MyLinearAnimation.prototype = Object.create(MyAnimation.prototype);
 MyLinearAnimation.prototype.constructor = MyLinearAnimation;
 
-MyLinearAnimation.prototype.apply = function(dt, node){
-  if(dt > this.span){
-    dt = this.span;
-    if(node.animationIndex < node.animations.length)
-      node.animationIndex++;
-    this.scene.startTime = 0;
-    this.scene.elapsedTime = 0;
-  }
+MyLinearAnimation.prototype.apply = function(currTime, node){
+  if(this.elapsedTime == 0) this.elapsedTime = currTime;
+     var span = currTime-this.elapsedTime;
+     if(span > this.span){
+       span = this.span;
 
-  this.currDist = this.velocity * dt;
+       this.complete = true;
+     }
+
+      /* if(node.animationIndex < node.animations.length)
+         node.animationIndex++;*/
+
+  this.currDist = this.velocity * span;
 
   //finds current segment index - i
   var i = 0;
-  while(this.currDist > this.segmentDistances[i] && i < this.segmentDistances.length)
+  while(this.currDist > this.segmentDistances[i] && i < this.segmentDistances.length - 1)
     i++;
 
   //control points of the current segment
@@ -54,7 +56,7 @@ MyLinearAnimation.prototype.apply = function(dt, node){
 
   var rotAngle = Math.atan((p2[0] - p1[0]) / (p2[2] - p1[2]));
 
-  if (p2[2] - p1[2] < 0){
+  if ((p2[2] - p1[2]) < 0){
     rotAngle += Math.PI;
   }
 
@@ -64,6 +66,6 @@ MyLinearAnimation.prototype.apply = function(dt, node){
 
   this.angle = rotAngle;
 
-  this.scene.translate(distPoint1 * displacement + p1[0], distPoint2 * displacement + p1[1], distPoint3 * displacement * p1[2]);
+  this.scene.translate(distPoint1 * displacement + p1[0], distPoint2 * displacement + p1[1], distPoint3 * displacement + p1[2]);
   this.scene.rotate(rotAngle, 0, 1, 0);
 };

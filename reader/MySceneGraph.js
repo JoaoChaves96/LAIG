@@ -643,6 +643,10 @@ MySceneGraph.prototype.loadPrimitives = function(rootElement){
 
 			break;
 
+			case "vehicle":
+			this.primitives[id] = new MyVehicle(this.scene);
+			break;
+
 			default:
 			return "Uknown primitive...";
 		}

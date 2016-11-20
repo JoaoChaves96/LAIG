@@ -120,13 +120,19 @@
   <animations>
     <animation id="patchanim" span="3" type="linear">
       <controlpoint xx="0" yy="0" zz="0" />
-      <controlpoint xx="5" yy="0" zz="0" />
-      <controlpoint xx="5" yy="5" zz="0" />
+      <!--controlpoint xx="0" yy="1" zz="0" /-->
+      <controlpoint xx="2" yy="2" zz="1" />
     </animation>
 
-    <animation id="patchanim2" span="3" type="circular"
-      centerx="5" centery="5" centerz="0"
-      radius="0" startang="0" rotang="90" />
+    <animation id="patchanim3" span="3" type="linear">
+      <controlpoint xx="0" yy="0" zz="0" />
+      <controlpoint xx="0" yy="2" zz="1" />
+      <controlpoint xx="0" yy="0" zz="0" />
+    </animation>
+
+    <animation id="patchanim2" span="2" type="circular"
+      centerx="0" centery="0" centerz="0"
+      radius="2" startang="0" rotang="90" />
 
   </animations>
 
@@ -196,6 +202,10 @@
       </chessboard>
     </primitive>
 
+    <primitive id="parachute">
+      <vehicle />
+    </primitive>
+
   </primitives>
 
   <components>
@@ -218,8 +228,7 @@
         <componentref id="towel" />
         <componentref id="tent" />
         <componentref id="football" />
-        <!--componentref id="patch" /-->
-        <componentref id="parachute" />
+        <componentref id="vehicle" />
         <componentref id="board" />
       </children>
 
@@ -606,6 +615,11 @@
   <transformation>
   </transformation>
 
+  <animation>
+    <animationref id="patchanim"/>
+    <animationref id="patchanim2"/>
+  </animation>
+
   <materials>
     <material id="inherit" />
   </materials>
@@ -759,6 +773,27 @@
 
       <children>
         <primitiveref id="chessboard1"/>
+      </children>
+
+    </component>
+
+    <component id="vehicle">
+      <transformation>
+      </transformation>
+
+      <animation>
+        <animationref id="patchanim" />
+        <animationref id="patchanim2" />
+      </animation>
+
+      <materials>
+        <material id="inherit" />
+      </materials>
+
+      <texture id="none" />
+
+      <children>
+        <primitiveref id="parachute"/>
       </children>
 
     </component>

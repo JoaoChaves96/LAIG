@@ -14,7 +14,8 @@ XMLscene.prototype.init = function (application) {
   this.setUpdatePeriod(100/6);
 
   this.startTime = 0;
-  this.elapsedTime = 0;
+
+  this.c = new MyVehicle(this);
 
   this.initLights();
 
@@ -199,13 +200,20 @@ XMLscene.prototype.processGraph = function(nodeName, textureID){
     //Applies the transformation matrix of each component
     this.multMatrix(node.mat);
 
+   for(var x = 0; x < node.animations.length; x++){
+   var anim = this.graph.animations[node.animations[x]];
+   anim.apply(this.elapsedTime, node);
+   if(anim.complete == false)
+     break;
+   }
 
-    animation = this.graph.animations[node.animations[node.animationIndex]];
+   /*animation = this.graph.animations[node.animations[node.animationIndex]];
     if(animation != null)
-      animation.apply(this.elapsedTime, node);
+      animation.apply(this.elapsedTime, node);*/
 
-    if(node.animationIndex == node.animations.length)
-      node.animationIndex = 0;
+
+    /*if(node.animationIndex == node.animations.length)
+      node.animationIndex = 0;*/
 
     if(node.primitive != null){
       this.pushMatrix();
@@ -268,7 +276,7 @@ XMLscene.prototype.display = function () {
 
   // Draw axis
   this.axis.display();
-
+//this.c.display();
   //this.patch.display(this.elapsedTime);
 
 if (this.graph.loadedOk)
@@ -280,8 +288,8 @@ if (this.graph.loadedOk)
 };
 
 XMLscene.prototype.update = function(currTime) {
-  if (this.startTime == 0)
-    this.startTime = currTime;
+  /*if (this.startTime == 0)
+    this.startTime = currTime;*/
 
-  this.elapsedTime = (currTime - this.startTime) / 1000;
+  this.elapsedTime = currTime / 1000;
 }

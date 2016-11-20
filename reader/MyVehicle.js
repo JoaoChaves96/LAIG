@@ -30,7 +30,7 @@
 						]
 					];
 
-    this.patch = new MyPatch(this.scene, 2, 3, 10, 10, controlPoints);
+    this.patch = new MyPatch(this.scene, 2, 3, 20, 20, controlPoints);
     this.string1 =  new MyQuad(this.scene, -0.5,-0.5,0.5,0.5);
     this.cube = new MyUnitCubeQuad(this.scene);
 
@@ -54,7 +54,8 @@
   MyVehicle.prototype.constructor = MyVehicle;
 
   MyVehicle.prototype.display = function(){
-
+    this.scene.pushMatrix();
+    this.scene.translate(-1, -2, -0.5);
     // draws the path - top of the parachute
     this.scene.pushMatrix();
     this.scene.translate(1,2,0.5);
@@ -64,6 +65,9 @@
     this.patch.display();
     this.scene.popMatrix();
 
+
+this.scene.pushMatrix();
+this.scene.translate(0,0,-0.25);
     // draws cube , bottom part of th parachute
     this.scene.pushMatrix();
     this.scene.translate(1,1,0.75);
@@ -77,24 +81,24 @@
     //1
     this.scene.pushMatrix();
     this.scene.rotate(30*Math.PI/180, 0,0,1);
-    this.scene.translate(1.25,0.65,1);
+    this.scene.translate(1.3,1.25,1);
     this.scene.scale(0.05,1.2,1);
     this.stringAppearance.apply();
     this.string1.display();
     this.scene.popMatrix();
 
-    this.scene.pushMatrix();
+  /*  this.scene.pushMatrix();
     this.scene.rotate(30*Math.PI/180, 0,0,1);
     this.scene.translate(1.25,0.65,1);
     this.scene.scale(0.05,1.2,1);
     this.stringAppearance.apply();
     this.string1.display();
-    this.scene.popMatrix();
+    this.scene.popMatrix();*/
 
     //2
     this.scene.pushMatrix();
     this.scene.rotate(30*Math.PI/180, 0,0,1);
-    this.scene.translate(1.25,0.65,0.5);
+    this.scene.translate(1.3,1.25,0.5);
     this.scene.scale(0.05,1.2,1);
     this.stringAppearance.apply();
     this.string1.display();
@@ -103,7 +107,7 @@
     //3
     this.scene.pushMatrix();
     this.scene.rotate(-30*Math.PI/180, 0,0,1);
-    this.scene.translate(0.45,1.65,1);
+    this.scene.translate(0.45,2.25,1);
     this.scene.scale(0.05,1.2,1);
     this.stringAppearance.apply();
     this.string1.display();
@@ -112,10 +116,12 @@
     //4
     this.scene.pushMatrix();
     this.scene.rotate(-30*Math.PI/180, 0,0,1);
-    this.scene.translate(0.45,1.65,0.5);
+    this.scene.translate(0.45,2.25,0.5);
     this.scene.scale(0.05,1.2,1);
     this.stringAppearance.apply();
     this.string1.display();
+    this.scene.popMatrix();
+    this.scene.popMatrix();
     this.scene.popMatrix();
 
   };
