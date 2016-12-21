@@ -6,6 +6,8 @@
  function MyQuad(scene, minX, minY, maxX, maxY) {
   	CGFobject.call(this,scene);
 
+    this.scene = scene;
+
    this.minS = 0;
    this.maxS = 1;
    this.minT = 0;
@@ -29,8 +31,6 @@
                      this.maxX, this.maxY, 0];
 
    this.indices = [  0, 1, 2,
-                     2, 1, 0,
-                     1, 2, 3,
                      3, 2, 1];
 
    this.normals = [ 0, 0, 1,
