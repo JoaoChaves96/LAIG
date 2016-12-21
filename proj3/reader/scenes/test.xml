@@ -1,0 +1,162 @@
+<dsx>
+
+  <scene root="root" axis_length="3" />
+
+  <views default="view1">
+
+    <perspective id="view1" near="0.1" far="300" angle="40">
+      <from x="15" y="15" z="15" />
+      <to x="0" y="0" z="0" />
+    </perspective>
+
+    <perspective id="view2" near="0.1" far="500" angle="40">
+      <from x="15" y="20" z="35" />
+      <to x="5" y="5" z="5" />
+    </perspective>
+
+    <perspective id="view3" near="0.1" far="1500" angle="60">
+      <from x="25" y="25" z="25" />
+      <to x="0" y="0" z="0" />
+    </perspective>
+
+  </views>
+
+  <illumination doublesided="1" local="1">
+
+    <ambient r="0" g="0" b="0" a="1" />
+    <background r="0" g="0" b="0" a="1" />
+
+  </illumination>
+
+  <lights>
+
+    <omni id="omni1" enabled="1">
+      <location x="4" y="6" z="1" w="1" />
+      <ambient r="0" g="0" b="0" a="1" />
+      <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+      <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+    </omni>
+
+    <omni id="omni2" enabled="1">
+      <location x="10.5" y="6.0" z="1.0" w="1.0" />
+      <ambient r="0" g="0" b="0" a="1" />
+      <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+      <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+    </omni>
+
+    <omni id="omni3" enabled="1">
+      <location x="10.5" y="6.0" z="15.0" w="1.0" />
+      <ambient r="0" g="0" b="0" a="1" />
+      <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+      <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+    </omni>
+
+    <spot id="spot1" enabled="1" angle="40" exponent="0.5">
+      <target x="1" y="1" z="0.5" />
+      <location x="4" y="2" z="2" />
+      <ambient r="0.5" g="0.5" b="0.5" a="0.5" />
+      <diffuse r="0.5" g="0.5" b="0.5" a="0.5" />
+      <specular r="0.5" g="0.5" b="0.5" a="0.5" />
+    </spot>
+
+  </lights>
+
+  <textures>
+    <texture id="floor" file="./resources/images/floor.png" length_s="10" length_t="10" />
+  </textures>
+
+  <materials>
+    <material id="matA">
+      <emission r="1" g="0.2" b="0.2" a="0.2" />
+      <ambient r="1" g="0.3" b="0.3" a="1" />
+      <diffuse r="1" g="0.2" b="0.2" a="0.5" />
+      <specular r="1" g="0.2" b="0.2" a="1" />
+      <shininess value="100" />
+    </material>
+  </materials>
+
+  <transformations>
+
+    <transformation id="root">
+      <scale x="1" y="1" z="1" />
+    </transformation>
+
+  </transformations>
+
+  <animations>
+     <animation id="patchanim" span="3" rot="480" type="linear">
+       <controlpoint xx="0" yy="0" zz="0" />
+       <controlpoint xx="5" yy="0" zz="0" />
+     </animation>
+
+   </animations>
+
+    <primitives>
+
+      <primitive id="patch1">
+        <patch orderU="2" orderV="3" partsU="10" partsV="15">
+          <controlpoint x="4" y="0" z="0" />
+          <controlpoint x="3" y="0" z="1.5" />
+          <controlpoint x="2" y="0" z="-1.5" />
+          <controlpoint x="1" y="0" z="0" />
+          <controlpoint x="4" y="1" z="1.5" />
+          <controlpoint x="3" y="1" z="2" />
+          <controlpoint x="2" y="1" z="-1" />
+          <controlpoint x="1" y="1" z="0.5" />
+          <controlpoint x="4" y="2" z="0" />
+          <controlpoint x="3" y="2" z="1.5" />
+          <controlpoint x="2" y="2" z="-1.5" />
+          <controlpoint x="1" y="2" z="0" />
+        </patch>
+      </primitive>
+
+      <primitive id="patch2">
+        <patch orderU="2" orderV="3" partsU="10" partsV="10">
+          <controlpoint x="-1.5" y="-1.5" z="0.5" />
+          <controlpoint x="-2.0" y="-2.0" z="0.5" />
+          <controlpoint x="-2.0" y="-2.0" z="0.5" />
+          <controlpoint x="-1.5" y="1.5" z="0.5" />
+          <controlpoint x="0" y="0" z="3.0" />
+          <controlpoint x="0" y="-2" z="3.0" />
+          <controlpoint x="0" y="-2" z="3.0" />
+          <controlpoint x="0" y="0" z="3.0" />
+          <controlpoint x="1.5" y="-1.5" z="0.5" />
+          <controlpoint x="2.0" y="-2" z="0.5" />
+          <controlpoint x="2" y="2" z="0.5" />
+          <controlpoint x="1.5" y="1.5" z="0.5" />
+        </patch>
+      </primitive>
+
+      <primitive id="rect1">
+        <rectangle x1="0" y1="0" x2="1" y2="1" />
+      </primitive>
+
+
+    </primitives>
+
+    <components>
+
+      <component id="root">
+
+      <animation>
+        <animationref id="patchanim"/>
+      </animation>
+
+        <transformation>
+          <transformationref id="root" />
+        </transformation>
+
+        <materials>
+          <material id="none" />
+        </materials>
+
+        <texture id="none" />
+
+        <children>
+          <primitiveref id="rect1"/>
+        </children>
+      </component>
+
+    </components>
+
+  </dsx>
