@@ -3,6 +3,7 @@
 * @constructor
 */
 function MyPawn(scene) {
+  this.id= null;
   this.scene = scene;
   this.scene.pushMatrix();
 	CGFobject.call(this,scene);
@@ -20,6 +21,13 @@ function MyPawn(scene) {
 MyPawn.prototype = Object.create(CGFobject.prototype);
 MyPawn.prototype.constructor = MyPawn;
 
+MyPawn.prototype.setId = function(id){
+  this.id = id;
+}
+
+MyPawn.prototype.select = function(){
+  console.log("You selected a pawn with id=" + this.id);
+}
 
 MyPawn.prototype.display = function() {
 this.scene.pushMatrix();

@@ -35,7 +35,23 @@ XMLscene.prototype.init = function (application) {
   this.board = new MyBoard(this);
 
   this.axis=new CGFaxis(this);
+
+  this.objects = [];
+
+  this.loadObjects();
+
+  this.setPickEnabled(true);
 };
+
+XMLscene.prototype.loadObjects = function(){
+  for(var x=0; x<this.board.matrix.length;x++){
+    for(var y=0; y<this.board.matrix[x].length; y++){
+      this.objects.push(this.board.matrix[x][y]);
+      if(this.board.pieces[x][y] != "")
+        this.objects.push(this.board.pieces[x][y]);
+    }
+  }
+}
 
 XMLscene.prototype.initLights = function () {
 
@@ -224,12 +240,33 @@ XMLscene.prototype.updateMaterial = function(){
   console.log(this.materialIndex);
 }
 
+XMLscene.prototype.logPicking = function ()
+{
+	if (this.pickMode == false) {
+		if (this.pickResults != null && this.pickResults.length > 0) {
+			for (var i=0; i< this.pickResults.length; i++) {
+				var obj = this.pickResults[i][0];
+				if (obj)
+				{
+					var customId = this.pickResults[i][1];
+					obj.select();
+				}
+			}
+			this.pickResults.splice(0,this.pickResults.length);
+		}
+	}
+}
+
 XMLscene.prototype.display = function () {
   // ---- BEGIN Background, camera and axis setup
+
+  this.logPicking();
+  this.clearPickRegistration();
 
   // Clear image and depth buffer everytime we update the scene
   this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
   this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
+  this.gl.enable(this.gl.DEPTH_TEST);
 
   // Initialize Model-View matrix as identity (no transformation
   this.updateProjectionMatrix();

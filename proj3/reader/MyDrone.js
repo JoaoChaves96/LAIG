@@ -3,6 +3,7 @@
 * @constructor
 */
 function MyDrone(scene) {
+  this.id = null;
   this.scene = scene;
   this.scene.pushMatrix();
 	CGFobject.call(this,scene);
@@ -20,6 +21,13 @@ function MyDrone(scene) {
 MyDrone.prototype = Object.create(CGFobject.prototype);
 MyDrone.prototype.constructor = MyDrone;
 
+MyDrone.prototype.setId = function(id){
+  this.id = id;
+}
+
+MyDrone.prototype.select = function(){
+  console.log("You selected a drone with id=" + this.id);
+}
 
 MyDrone.prototype.display = function() {
 this.scene.pushMatrix();

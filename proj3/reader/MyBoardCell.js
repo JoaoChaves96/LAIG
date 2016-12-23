@@ -6,6 +6,7 @@
 function MyBoardCell(scene, x, y, object, prevColor) {
 	CGFobject.call(this, scene);
 
+	this.id = null;
   this.scene = scene;
   this.cell = object;
   this.x = x;
@@ -33,6 +34,14 @@ function MyBoardCell(scene, x, y, object, prevColor) {
 
 MyBoardCell.prototype = Object.create(CGFobject.prototype);
 MyBoardCell.prototype.constructor=MyBoardCell;
+
+MyBoardCell.prototype.setId = function(id){
+	this.id = id;
+}
+
+MyBoardCell.prototype.select = function(){
+	console.log("You selected a board cell with id= " + this.id + "in the position x=" + this.x + " y=" + this.y);
+}
 
 MyBoardCell.prototype.display = function(){
   this.scene.pushMatrix();

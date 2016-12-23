@@ -8,8 +8,6 @@ function MyBoard(scene) {
 
   this.finished = false;
 
-  this.initPrimitives();
-
   this.initBoardMatrix();
 
   this.initPiecesMatrix();
@@ -20,14 +18,6 @@ function MyBoard(scene) {
 
 MyBoard.prototype = Object.create(CGFobject.prototype);
 MyBoard.prototype.constructor=MyBoard;
-
-MyBoard.prototype.initPrimitives = function(){
-  this.cell = new Cube(this.scene, 2, 0.2, 2);
-
-  this.queen = new MyQueen(this.scene);
-  this.drone = new MyDrone(this.scene);
-  this.pawn = new MyPawn(this.scene);
-}
 
 MyBoard.prototype.initBoardMatrix = function(){
   this.matrix = [];
@@ -41,7 +31,7 @@ MyBoard.prototype.initBoardMatrix = function(){
       else {
         prevColor = "yellow";
       }
-      this.matrix[x].push(new MyBoardCell(this.scene, x, y, this.cell, prevColor));
+      this.matrix[x].push(new MyBoardCell(this.scene, x, y, new Cube(this.scene, 2, 0.2, 2), prevColor));
     }
   }
 }
@@ -53,15 +43,15 @@ MyBoard.prototype.initPiecesMatrix = function(){
     this.pieces.push([]);
     for(var y=0; y<4; y++){
       if((x==0 && y==0) || (x==0 && y==1) || (x==1 && y==0) || (x==7 && y==3) || (x==7 && y==2) || (x==6 && y==3)){
-        this.pieces[x].push(this.queen);
+        this.pieces[x].push(new MyQueen(this.scene));
       }
 
       else if((x==0 && y==2) || (x==1 && y==1) || (x==2 && y==0) || (x==7 && y==1) || (x==6 && y==2) || (x==5 && y==3)){
-        this.pieces[x].push(this.drone);
+        this.pieces[x].push(new MyDrone(this.scene));
       }
 
       else if((x==1 && y==2) || (x==2 && y==2) || (x==2 && y==1) || (x==6 && y==1) || (x==5 && y==1) || (x==5 && y==2)){
-        this.pieces[x].push(this.pawn);
+        this.pieces[x].push(new MyPawn(this.scene));
       }
 
       else
@@ -73,21 +63,39 @@ MyBoard.prototype.initPiecesMatrix = function(){
 MyBoard.prototype.display = function(){
   this.scene.pushMatrix();
   this.scene.translate(0, 0, 15);
+	var i = 0;
   for(var x=0; x<this.matrix.length; x++){
     for (var y=0; y<4; y++){
-      console.log("x= " + x);
-      console.log("y= " + y);
-      console.log(this.matrix);
       this.scene.pushMatrix();
+			this.scene.registerForPick(i, this.matrix[x][y]);
+			i++;
+			this.matrix[x][y].setId(i-1);
       this.matrix[x][y].display();
       this.scene.popMatrix();
-      if(this.pieces[x][y] != ""){
+    /*  if(this.pieces[x][y] != ""){
         this.scene.pushMatrix();
         //this.scene.translate(2.5*x, 0, 2.5*y);
+				this.scene.registerForPick(i, this.pieces[x][y]);
+				i++;
+				this.pieces[x][y].setId(i-1);
         this.scene.multMatrix(this.matrix[x][y].transfMat);
         this.pieces[x][y].display();
         this.scene.popMatrix();
-      }
+      }*/
     }
   }
+	for(var x=0; x<this.matrix.length; x++){
+    for (var y=0; y<4; y++){
+			if(this.pieces[x][y] != ""){
+        this.scene.pushMatrix();
+        //this.scene.translate(2.5*x, 0, 2.5*y);
+				this.scene.registerForPick(i, this.pieces[x][y]);
+				i++;
+				this.pieces[x][y].setId(i-1);
+        this.scene.multMatrix(this.matrix[x][y].transfMat);
+        this.pieces[x][y].display();
+        this.scene.popMatrix();
+		}
+	}
+}
 }
