@@ -72,30 +72,15 @@ MyBoard.prototype.display = function(){
 			this.matrix[x][y].setId(i-1);
       this.matrix[x][y].display();
       this.scene.popMatrix();
-    /*  if(this.pieces[x][y] != ""){
+      if(this.pieces[x][y] != ""){
         this.scene.pushMatrix();
-        //this.scene.translate(2.5*x, 0, 2.5*y);
 				this.scene.registerForPick(i, this.pieces[x][y]);
 				i++;
 				this.pieces[x][y].setId(i-1);
         this.scene.multMatrix(this.matrix[x][y].transfMat);
         this.pieces[x][y].display();
         this.scene.popMatrix();
-      }*/
+      }
     }
   }
-	for(var x=0; x<this.matrix.length; x++){
-    for (var y=0; y<4; y++){
-			if(this.pieces[x][y] != ""){
-        this.scene.pushMatrix();
-        //this.scene.translate(2.5*x, 0, 2.5*y);
-				this.scene.registerForPick(i, this.pieces[x][y]);
-				i++;
-				this.pieces[x][y].setId(i-1);
-        this.scene.multMatrix(this.matrix[x][y].transfMat);
-        this.pieces[x][y].display();
-        this.scene.popMatrix();
-		}
-	}
-}
 }
