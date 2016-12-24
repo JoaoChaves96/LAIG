@@ -30,6 +30,8 @@ function MyBoardCell(scene, x, y, object, prevColor) {
 	this.originalTransfMat = mat4.create();
 	mat4.identity(this.originalTransfMat);
 	mat4.copy(this.originalTransfMat, this.transfMat);
+
+	this.type = "empty";
 };
 
 MyBoardCell.prototype = Object.create(CGFobject.prototype);

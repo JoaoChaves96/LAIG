@@ -16,6 +16,7 @@ function MyDrone(scene) {
   this.materialA.setShininess(10);*/
 
   this.primitiveType = scene.gl.TRIANGLES;
+  this.type = "drone";
 };
 
 MyDrone.prototype = Object.create(CGFobject.prototype);

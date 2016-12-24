@@ -24,29 +24,35 @@ MyInterface.prototype.init = function(application) {
 
 	this.gui = new dat.GUI();
 
-	// add a button:
-	// the first parameter is the object that is being controlled (in this case the scene)
-	// the identifier 'doSomething' must be a function declared as part of that object (i.e. a member of the scene class)
-	// e.g. LightingScene.prototype.doSomething = function () { console.log("Doing something..."); };
+	this.playing = 'Player 1';
+	this.difficulty = 'Dumb';
+	this.difficulties = [ 'Dumb', 'Smart'];
 
-	// add a group of controls (and open/expand by defult)
+	this.gui.autoListen = false;
+
+	this.defaultControls = [];
+
+	this.defaultControls[0] = this.gui.add(this,'startGame').name('Start Game');
+	this.defaultControls[1] = this.gui.add(this, 'playing').name('Playing').listen();
+	this.optionsFolder = this.gui.addFolder('Options');
+	this.optionsFolder.open();
+
+	this.defaultControls[2] = this.optionsFolder.add(this, 'difficulty', this.difficulties).name('Difficulty').listen();
+	this.defaultControls[2].onChange(function(){});
 
 	this.omnilights = this.gui.addFolder("Omnilights");
 	this.omnilights.open();
-	
+
 	this.spotlights = this.gui.addFolder("Spotlights");
 	this.spotlights.open();
 
-	// add two check boxes to the group. The identifiers must be members variables of the scene initialized in scene.init as boolean
-	// e.g. this.option1=true; this.option2=false;
-
-	// add a slider
-	// must be a numeric variable of the scene, initialized in scene.init e.g.
-	// this.speed=3;
-	// min and max values can be specified as parameters
 
 	return true;
 };
+
+MyInterface.prototype.startGame = function(){
+	this.scene.board.makeRequest('init');
+}
 
 /*
 * Adds a new light to the interface

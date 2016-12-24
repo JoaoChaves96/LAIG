@@ -16,6 +16,8 @@ function MyQueen(scene) {
   this.materialA.setShininess(10);*/
 
   this.primitiveType = scene.gl.TRIANGLES;
+
+  this.type = "queen";
 };
 
 MyQueen.prototype = Object.create(CGFobject.prototype);
