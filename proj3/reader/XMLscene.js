@@ -41,6 +41,9 @@ XMLscene.prototype.init = function (application) {
   this.loadObjects();
 
   this.setPickEnabled(true);
+
+  this.objectPicked = null;
+  this.destination = null;
 };
 
 XMLscene.prototype.loadObjects = function(){
@@ -249,8 +252,22 @@ XMLscene.prototype.logPicking = function ()
 				if (obj)
 				{
 					var customId = this.pickResults[i][1];
-					obj.select();
+          if(this.objectPicked != null){
+            this.destination = obj;
+            if(this.board.playing == 'player1')
+              this.points = this.board.p1Points;
+            else
+              this.points = this.board.p2Points;
+            this.board.makeRequest('make_play(' + this.board.boardToList() + ',' + this.objectPicked.y + ',' +
+            this.objectPicked.x + ',' + obj.y + ',' + obj.x + ',Nb,' + this.board.playing + ',' + this.points + ',Np)');
+            //this.objectPicked = null;
+          }
+          else{
+          if(obj.type != "empty");
+            this.objectPicked = obj;
 				}
+        obj.select();
+      }
 			}
 			this.pickResults.splice(0,this.pickResults.length);
 		}

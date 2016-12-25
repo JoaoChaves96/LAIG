@@ -24,16 +24,21 @@ MyInterface.prototype.init = function(application) {
 
 	this.gui = new dat.GUI();
 
-	this.playing = 'Player 1';
+	this.playing = 'player1';
 	this.difficulty = 'Dumb';
 	this.difficulties = [ 'Dumb', 'Smart'];
 
 	this.gui.autoListen = false;
 
+	var self = this;
+
 	this.defaultControls = [];
 
 	this.defaultControls[0] = this.gui.add(this,'startGame').name('Start Game');
 	this.defaultControls[1] = this.gui.add(this, 'playing').name('Playing').listen();
+	/*this.defaultControls[1].onChange(function() {
+		self.playing = self.scene.board.playing;
+	});*/
 	this.optionsFolder = this.gui.addFolder('Options');
 	this.optionsFolder.open();
 

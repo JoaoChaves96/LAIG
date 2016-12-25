@@ -115,13 +115,31 @@ parse_input(init, Board):- initialize_board(Board, Columns, Rows).
 
 parse_input(checkend(Board, Rows, Points1, Points2), Msg):-
 	calc_divisions_points(Board, Rows, Points1, Points2),
-	verify_end_game(Board, Rows,_, _),
-	Msg = 'endgame'.
+	(verify_end_game(Points1, Points2,_,_) ->	Msg = 'endgame'; Msg = 'play').
 
-parse_input(checkend(Board, Rows, Points1, Points2), Msg):-
-	calc_divisions_points(Board, Rows, Points1, Points2),
-	Points1 > 0,
-	Points2 > 0,
-	Msg = 'play'.
+parse_input(make_play(Board, Xi, Yi, Xf, Yf, Nb, Player, Points, Np), Msg):-
+	player_nr(Player, Nr),
+	Nr = 0,
+	Yi > 3,
+	Msg = 'invalid'.
+
+parse_input(make_play(Board, Xi, Yi, Xf, Yf, Nb, Player, Points, Np), Msg):-
+	player_nr(Player, Nr),
+	Nr = 1,
+	Yi < 4,
+	Msg = 'invalid'.
+
+
+parse_input(make_play(Board, Xi, Yi, Xf, Yf, Nb, Player, Points, Np), Msg):-
+	player_nr(Player, Nr),
+	Nr = 0,
+	Yi < 4,
+	(move(Board, Xi, Yi, Xf, Yf, Nb, Player, Points, Np) -> Msg = Np; Msg = 'invalid').
+
+parse_input(make_play(Board, Xi, Yi, Xf, Yf, Nb, Player, Points, Np), Msg):-
+	player_nr(Player, Nr),
+	Nr = 1,
+	Yi > 3,
+	(move(Board, Xi, Yi, Xf, Yf, Nb, Player, Points, Np) -> Msg = Np; Msg = 'invalid').
 
 parse_input(quit, goodbye).

@@ -2,7 +2,7 @@
 * Queen
 * @constructor
 */
-function MyQueen(scene) {
+function MyQueen(scene, x, y) {
   this.id = null;
   this.scene = scene;
   this.scene.pushMatrix();
@@ -18,6 +18,9 @@ function MyQueen(scene) {
   this.primitiveType = scene.gl.TRIANGLES;
 
   this.type = "queen";
+
+  this.x = x;
+  this.y = y;
 };
 
 MyQueen.prototype = Object.create(CGFobject.prototype);

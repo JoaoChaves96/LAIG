@@ -2,7 +2,7 @@
 * Drone
 * @constructor
 */
-function MyDrone(scene) {
+function MyDrone(scene, x, y) {
   this.id = null;
   this.scene = scene;
   this.scene.pushMatrix();
@@ -17,6 +17,9 @@ function MyDrone(scene) {
 
   this.primitiveType = scene.gl.TRIANGLES;
   this.type = "drone";
+
+  this.x = x;
+  this.y = y;
 };
 
 MyDrone.prototype = Object.create(CGFobject.prototype);

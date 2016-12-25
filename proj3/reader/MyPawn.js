@@ -2,7 +2,7 @@
 * Pawn
 * @constructor
 */
-function MyPawn(scene) {
+function MyPawn(scene, x, y) {
   this.id= null;
   this.scene = scene;
   this.scene.pushMatrix();
@@ -18,6 +18,9 @@ function MyPawn(scene) {
   this.primitiveType = scene.gl.TRIANGLES;
 
   this.type = "pawn";
+
+  this.x = x;
+  this.y = y;
 };
 
 MyPawn.prototype = Object.create(CGFobject.prototype);
