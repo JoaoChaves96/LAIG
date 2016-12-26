@@ -260,7 +260,6 @@ XMLscene.prototype.logPicking = function ()
               this.points = this.board.p2Points;
             this.board.makeRequest('make_play(' + this.board.boardToList() + ',' + this.objectPicked.y + ',' +
             this.objectPicked.x + ',' + obj.y + ',' + obj.x + ',Nb,' + this.board.playing + ',' + this.points + ',Np)');
-            //this.objectPicked = null;
           }
           else{
           if(obj.type != "empty");
@@ -296,7 +295,7 @@ XMLscene.prototype.display = function () {
 
   // Draw axis
   this.axis.display();
-
+  
   this.board.display();
 
 if (this.graph.loadedOk)

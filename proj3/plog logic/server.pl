@@ -142,4 +142,12 @@ parse_input(make_play(Board, Xi, Yi, Xf, Yf, Nb, Player, Points, Np), Msg):-
 	Yi > 3,
 	(move(Board, Xi, Yi, Xf, Yf, Nb, Player, Points, Np) -> Msg = Np; Msg = 'invalid').
 
+parse_input(bot_play(Board, CPU, Points, Level), Msg):-
+	cpu_coordinates(Board,CPU,Xi,Yi,Xf,Yf,Level),
+	move(Board,Xi,Yi,Xf,Yf,NewBoard, CPU, Points, NewPoints),
+	append([Xi], [Yi], Initial),
+	append([Xf], [Yf], Final),
+	append(Initial, Final, Msg).
+
+
 parse_input(quit, goodbye).

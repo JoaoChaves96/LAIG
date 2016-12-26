@@ -91,28 +91,32 @@ MyBoard.prototype.display = function(){
   }
 }
 
-MyBoard.prototype.make_move = function(xi, yi, xf, yf){
-	console.log(xi + " " + yi + " " + xf + " " + yf);
+MyBoard.prototype.make_move = function(xi, yi, xf, yf, playing, points){
 	this.pieces[xf][yf] = this.pieces[xi][yi];
 	this.pieces[xi][yi] = "";
 
 	this.pieces[xf][yf].x = xf;
 	this.pieces[xf][yf].y = yf;
-	if(this.playing == this.p1)
-		this.playing = this.p2;
-	else
-		this.playing = this.p1;
 
-	this.scene.interface.playing = this.playing;
+	this.history.insertMove(xi, yi, xf, yf, playing, points);
+}
+
+MyBoard.prototype.get_bot_move = function(msg){
+	xi = parseFloat(msg.substring(1,2));
+	yi = parseFloat(msg.substring(3,4));
+	xf = parseFloat(msg.substring(5,6));
+	yf = parseFloat(msg.substring(7,8));
+
+	this.make_move(xi, yi, xf, yf);
 }
 
 MyBoard.prototype.showWinner = function(){
-	if(this.p1Points > this.p2Points){
-		this.winnerP = this.p1Points;
-		this.winner = this.p1;
+	if(this.history.p1Points > this.history.p2Points){
+		this.winnerP = this.history.p1Points;
+		this.winner = this.history.player1;
 	} else{
-		this.winner = this.p2;
-		this.winnerP = this.p2Points;
+		this.winner = this.history.player2;
+		this.winnerP = this.history.p2Points;
 	}
 	console.log("The winner is " + this.winner + " with " + this.winnerP + " points!!");
 }

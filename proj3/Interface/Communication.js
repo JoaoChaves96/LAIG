@@ -26,20 +26,23 @@ MyBoard.prototype.getPrologRequest = function(requestString, onSuccess, onError,
 
       var cmd = requestString.substring(0, 9);
 
+      var bot = requestString.substring(0, 3);
+
+      console.log(bot);
+
+      if(bot == 'bot'){
+        if(response != 'Bad Request'){
+          board.get_bot_move(response);
+          board.makeRequest('checkend(' + board.boardToList() + ',8,P1,P2)');
+        }
+      }
+
       if(cmd == 'make_play'){
         if(response == 'invalid'){
           console.log("Invalid play, pls try another move...");
         }
         else if(response != 'Bad Request'){
-          if(board.playing == "player1"){
-            board.p1Points = parseFloat(response);
-            console.log("a nova pontuacao do player 1 é " + board.p1Points);
-          }
-          else {
-            board.p2Points = parseFloat(response);
-            console.log("a nova pontuacao do player 2 é " + board.p2Points);
-          }
-          board.make_move(board.scene.objectPicked.x, board.scene.objectPicked.y, board.scene.destination.x, board.scene.destination.y);
+          board.make_move(board.scene.objectPicked.x, board.scene.objectPicked.y, board.scene.destination.x, board.scene.destination.y, board.history.playing, parseFloat(response));
           board.makeRequest('checkend(' + board.boardToList() + ',8,P1,P2)');
         }
 

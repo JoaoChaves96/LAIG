@@ -25,8 +25,12 @@ MyInterface.prototype.init = function(application) {
 	this.gui = new dat.GUI();
 
 	this.playing = 'player1';
+
 	this.difficulty = 'Dumb';
 	this.difficulties = [ 'Dumb', 'Smart'];
+
+	this.type = 'P vs P';
+	this.types = ['P vs P', 'P vs CPU', 'CPU vs CPU'];
 
 	this.gui.autoListen = false;
 
@@ -36,15 +40,11 @@ MyInterface.prototype.init = function(application) {
 
 	this.defaultControls[0] = this.gui.add(this,'startGame').name('Start Game');
 	this.defaultControls[1] = this.gui.add(this, 'playing').name('Playing').listen();
-	/*this.defaultControls[1].onChange(function() {
-		self.playing = self.scene.board.playing;
-	});*/
+	this.defaultControls[2] = this.gui.add(this, 'type', this.types).name('Type of game').listen();
 	this.optionsFolder = this.gui.addFolder('Options');
 	this.optionsFolder.open();
 
-	this.defaultControls[2] = this.optionsFolder.add(this, 'difficulty', this.difficulties).name('Difficulty').listen();
-	this.defaultControls[2].onChange(function(){});
-
+	this.defaultControls[3] = this.optionsFolder.add(this, 'difficulty', this.difficulties).name('Difficulty').listen();
 	this.omnilights = this.gui.addFolder("Omnilights");
 	this.omnilights.open();
 
@@ -56,6 +56,7 @@ MyInterface.prototype.init = function(application) {
 };
 
 MyInterface.prototype.startGame = function(){
+	this.scene.board.history = new MyHistory(this.scene);
 	this.scene.board.makeRequest('init');
 }
 
