@@ -28,13 +28,19 @@ MyBoard.prototype.getPrologRequest = function(requestString, onSuccess, onError,
 
       var bot = requestString.substring(0, 3);
 
-      console.log(bot);
-
       if(bot == 'bot'){
         if(response != 'Bad Request'){
           board.get_bot_move(response);
           board.makeRequest('checkend(' + board.boardToList() + ',8,P1,P2)');
+          if(board.history.type == 3){
+            if(board.history.playing == board.history.player1)
+              this.points = board.history.p1Points;
+            else
+              this.points = board.history.p2Points;
+
+            board.makeRequest('bot_play(' + board.boardToList() + ',' + board.history.playing + ',' + this.points + ',' + board.history.difficulty + ')');
         }
+      }
       }
 
       if(cmd == 'make_play'){
@@ -44,6 +50,15 @@ MyBoard.prototype.getPrologRequest = function(requestString, onSuccess, onError,
         else if(response != 'Bad Request'){
           board.make_move(board.scene.objectPicked.x, board.scene.objectPicked.y, board.scene.destination.x, board.scene.destination.y, board.history.playing, parseFloat(response));
           board.makeRequest('checkend(' + board.boardToList() + ',8,P1,P2)');
+
+          if(board.history.type == 2){
+            if(board.history.playing == board.history.player1)
+              this.points = board.history.p1Points;
+            else
+              this.points = board.history.p2Points;
+
+            board.makeRequest('bot_play(' + board.boardToList() + ',' + board.history.playing + ',0' + this.points + ',' + board.history.difficulty + ')');
+          }
         }
 
         board.scene.objectPicked = null;

@@ -147,7 +147,8 @@ parse_input(bot_play(Board, CPU, Points, Level), Msg):-
 	move(Board,Xi,Yi,Xf,Yf,NewBoard, CPU, Points, NewPoints),
 	append([Xi], [Yi], Initial),
 	append([Xf], [Yf], Final),
-	append(Initial, Final, Msg).
+	append(Final, [NewPoints], Final1),
+	append(Initial, Final1, Msg).
 
 
 parse_input(quit, goodbye).

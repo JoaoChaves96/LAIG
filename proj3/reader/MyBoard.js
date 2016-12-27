@@ -10,16 +10,11 @@ function MyBoard(scene) {
 
 	this.scene = scene;
 
+	this.history = null;
+
   this.initBoardMatrix();
 
   this.initPiecesMatrix();
-
-  this.p1 = "player1";
-	this.p1Points = 0;
-  this.p2 = "player2";
-	this.p2Points = 0;
-
-	this.playing = this.p1;
 };
 
 MyBoard.prototype = Object.create(CGFobject.prototype);
@@ -92,22 +87,22 @@ MyBoard.prototype.display = function(){
 }
 
 MyBoard.prototype.make_move = function(xi, yi, xf, yf, playing, points){
+	this.history.insertMove(new MyMove(this.scene, xi, yi, xf, yf, this.pieces[xi][yi], this.pieces[xf][yf], playing, points));
 	this.pieces[xf][yf] = this.pieces[xi][yi];
 	this.pieces[xi][yi] = "";
 
 	this.pieces[xf][yf].x = xf;
 	this.pieces[xf][yf].y = yf;
-
-	this.history.insertMove(xi, yi, xf, yf, playing, points);
 }
 
 MyBoard.prototype.get_bot_move = function(msg){
-	xi = parseFloat(msg.substring(1,2));
-	yi = parseFloat(msg.substring(3,4));
-	xf = parseFloat(msg.substring(5,6));
-	yf = parseFloat(msg.substring(7,8));
+	var yi = parseFloat(msg.substring(1,2));
+	var xi = parseFloat(msg.substring(3,4));
+	var yf = parseFloat(msg.substring(5,6));
+	var xf = parseFloat(msg.substring(7,8));
+	var np = parseFloat(msg.substring(9,10));
 
-	this.make_move(xi, yi, xf, yf);
+	this.make_move(xi, yi, xf, yf, this.history.playing, np);
 }
 
 MyBoard.prototype.showWinner = function(){
@@ -119,4 +114,47 @@ MyBoard.prototype.showWinner = function(){
 		this.winnerP = this.history.p2Points;
 	}
 	console.log("The winner is " + this.winner + " with " + this.winnerP + " points!!");
+	console.log(this.history.moves);
+}
+
+MyBoard.prototype.undo = function(){
+	if(this.history.type == 1){
+		var lastMove = this.history.moves[this.history.moves.length - 1];
+		this.history.moves.pop();
+
+		var xi = lastMove.xi;
+		var yi = lastMove.yi;
+		var xf = lastMove.xf;
+		var yf = lastMove.yf;
+
+		this.pieces[xf][yf] = lastMove.finalElement.type;
+		this.pieces[xi][yi] = lastMove.initialElement.type;
+
+		this.history.playing == lastMove.playing;
+		this.scene.interface.playing = lastMove.playing;
+		console.log(lastMove.playing);
+	}
+	else if(this.history.type == 2){
+		var penultimateMove = this.history.moves[this.history.moves.length - 1];
+		var lastMove = this.history.moves[this.history.moves.length - 1];
+
+		this.history.moves.pop();
+		this.history.moves.pop();
+
+		var xi = lastMove.xi;
+		var yi = lastMove.yi;
+		var xf = lastMove.xf;
+		var yf = lastMove.yf;
+
+		this.pieces[xf][yf] = lastMove.finalElement.type;
+		this.pieces[xi][yi] = lastMove.initialElement.type;
+
+		var xi1 = penultimateMove.xi;
+		var yi1 = penultimateMove.yi;
+		var xf1 = penultimateMove.xf;
+		var yf1 = penultimateMove.yf;
+
+		this.pieces[xf1][yf1] = penultimateMove.finalElement.type;
+		this.pieces[xi1][yi1] = penultimateMove.initialElement.type;
+	}
 }

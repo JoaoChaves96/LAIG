@@ -23,11 +23,11 @@ function MyHistory(scene){
     this.difficulty = 1;
   else
     this.difficulty = 2;
-    
+
   this.moves = [];
 }
 
-MyHistory.prototype.insertMove = fucntion(move){
+MyHistory.prototype.insertMove = function(move){
   this.moves.push(move);
   if(this.playing == this.player1){
     this.playing = this.player2;

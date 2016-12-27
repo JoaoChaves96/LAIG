@@ -45,6 +45,7 @@ MyInterface.prototype.init = function(application) {
 	this.optionsFolder.open();
 
 	this.defaultControls[3] = this.optionsFolder.add(this, 'difficulty', this.difficulties).name('Difficulty').listen();
+	this.defaultControls[4] = this.optionsFolder.add(this,'undo').name('Undo');
 	this.omnilights = this.gui.addFolder("Omnilights");
 	this.omnilights.open();
 
@@ -55,9 +56,21 @@ MyInterface.prototype.init = function(application) {
 	return true;
 };
 
+MyInterface.prototype.undo = function(){
+	this.scene.board.undo();
+}
+
 MyInterface.prototype.startGame = function(){
 	this.scene.board.history = new MyHistory(this.scene);
 	this.scene.board.makeRequest('init');
+	if(this.scene.board.history.type == 3){
+			if(this.scene.board.history.playing == this.scene.board.history.player1)
+				this.points = this.scene.board.history.p1Points;
+			else
+				this.points = this.scene.board.history.p2Points;
+
+			this.scene.board.makeRequest('bot_play(' + this.scene.board.boardToList() + ',' + this.scene.board.history.playing + ',' + this.points + ',' + this.scene.board.history.difficulty + ')');
+	}
 }
 
 /*

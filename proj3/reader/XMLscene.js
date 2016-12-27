@@ -254,12 +254,12 @@ XMLscene.prototype.logPicking = function ()
 					var customId = this.pickResults[i][1];
           if(this.objectPicked != null){
             this.destination = obj;
-            if(this.board.playing == 'player1')
-              this.points = this.board.p1Points;
+            if(this.board.history.playing == this.board.history.player1)
+              this.points = this.board.history.p1Points;
             else
-              this.points = this.board.p2Points;
+              this.points = this.board.history.p2Points;
             this.board.makeRequest('make_play(' + this.board.boardToList() + ',' + this.objectPicked.y + ',' +
-            this.objectPicked.x + ',' + obj.y + ',' + obj.x + ',Nb,' + this.board.playing + ',' + this.points + ',Np)');
+            this.objectPicked.x + ',' + obj.y + ',' + obj.x + ',Nb,' + this.board.history.playing + ',' + this.points + ',Np)');
           }
           else{
           if(obj.type != "empty");
@@ -295,7 +295,7 @@ XMLscene.prototype.display = function () {
 
   // Draw axis
   this.axis.display();
-  
+
   this.board.display();
 
 if (this.graph.loadedOk)
