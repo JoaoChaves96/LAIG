@@ -87,12 +87,19 @@ MyBoard.prototype.display = function(){
 }
 
 MyBoard.prototype.make_move = function(xi, yi, xf, yf, playing, points){
+	console.log("tou aqui");
+	var newAnim = new MyAnimatedPiece(1, this.pieces[xi][yi], this.pieces[xi][yi].x, this.pieces[xi][yi].y, this.pieces[xf][yf].x, this.pieces[xf][yf].y);
+
+	// FALTA
+
 	this.history.insertMove(new MyMove(this.scene, xi, yi, xf, yf, this.pieces[xi][yi], this.pieces[xf][yf], playing, points));
 	this.pieces[xf][yf] = this.pieces[xi][yi];
 	this.pieces[xi][yi] = "";
 
 	this.pieces[xf][yf].x = xf;
 	this.pieces[xf][yf].y = yf;
+
+
 }
 
 MyBoard.prototype.get_bot_move = function(msg){
