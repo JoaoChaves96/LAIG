@@ -93,6 +93,7 @@ MyBoard.prototype.make_move = function(xi, yi, xf, yf, playing, points){
 	// FALTA
 
 	this.history.insertMove(new MyMove(this.scene, xi, yi, xf, yf, this.pieces[xi][yi], this.pieces[xf][yf], playing, points));
+	console.log("move inserted, change player");
 	this.pieces[xf][yf] = this.pieces[xi][yi];
 	this.pieces[xi][yi] = "";
 
@@ -121,25 +122,44 @@ MyBoard.prototype.showWinner = function(){
 		this.winnerP = this.history.p2Points;
 	}
 	console.log("The winner is " + this.winner + " with " + this.winnerP + " points!!");
-	console.log(this.history.moves);
 }
 
 MyBoard.prototype.undo = function(){
 	if(this.history.type == 1){
 		var lastMove = this.history.moves[this.history.moves.length - 1];
-		this.history.moves.pop();
+		//this.history.moves.pop();
 
 		var xi = lastMove.xi;
 		var yi = lastMove.yi;
 		var xf = lastMove.xf;
 		var yf = lastMove.yf;
 
-		this.pieces[xf][yf] = lastMove.finalElement.type;
-		this.pieces[xi][yi] = lastMove.initialElement.type;
+		console.log(xi);
+		console.log(yi);
+		console.log(xf);
+		console.log(yf);
 
-		this.history.playing == lastMove.playing;
+		console.log(lastMove.initialElement);
+
+		if(lastMove.initialElement != ""){
+			lastMove.initialElement.x = xi;
+			lastMove.initialElement.y = yi;
+		}
+
+		if(lastMove.finalElement != ""){
+			lastMove.finalElement.x = xf;
+			lastMove.finalElement.y = yf;
+		}
+
+		this.pieces[xf][yf] = lastMove.finalElement;
+		this.pieces[xi][yi] = lastMove.initialElement;
+
+		this.history.playing = lastMove.playing;
 		this.scene.interface.playing = lastMove.playing;
-		console.log(lastMove.playing);
+
+		if(this.history.playing == this.history.player1){
+			this.history.p1Points = lastMove.points;
+		}
 	}
 	else if(this.history.type == 2){
 		var penultimateMove = this.history.moves[this.history.moves.length - 1];
@@ -153,15 +173,35 @@ MyBoard.prototype.undo = function(){
 		var xf = lastMove.xf;
 		var yf = lastMove.yf;
 
-		this.pieces[xf][yf] = lastMove.finalElement.type;
-		this.pieces[xi][yi] = lastMove.initialElement.type;
+		if(lastMove.initialElement != ""){
+			lastMove.initialElement.x = xi;
+			lastMove.initialElement.y = yi;
+		}
+
+		if(lastMove.finalElement != ""){
+			lastMove.finalElement.x = xf;
+			lastMove.finalElement.y = yf;
+		}
+
+		this.pieces[xf][yf] = lastMove.finalElement;
+		this.pieces[xi][yi] = lastMove.initialElement;
 
 		var xi1 = penultimateMove.xi;
 		var yi1 = penultimateMove.yi;
 		var xf1 = penultimateMove.xf;
 		var yf1 = penultimateMove.yf;
 
-		this.pieces[xf1][yf1] = penultimateMove.finalElement.type;
-		this.pieces[xi1][yi1] = penultimateMove.initialElement.type;
+		if(penultimateMove.initialElement != ""){
+			penultimateMove.initialElement.x = xi1;
+			penultimateMove.initialElement.y = yi1;
+		}
+
+		if(penultimateMove.finalElement != ""){
+			penultimateMove.finalElement.x = xf1;
+			penultimateMove.finalElement.y = yf1;
+		}
+
+		this.pieces[xf1][yf1] = penultimateMove.finalElement;
+		this.pieces[xi1][yi1] = penultimateMove.initialElement;
 	}
 }

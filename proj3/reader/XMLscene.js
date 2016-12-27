@@ -298,6 +298,8 @@ XMLscene.prototype.display = function () {
 
   this.board.display();
 
+  console.log(this.board.history.playing);
+
 if (this.graph.loadedOk)
 {
 
