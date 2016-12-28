@@ -38,6 +38,8 @@ MyAnimatedPiece.prototype.update = function(currentTime){
   var movementRatio = 1 - timePassed/this.timeSpan;
 
   mat4.translate(this.matrix, this.matrix, [this.deltaX*movementRatio, 0, this.deltaZ*movementRatio]);
+  console.log(this.deltaX*movementRatio);
+  console.log(this.deltaZ*movementRatio);
 };
 
 MyAnimatedPiece.prototype.apply = function(){
