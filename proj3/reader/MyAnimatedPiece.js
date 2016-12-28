@@ -37,7 +37,7 @@ MyAnimatedPiece.prototype.update = function(currentTime){
   }
   var movementRatio = 1 - timePassed/this.timeSpan;
 
-  mat4.translate(this.matrix, this.matrix, [this.deltaX*movementRatio, 0, this.deltaZ*movementRatio]);
+  mat4.translate(this.matrix, this.matrix, [2*this.deltaX*movementRatio, 0, 2*this.deltaZ*movementRatio]);
 };
 
 MyAnimatedPiece.prototype.apply = function(){

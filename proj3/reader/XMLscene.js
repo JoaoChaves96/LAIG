@@ -42,7 +42,7 @@ XMLscene.prototype.init = function (application) {
 
   this.loadObjects();
 
-  this.setPickEnabled(true);
+  this.setPickEnabled(false);
 
   this.objectPicked = null;
   this.destination = null;

@@ -37,5 +37,7 @@ MyHistory.prototype.insertMove = function(move){
     this.p2Points = move.points;
   }
 
+  this.scene.interface.p1Points = this.p1Points;
+  this.scene.interface.p2Points = this.p2Points;
   this.scene.interface.playing = this.playing;
 }

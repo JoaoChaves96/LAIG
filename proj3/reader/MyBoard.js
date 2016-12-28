@@ -136,8 +136,12 @@ MyBoard.prototype.showWinner = function(){
 
 MyBoard.prototype.undo = function(){
 	if(this.history.type == 1){
+
+		if(this.history.moves.length < 1)
+			return;
+
 		var lastMove = this.history.moves[this.history.moves.length - 1];
-		//this.history.moves.pop();
+		this.history.moves.pop();
 
 		var xi = lastMove.xi;
 		var yi = lastMove.yi;
@@ -172,6 +176,9 @@ MyBoard.prototype.undo = function(){
 		}
 	}
 	else if(this.history.type == 2){
+
+		if(this.history.moves.length < 2)
+			return;
 		var penultimateMove = this.history.moves[this.history.moves.length - 1];
 		var lastMove = this.history.moves[this.history.moves.length - 1];
 
