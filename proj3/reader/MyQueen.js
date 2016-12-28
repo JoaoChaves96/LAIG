@@ -21,6 +21,19 @@ function MyQueen(scene, x, y) {
 
   this.x = x;
   this.y = y;
+
+  this.transfMat = mat4.create();
+  mat4.identity(this.transfMat);
+  var posx = 5 + 2 * this.x;
+  var posy =  -(5 + 2 * this.y);
+
+  mat4.translate(this.transfMat, this.transfMat, [posx, 0, posy]);
+
+	this.originalTransfMat = mat4.create();
+	mat4.identity(this.originalTransfMat);
+	mat4.copy(this.originalTransfMat, this.transfMat);
+
+  this.animation = null;
 };
 
 MyQueen.prototype = Object.create(CGFobject.prototype);
@@ -35,7 +48,7 @@ MyQueen.prototype.select = function(){
 }
 
 MyQueen.prototype.display = function() {
-this.scene.pushMatrix();
+this.scene.pushMatrix();this.scene.multMatrix(this.transfMat);
 this.scene.rotate(-Math.PI/2, 1, 0, 0);
 this.materialA.apply();
 this.pyramid.display();

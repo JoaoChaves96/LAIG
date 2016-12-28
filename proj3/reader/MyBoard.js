@@ -78,7 +78,7 @@ MyBoard.prototype.display = function(){
 				this.scene.registerForPick(i, this.pieces[x][y]);
 				i++;
 				this.pieces[x][y].setId(i-1);
-        this.scene.multMatrix(this.matrix[x][y].transfMat);
+      //  this.scene.multMatrix(this.matrix[x][y].transfMat);
         this.pieces[x][y].display();
         this.scene.popMatrix();
       }
