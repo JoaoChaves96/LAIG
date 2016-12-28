@@ -5,7 +5,7 @@
  function MyAnimatedPiece(timeSpan, piece, xi, yi, xf, yf) {
    MyAnimation.apply(this, arguments);
    this.deltaX = xi-xf;
-   this.deltaZ = yi-yf;
+   this.deltaZ = -(yi-yf);
 
    this.piece = piece;
 
