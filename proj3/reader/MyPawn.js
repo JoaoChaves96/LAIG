@@ -62,11 +62,10 @@ MyPawn.prototype.updateMatrix = function(){
 
 MyPawn.prototype.display = function() {
 this.scene.pushMatrix();
+this.updateMatrix();
+this.scene.multMatrix(this.transfMat);
 if(this.animation != null && this.moving){
   this.animation.apply();
-}else{
-  this.updateMatrix();
-  this.scene.multMatrix(this.transfMat);
 }
 this.scene.rotate(-Math.PI/2, 1, 0, 0);
 this.materialA.apply();
