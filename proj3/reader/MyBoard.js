@@ -86,31 +86,33 @@ MyBoard.prototype.display = function(){
 }
 
 MyBoard.prototype.update = function(currTime){
+	var running = 0;
 	for(var x=0; x<this.matrix.length; x++){
 		for (var y=0; y<4; y++){
 			if(this.pieces[x][y] != "")
 				if(this.pieces[x][y].animation != null){
+					running = 1;
 					this.pieces[x][y].animation.update(currTime);
 				}
 		}
 	}
+	if(running == 0)
+		this.running = false;
+	else
+		this.running = true;
 }
 
 MyBoard.prototype.make_move = function(xi, yi, xf, yf, playing, points){
-	console.log("tou aqui");
-	this.pieces[xi][yi].animation = new MyAnimatedPiece(2, this.pieces[xi][yi], xi, yi, xf, yf);
+	this.pieces[xi][yi].animation = new MyAnimatedPiece(1, this.pieces[xi][yi], xi, yi, xf, yf);
 	this.pieces[xi][yi].moving = true;
-	// FALTA
 
 	this.history.insertMove(new MyMove(this.scene, xi, yi, xf, yf, this.pieces[xi][yi], this.pieces[xf][yf], playing, points));
-	console.log("move inserted, change player");
+
 	this.pieces[xf][yf] = this.pieces[xi][yi];
 	this.pieces[xi][yi] = "";
 
 	this.pieces[xf][yf].x = xf;
 	this.pieces[xf][yf].y = yf;
-
-	console.log(this.pieces);
 }
 
 MyBoard.prototype.get_bot_move = function(msg){
@@ -118,7 +120,11 @@ MyBoard.prototype.get_bot_move = function(msg){
 	var xi = parseFloat(msg.substring(3,4));
 	var yf = parseFloat(msg.substring(5,6));
 	var xf = parseFloat(msg.substring(7,8));
+	if(msg.length == 11)
 	var np = parseFloat(msg.substring(9,10));
+	else {
+		var np = parseFloat(msg.substring(9,11));
+	}
 
 	this.make_move(xi, yi, xf, yf, this.history.playing, np);
 }

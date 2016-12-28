@@ -33,12 +33,14 @@ MyBoard.prototype.getPrologRequest = function(requestString, onSuccess, onError,
           board.get_bot_move(response);
           board.makeRequest('checkend(' + board.boardToList() + ',8,P1,P2)');
           if(board.history.type == 3){
-            if(board.history.playing == board.history.player1)
-              this.points = board.history.p1Points;
-            else
-              this.points = board.history.p2Points;
-
-            board.makeRequest('bot_play(' + board.boardToList() + ',' + board.history.playing + ',' + this.points + ',' + board.history.difficulty + ')');
+              setTimeout(function(){
+                var points;
+                if(board.history.playing == board.history.player1)
+                  points = board.history.p1Points;
+                else
+                  points = board.history.p2Points;
+                board.makeRequest('bot_play(' + board.boardToList() + ',' + board.history.playing + ',' + points + ',' + board.history.difficulty + ')');
+              }, 1500);
         }
       }
       }
@@ -52,12 +54,14 @@ MyBoard.prototype.getPrologRequest = function(requestString, onSuccess, onError,
           board.makeRequest('checkend(' + board.boardToList() + ',8,P1,P2)');
 
           if(board.history.type == 2){
-            if(board.history.playing == board.history.player1)
-              this.points = board.history.p1Points;
-            else
-              this.points = board.history.p2Points;
-
-            board.makeRequest('bot_play(' + board.boardToList() + ',' + board.history.playing + ',0' + this.points + ',' + board.history.difficulty + ')');
+            setTimeout(function(){
+              var points;
+              if(board.history.playing == board.history.player1)
+                points = board.history.p1Points;
+              else
+                points = board.history.p2Points;
+              board.makeRequest('bot_play(' + board.boardToList() + ',' + board.history.playing + ',' + points + ',' + board.history.difficulty + ')');
+            }, 1500);
           }
         }
 
