@@ -47,9 +47,27 @@ MyPawn.prototype.select = function(){
   console.log("You selected a pawn with id=" + this.id);
 }
 
+MyPawn.prototype.updateMatrix = function(){
+  this.transfMat = mat4.create();
+  mat4.identity(this.transfMat);
+  var posx = 5 + 2 * this.x;
+  var posy =  -(5 + 2 * this.y);
+
+  mat4.translate(this.transfMat, this.transfMat, [posx, 0, posy]);
+
+	this.originalTransfMat = mat4.create();
+	mat4.identity(this.originalTransfMat);
+	mat4.copy(this.originalTransfMat, this.transfMat);
+}
+
 MyPawn.prototype.display = function() {
 this.scene.pushMatrix();
-this.scene.multMatrix(this.transfMat);
+if(this.animation != null && this.moving){
+  this.animation.apply();
+}else{
+  this.updateMatrix();
+  this.scene.multMatrix(this.transfMat);
+}
 this.scene.rotate(-Math.PI/2, 1, 0, 0);
 this.materialA.apply();
 this.pyramid.display();

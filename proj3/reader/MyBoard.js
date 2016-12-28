@@ -78,7 +78,6 @@ MyBoard.prototype.display = function(){
 				this.scene.registerForPick(i, this.pieces[x][y]);
 				i++;
 				this.pieces[x][y].setId(i-1);
-      //  this.scene.multMatrix(this.matrix[x][y].transfMat);
         this.pieces[x][y].display();
         this.scene.popMatrix();
       }
@@ -86,10 +85,21 @@ MyBoard.prototype.display = function(){
   }
 }
 
+MyBoard.prototype.update = function(currTime){
+	for(var x=0; x<this.matrix.length; x++){
+		for (var y=0; y<4; y++){
+			if(this.pieces[x][y] != "")
+				if(this.pieces[x][y].animation != null){
+					this.pieces[x][y].animation.update(currTime);
+				}
+		}
+	}
+}
+
 MyBoard.prototype.make_move = function(xi, yi, xf, yf, playing, points){
 	console.log("tou aqui");
-	var newAnim = new MyAnimatedPiece(1, this.pieces[xi][yi], this.pieces[xi][yi].x, this.pieces[xi][yi].y, this.pieces[xf][yf].x, this.pieces[xf][yf].y);
-
+	this.pieces[xi][yi].animation = new MyAnimatedPiece(2, this.pieces[xi][yi], xi, yi, xf, yf);
+	this.pieces[xi][yi].moving = true;
 	// FALTA
 
 	this.history.insertMove(new MyMove(this.scene, xi, yi, xf, yf, this.pieces[xi][yi], this.pieces[xf][yf], playing, points));
@@ -100,7 +110,7 @@ MyBoard.prototype.make_move = function(xi, yi, xf, yf, playing, points){
 	this.pieces[xf][yf].x = xf;
 	this.pieces[xf][yf].y = yf;
 
-
+	console.log(this.pieces);
 }
 
 MyBoard.prototype.get_bot_move = function(msg){

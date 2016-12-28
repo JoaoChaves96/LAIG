@@ -65,6 +65,10 @@ MyLinearAnimation.prototype.apply = function(currTime, node){
 
   this.angle = rotAngle;
 
-  this.scene.translate(distPoint1 * displacement + p1[0], distPoint2 * displacement + p1[1], distPoint3 * displacement + p1[2]);
-  this.scene.rotate(this.angle, 0, 1, 0);
+  var matrix = mat4.create();
+
+  mat4.translate(matrix, matrix, [distPoint1 * displacement + p1[0], distPoint2 * displacement + p1[1], distPoint3 * displacement + p1[2]]);
+  mat4.rotate(matrix, matrix, this.angle,[0, 1, 0]);
+
+  this.transfMat = matrix;
 };

@@ -13,6 +13,8 @@ XMLscene.prototype.init = function (application) {
   this.initCameras();
   this.setUpdatePeriod(100/6);
 
+  this.time = -1;
+
   this.startTime = 0;
 
   this.c = new MyVehicle(this);
@@ -298,8 +300,6 @@ XMLscene.prototype.display = function () {
 
   this.board.display();
 
-  console.log(this.board.history.playing);
-
 if (this.graph.loadedOk)
 {
 
@@ -310,4 +310,6 @@ if (this.graph.loadedOk)
 
 XMLscene.prototype.update = function(currTime) {
   this.elapsedTime = currTime / 1000;
+  this.time = currTime;
+  this.board.update(currTime);
 }
