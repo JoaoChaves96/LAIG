@@ -4,8 +4,9 @@
  */
  function MyAnimatedPiece(timeSpan, piece, xi, yi, xf, yf) {
    MyAnimation.apply(this, arguments);
-   this.deltaX = xi-xf;
-   this.deltaZ = -(yi-yf);
+   this.deltaX = (xi-xf)/2;
+   this.deltaZ = -(yi-yf)/2;
+   this.deltaY = 1;
 
    this.xf = xf;
    this.yf = yf;
@@ -16,8 +17,8 @@
 
    this.initialTime = this.piece.scene.time;
 
-   this.matrix = mat4.create();
-   mat4.translate(this.matrix, this.matrix, [this.deltaX, 0, this.deltaZ]);
+
+  // mat4.translate(this.matrix, this.matrix, [this.deltaX, 0, this.deltaZ]);
  }
 
 MyAnimatedPiece.prototype = new MyAnimation();
@@ -33,14 +34,23 @@ MyAnimatedPiece.prototype.update = function(currentTime){
   var timePassed = (currentTime - this.initialTime)/1000;
   this.matrix = mat4.create();
 
+  var movementRatio = 1 - timePassed/this.timeSpan;
+
   if(timePassed >= this.timeSpan){
     this.piece.moving = false;
     this.piece.animation = null;
     return;
   }
-  var movementRatio = 1 - timePassed/this.timeSpan;
 
-  mat4.translate(this.matrix, this.matrix, [2*this.deltaX*movementRatio, 0, 2*this.deltaZ*movementRatio]);
+  if(timePassed < this.timeSpan/2){
+    //mat4.translate(this.matrix, this.matrix, [2*this.deltaX*movementRatio, 2*this.deltaY*movementRatio, 2*this.deltaZ*movementRatio]);
+    mat4.translate(this.matrix, this.matrix, [2*this.deltaX*movementRatio, -2*movementRatio, 2*this.deltaZ*movementRatio]);
+  }
+  else {
+  //mat4.translate(this.matrix, this.matrix, [2*this.deltaX*movementRatio, 2*movementRatio, 0]);
+  mat4.translate(this.matrix, this.matrix, [2*this.deltaX*movementRatio, 2*movementRatio, 2*this.deltaZ*movementRatio]);
+}
+
 };
 
 MyAnimatedPiece.prototype.apply = function(){
