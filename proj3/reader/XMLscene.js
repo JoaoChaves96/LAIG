@@ -267,7 +267,7 @@ XMLscene.prototype.logPicking = function ()
           else{
           if(obj.type != "empty");
             this.objectPicked = obj;
-				      }
+				  }
         obj.select();
         }
 			}

@@ -127,20 +127,22 @@ MyBoard.prototype.make_move = function(xi, yi, xf, yf, playing, points){
 	this.pieces[xi][yi].animation = new MyAnimatedPiece(1, this.pieces[xi][yi], xi, yi, xf, yf);
 	this.pieces[xi][yi].moving = true;
 
+	var captured = null;
 	if(this.pieces[xf][yf] != ""){
 		switch(this.pieces[xf][yf].type){
 			case 'pawn':
-			var captured = new MyPawn(this.scene, xf, yf);
+		  captured = new MyPawn(this.scene, xf, yf);
 			break;
 			case 'drone':
-			var captured = new MyDrone(this.scene, xf, yf);
+			captured = new MyDrone(this.scene, xf, yf);
 			break;
 			case 'queen':
-			var captured = new MyPawn(this.scene, xf, yf);
+			captured = new MyQueen(this.scene, xf, yf);
 			break;
 			default:
 			break;
 		}
+		console.log(this.pieces[xf][yf].type);
 
 		if(this.history.playing == this.history.player1){
 			this.history.capture(captured, xf, yf, 'player1');
@@ -215,8 +217,8 @@ MyBoard.prototype.undo = function(){
 		this.scene.interface.playing = lastMove.playing;
 
 		if(this.history.playing == this.history.player1){
-			if(this.history.moves.length > 0)
-				this.history.p1Points = this.history.moves[this.history.moves.length - 1].points;
+			if(this.history.moves.length > 1)
+				this.history.p1Points = this.history.moves[this.history.moves.length - 2].points;
 			else
 				this.history.p1Points = 0;
 
@@ -225,8 +227,8 @@ MyBoard.prototype.undo = function(){
 				this.history.p1Captured.pop();
 		}
 		else {
-			if(this.history.moves.length > 0)
-				this.history.p2Points = this.history.moves[this.history.moves.length - 1].points;
+			if(this.history.moves.length > 1)
+				this.history.p2Points = this.history.moves[this.history.moves.length - 2].points;
 			else
 				this.history.p2Points = 0;
 
@@ -282,32 +284,24 @@ MyBoard.prototype.undo = function(){
 		this.pieces[xf1][yf1] = penultimateMove.finalElement;
 		this.pieces[xi1][yi1] = penultimateMove.initialElement;
 
-		if(this.history.playing == this.history.player1){
-			if(this.history.moves.length > 1)
-				this.history.p1Points = this.history.moves[this.history.moves.length - 2].points;
-			else
-				this.history.p1Points = 0;
-
-			this.scene.interface.p1Points = this.history.p1Points;
-			if(penultimateMove.finalElement != "")
-				this.history.p1Captured.pop();
-		}
-		else {
-			if(this.history.moves.length > 1)
-				this.history.p2Points = this.history.moves[this.history.moves.length - 2].points;
-			else
-				this.history.p2Points = 0;
-
-			this.scene.interface.p2Points = this.history.p2Points;
-			if(lastMove.finalElement != "")
-				this.history.p2Captured.pop();
-		}
-
-
 		this.history.playing = penultimateMove.playing;
 		this.scene.interface.playing = penultimateMove.playing;
-	}
 
-	this.scene.loadObjects();
-	console.log(this.scene.objects);
+		if(this.history.moves.length > 2){
+			this.history.p1Points = this.history.moves[this.history.moves.length - 2].points;
+			this.history.p2Points = this.history.moves[this.history.moves.length - 3].points;
+		}
+		else{
+			this.history.p1Points = 0;
+			this.history.p2Points = 0;
+		}
+			this.scene.interface.p1Points = this.history.p1Points;
+			this.scene.interface.p2Points = this.history.p2Points;
+
+		if(penultimateMove.finalElement != "")
+			this.history.p1Captured.pop();
+
+		if(lastMove.finalElement != "")
+			this.history.p2Captured.pop();
+	}
 }
