@@ -7,6 +7,9 @@
    this.deltaX = xi-xf;
    this.deltaZ = -(yi-yf);
 
+   this.xf = xf;
+   this.yf = yf;
+
    this.piece = piece;
 
    this.timeSpan = timeSpan;

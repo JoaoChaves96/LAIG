@@ -185,7 +185,7 @@ MyBoard.prototype.undo = function(){
 
 		if(this.history.moves.length < 2)
 			return;
-		var penultimateMove = this.history.moves[this.history.moves.length - 1];
+		var penultimateMove = this.history.moves[this.history.moves.length - 2];
 		var lastMove = this.history.moves[this.history.moves.length - 1];
 
 		this.history.moves.pop();
