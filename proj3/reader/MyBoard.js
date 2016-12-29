@@ -83,28 +83,72 @@ MyBoard.prototype.display = function(){
       }
     }
   }
+
+	if(this.history != null){
+		for(var a = 0; a < this.history.p1Captured.length; a++){
+			this.scene.pushMatrix();
+			this.history.p1Captured[a].display();
+			this.scene.popMatrix();
+		}
+
+		for(var b = 0; b < this.history.p2Captured.length; b++){
+			this.scene.pushMatrix();
+			this.history.p2Captured[b].display();
+			this.scene.popMatrix();
+		}
+	}
 }
 
 MyBoard.prototype.update = function(currTime){
-	var running = 0;
 	for(var x=0; x<this.matrix.length; x++){
 		for (var y=0; y<4; y++){
 			if(this.pieces[x][y] != "")
 				if(this.pieces[x][y].animation != null){
-					running = 1;
 					this.pieces[x][y].animation.update(currTime);
 				}
 		}
 	}
-	if(running == 0)
-		this.running = false;
-	else
-		this.running = true;
+	if(this.history != null){
+		for(var a = 0; a < this.history.p1Captured.length; a++){
+			if(this.history.p1Captured[a].animation != null){
+				this.history.p1Captured[a].animation.update(currTime);
+			}
+		}
+
+		for(var b = 0; b < this.history.p2Captured.length; b++){
+			if(this.history.p2Captured[b].animation != null){
+				this.history.p2Captured[b].animation.update(currTime);
+			}
+		}
+	}
 }
 
 MyBoard.prototype.make_move = function(xi, yi, xf, yf, playing, points){
 	this.pieces[xi][yi].animation = new MyAnimatedPiece(1, this.pieces[xi][yi], xi, yi, xf, yf);
 	this.pieces[xi][yi].moving = true;
+
+	if(this.pieces[xf][yf] != ""){
+		switch(this.pieces[xf][yf].type){
+			case 'pawn':
+			var captured = new MyPawn(this.scene, xf, yf);
+			break;
+			case 'drone':
+			var captured = new MyDrone(this.scene, xf, yf);
+			break;
+			case 'queen':
+			var captured = new MyPawn(this.scene, xf, yf);
+			break;
+			default:
+			break;
+		}
+
+		if(this.history.playing == this.history.player1){
+			this.history.capture(captured, xf, yf, 'player1');
+		}
+		else{
+			this.history.capture(captured, xf, yf, 'player2');
+		}
+	}
 
 	this.history.insertMove(new MyMove(this.scene, xi, yi, xf, yf, this.pieces[xi][yi], this.pieces[xf][yf], playing, points));
 
@@ -154,13 +198,6 @@ MyBoard.prototype.undo = function(){
 		var xf = lastMove.xf;
 		var yf = lastMove.yf;
 
-		console.log(xi);
-		console.log(yi);
-		console.log(xf);
-		console.log(yf);
-
-		console.log(lastMove.initialElement);
-
 		if(lastMove.initialElement != ""){
 			lastMove.initialElement.x = xi;
 			lastMove.initialElement.y = yi;
@@ -178,8 +215,27 @@ MyBoard.prototype.undo = function(){
 		this.scene.interface.playing = lastMove.playing;
 
 		if(this.history.playing == this.history.player1){
-			this.history.p1Points = lastMove.points;
+			if(this.history.moves.length > 0)
+				this.history.p1Points = this.history.moves[this.history.moves.length - 1].points;
+			else
+				this.history.p1Points = 0;
+
+			this.scene.interface.p1Points = this.history.p1Points;
+			if(lastMove.finalElement != "")
+				this.history.p1Captured.pop();
 		}
+		else {
+			if(this.history.moves.length > 0)
+				this.history.p2Points = this.history.moves[this.history.moves.length - 1].points;
+			else
+				this.history.p2Points = 0;
+
+			this.scene.interface.p2Points = this.history.p2Points;
+			if(lastMove.finalElement != "")
+				this.history.p2Captured.pop();
+		}
+
+
 	}
 	else if(this.history.type == 2){
 
@@ -187,7 +243,6 @@ MyBoard.prototype.undo = function(){
 			return;
 		var penultimateMove = this.history.moves[this.history.moves.length - 2];
 		var lastMove = this.history.moves[this.history.moves.length - 1];
-
 		this.history.moves.pop();
 		this.history.moves.pop();
 
@@ -226,5 +281,33 @@ MyBoard.prototype.undo = function(){
 
 		this.pieces[xf1][yf1] = penultimateMove.finalElement;
 		this.pieces[xi1][yi1] = penultimateMove.initialElement;
+
+		if(this.history.playing == this.history.player1){
+			if(this.history.moves.length > 1)
+				this.history.p1Points = this.history.moves[this.history.moves.length - 2].points;
+			else
+				this.history.p1Points = 0;
+
+			this.scene.interface.p1Points = this.history.p1Points;
+			if(penultimateMove.finalElement != "")
+				this.history.p1Captured.pop();
+		}
+		else {
+			if(this.history.moves.length > 1)
+				this.history.p2Points = this.history.moves[this.history.moves.length - 2].points;
+			else
+				this.history.p2Points = 0;
+
+			this.scene.interface.p2Points = this.history.p2Points;
+			if(lastMove.finalElement != "")
+				this.history.p2Captured.pop();
+		}
+
+
+		this.history.playing = penultimateMove.playing;
+		this.scene.interface.playing = penultimateMove.playing;
 	}
+
+	this.scene.loadObjects();
+	console.log(this.scene.objects);
 }

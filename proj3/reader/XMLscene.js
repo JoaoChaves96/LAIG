@@ -49,6 +49,7 @@ XMLscene.prototype.init = function (application) {
 };
 
 XMLscene.prototype.loadObjects = function(){
+  this.objects = [];
   for(var x=0; x<this.board.matrix.length;x++){
     for(var y=0; y<this.board.matrix[x].length; y++){
       this.objects.push(this.board.matrix[x][y]);
@@ -266,9 +267,9 @@ XMLscene.prototype.logPicking = function ()
           else{
           if(obj.type != "empty");
             this.objectPicked = obj;
-				}
+				      }
         obj.select();
-      }
+        }
 			}
 			this.pickResults.splice(0,this.pickResults.length);
 		}
