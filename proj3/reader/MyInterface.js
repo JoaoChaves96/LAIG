@@ -67,6 +67,7 @@ MyInterface.prototype.undo = function(){
 
 MyInterface.prototype.startGame = function(){
 	this.scene.board.history = new MyHistory(this.scene);
+	this.scene.board.scoreBoard = new MyScoreBoard(this.scene);
 	this.scene.board.makeRequest('init');
 	this.scene.setPickEnabled(true);
 	if(this.scene.board.history.type == 3){

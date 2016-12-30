@@ -12,6 +12,8 @@ function MyBoard(scene) {
 
 	this.history = null;
 
+	this.scoreBoard = null;
+
   this.initBoardMatrix();
 
   this.initPiecesMatrix();
@@ -84,8 +86,6 @@ MyBoard.prototype.display = function(){
     }
   }
 
-	this.scene.popMatrix();
-
 	if(this.history != null){
 		for(var a = 0; a < this.history.p1Captured.length; a++){
 			this.scene.pushMatrix();
@@ -99,6 +99,15 @@ MyBoard.prototype.display = function(){
 			this.scene.popMatrix();
 		}
 	}
+		this.scene.popMatrix();
+
+		if(this.scoreBoard != null){
+			this.scene.pushMatrix();
+			this.scene.translate(4, 5, 0);
+			this.scene.scale(0.5, 0.6, 0.5);
+			this.scoreBoard.display();
+			this.scene.popMatrix();
+		}
 }
 
 MyBoard.prototype.update = function(currTime){
