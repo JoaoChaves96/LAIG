@@ -71,6 +71,7 @@ MyScoreBoard.prototype.display = function(){
 
   this.scene.setActiveShader(this.font.shader);
   this.scene.pushMatrix();
+  this.mat.apply();
 
       this.scene.pushMatrix();
       this.scene.translate(7, 6, 0);

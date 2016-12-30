@@ -34,6 +34,8 @@ MyFont.prototype.getChar = function(char){
     return [code-'j'.charCodeAt(0), 3];
   else if(code >= 'w'.charCodeAt(0) && code <= 'z'.charCodeAt(0))
     return [code-'w'.charCodeAt(0), 4];
+  else if(code == ' '.charCodeAt(0))
+    return [11, 0];
 }
 
 MyFont.prototype.displayFont = function(char, object){
