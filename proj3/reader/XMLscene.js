@@ -36,6 +36,8 @@ XMLscene.prototype.init = function (application) {
 
   this.board = new MyBoard(this);
 
+  this.scenery = new Scenery(this);
+
   this.axis=new CGFaxis(this);
 
   this.objects = [];
@@ -300,6 +302,8 @@ XMLscene.prototype.display = function () {
   this.axis.display();
 
   this.board.display();
+
+  this.scenery.display();
 
 if (this.graph.loadedOk)
 {

@@ -84,6 +84,8 @@ MyBoard.prototype.display = function(){
     }
   }
 
+	this.scene.popMatrix();
+
 	if(this.history != null){
 		for(var a = 0; a < this.history.p1Captured.length; a++){
 			this.scene.pushMatrix();
