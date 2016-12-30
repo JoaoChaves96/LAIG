@@ -31,6 +31,14 @@ function Scenery(scene) {
 	this.materialTable = new CGFappearance(this.scene);
 	this.materialTable.loadTexture("./resources/images/wood.jpg");
 
+	this.materialBall = new CGFappearance(this.scene);
+	this.materialBall.loadTexture("./resources/images/buoy.jpg");
+
+	this.materialPaint1 =  new CGFappearance(this.scene);
+	this.materialPaint1.loadTexture("./resources/images/paint1.jpg");
+
+	this.materialPaint2=  new CGFappearance(this.scene);
+	this.materialPaint2.loadTexture("./resources/images/paint2.jpg");
 
 	this.initSpace();
 	this.initNormalRoom();
@@ -273,6 +281,23 @@ Scenery.prototype.normalRoomDisplay = function(){
 	this.legTable.display();
 	this.scene.popMatrix();
 
+	this.scene.pushMatrix();
+	this.scene.multMatrix(this.ballMatrix);
+	this.materialBall.apply();
+	this.ball.display();
+	this.scene.popMatrix();
+
+	this.scene.pushMatrix();
+	this.scene.multMatrix(this.paintMatrix1);
+	this.materialPaint1.apply();
+	this.paint.display();
+	this.scene.popMatrix();
+
+	this.scene.pushMatrix();
+	this.scene.multMatrix(this.paintMatrix2);
+	this.materialPaint2.apply();
+	this.paint.display();
+	this.scene.popMatrix();
 
 }
 
@@ -284,6 +309,9 @@ Scenery.prototype.initNormalRoom = function(){
 	this.table = new MyUnitCubeQuad(this.scene);
 	this.legTable = new MyUnitCubeQuad(this.scene);
 
+	this.ball = new MyTorus(this.scene, 2.5, 4, 20, 20);
+
+	this.paint = new MyUnitCubeQuad(this.scene);
 	this.initNormalRoomMatrixes();
 
 }
@@ -292,23 +320,23 @@ Scenery.prototype.initNormalRoomMatrixes = function(){
 
 	this.roomFMatrix = mat4.create();
 	mat4.identity(this.roomFMatrix);
-	mat4.translate(this.roomFMatrix, this.roomFMatrix, [10, -7,10]);
+	mat4.translate(this.roomFMatrix, this.roomFMatrix, [10, -7,24.5]);
 	mat4.scale(this.roomFMatrix, this.roomFMatrix, [70, 3, 50]);
 
 	this.roomW1Matrix = mat4.create();
 	mat4.identity(this.roomW1Matrix);
-	mat4.translate(this.roomW1Matrix, this.roomW1Matrix, [-40, 18,10]);
+	mat4.translate(this.roomW1Matrix, this.roomW1Matrix, [-50, 18,24.5]);
 	mat4.scale(this.roomW1Matrix, this.roomW1Matrix, [50, 50, 50]);
 
 	this.roomW2Matrix = mat4.create();
 	mat4.identity(this.roomW2Matrix);
-	mat4.translate(this.roomW2Matrix, this.roomW2Matrix, [0, 18,-40]);
+	mat4.translate(this.roomW2Matrix, this.roomW2Matrix, [10, 18,-25.5]);
 	mat4.scale(this.roomW2Matrix, this.roomW2Matrix, [70, 50, 50]);
 
 	this.tableMatrix = mat4.create();
 	mat4.identity(this.tableMatrix);
 	mat4.translate(this.tableMatrix, this.tableMatrix, [12, -0.4, 7]);
-	mat4.scale(this.tableMatrix, this.tableMatrix, [20, 0.5, 12]);
+	mat4.scale(this.tableMatrix, this.tableMatrix, [20, 0.5, 14]);
 
 	this.legTableMatrix1 = mat4.create();
 	mat4.identity(this.legTableMatrix1);
@@ -329,4 +357,20 @@ Scenery.prototype.initNormalRoomMatrixes = function(){
 	mat4.identity(this.legTableMatrix4);
 	mat4.translate(this.legTableMatrix4, this.legTableMatrix4, [3, -3, 2]);
 	mat4.scale(this.legTableMatrix4, this.legTableMatrix4, [0.5, 5, 0.5]);
+
+	this.ballMatrix = mat4.create();
+	mat4.identity(this.ballMatrix);
+	mat4.translate(this.ballMatrix, this.ballMatrix, [-12, -4.5, 6]);
+	mat4.rotate(this.ballMatrix, this.ballMatrix, Math.PI/2, [1,0,0]);
+
+	this.paintMatrix1 = mat4.create();
+	mat4.identity(this.paintMatrix1);
+	mat4.translate(this.paintMatrix1, this.paintMatrix1, [-2, 7, -0.5]);
+	mat4.scale(this.paintMatrix1, this.paintMatrix1, [5, 4, 0.2]);
+
+	this.paintMatrix2 = mat4.create();
+	mat4.identity(this.paintMatrix2);
+	mat4.translate(this.paintMatrix2, this.paintMatrix2, [-9, 10, -0.5]);
+	mat4.scale(this.paintMatrix2, this.paintMatrix2, [7, 6, 0.2]);
+
 }
