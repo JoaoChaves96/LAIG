@@ -11,11 +11,19 @@ function getUrlVars() {
     return vars;
 }
 
-serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js', 'MyQuad.js', 'MyNode.js', 'MyCircle.js', 'MyClock.js', 'MyClockHand.js', 'MyCylinder.js', 'MyLamp.js', 'MyPrism.js', 'MySphere.js',
-'MyUnitCubeQuad.js', 'Utilities.js', 'MyTriangle.js', 'MyTorus.js', 'MyInterface.js', 'MyDiamond.js', 'MyPlane.js', 'MyPatch.js', 'MyAnimation.js', 'MyLinearAnimation.js', 'MyCircularAnimation.js',
-'MyChessBoard.js', 'MyVehicle.js', 'CylinderBase.js', 'CylinderSurface.js', 'MyCube.js', 'MyQueen.js', 'MyDrone.js', 'MyPawn.js', 'MyBoard.js', 'MyBoardCell.js', '../Interface/Communication.js',
-'MyHistory.js', 'MyMove.js', 'MyAnimatedPiece.js', 'Scenery.js', 'MyFont.js', 'MyScoreBoard.js', 'MyPanel.js', 'Cylinder.js', 'MyPlanet.js', 'MyCameraAnimation.js',
+serialInclude(['../lib/CGF.js',
+'../Primitives/MyQuad.js', '../Primitives/MyCircle.js', '../Primitives/MyCylinder.js', '../Primitives/MySphere.js', '../Primitives/MyUnitCubeQuad.js', '../Primitives/MyTriangle.js',
+'../Primitives/MyTorus.js', '../Primitives/CylinderBase.js', '../Primitives/CylinderSurface.js', '../Primitives/MyCube.js', 'MyFont.js', '../Primitives/Cylinder.js',
+'../Primitives/MyPlanet.js', '../Primitives/MyPlane.js', '../Primitives/MyPatch.js',
 
+'XMLscene.js', 'MySceneGraph.js', 'MyNode.js', 'Utilities.js',
+
+'../Interface/MyInterface.js', '../Interface/Communication.js',
+
+'../Animations/MyAnimation.js', '../Animations/MyLinearAnimation.js', '../Animations/MyCircularAnimation.js', '../Animations/MyAnimatedPiece.js', '../Animations/MyCameraAnimation.js',
+
+'../Game/MyQueen.js','../Game/MyDrone.js', '../Game/MyPawn.js', '../Game/MyBoard.js', '../Game/MyBoardCell.js', '../Game/MyHistory.js', '../Game/MyMove.js', '../Game/Scenery.js',
+'../Game/MyScoreBoard.js', '../Game/MyPanel.js',
 
 main=function()
 {

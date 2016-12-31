@@ -17,8 +17,6 @@ XMLscene.prototype.init = function (application) {
 
   this.startTime = 0;
 
-  this.c = new MyVehicle(this);
-
   this.initLights();
 
   this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
