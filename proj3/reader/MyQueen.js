@@ -10,10 +10,10 @@ function MyQueen(scene, x, y) {
   this.pyramid = new CGFquadPyramid(scene, 4, 1.8);
 
   this.materialA = new CGFappearance(scene);
-  this.materialA.setAmbient(0, 0, 1, 1.0);
-  /*this.materialA.setDiffuse(0, 0, 1, 1.0);
-  this.materialA.setSpecular(0, 0, 1, 1.0);
-  this.materialA.setShininess(10);*/
+  this.materialA.setAmbient(0, 0, 0.8, 1.0);
+  /*this.materialA.setDiffuse(0, 0, 0.3, 1.0);
+  this.materialA.setSpecular(0, 0, 0.3, 1.0);
+  this.materialA.setShininess(100);*/
 
   this.primitiveType = scene.gl.TRIANGLES;
 

@@ -10,7 +10,7 @@ function MyDrone(scene, x, y) {
   this.pyramid = new CGFquadPyramid(scene, 2, 1.25);
 
   this.materialA = new CGFappearance(scene);
-  this.materialA.setAmbient(1, 0, 0, 1.0);
+  this.materialA.setAmbient(0.31, 0, 0, 0);
   /*this.materialA.setDiffuse(0, 0, 1, 1.0);
   this.materialA.setSpecular(0, 0, 1, 1.0);
   this.materialA.setShininess(10);*/

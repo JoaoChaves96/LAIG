@@ -29,6 +29,9 @@ MyInterface.prototype.init = function(application) {
 	this.difficulty = 'Dumb';
 	this.difficulties = [ 'Dumb', 'Smart'];
 
+	this.environment = 'Space';
+	this.environments = ['Space', 'Play Room'];
+
 	this.type = 'P vs P';
 	this.types = ['P vs P', 'P vs CPU', 'CPU vs CPU'];
 
@@ -50,7 +53,8 @@ MyInterface.prototype.init = function(application) {
 	this.optionsFolder.open();
 
 	this.defaultControls[5] = this.optionsFolder.add(this, 'difficulty', this.difficulties).name('Difficulty').listen();
-	this.defaultControls[6] = this.optionsFolder.add(this,'undo').name('Undo');
+	this.defaultControls[6] = this.optionsFolder.add(this, 'environment', this.environments).name('Environment').listen();
+	this.defaultControls[7] = this.optionsFolder.add(this,'undo').name('Undo');
 	this.omnilights = this.gui.addFolder("Omnilights");
 	this.omnilights.open();
 

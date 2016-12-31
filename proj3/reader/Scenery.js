@@ -47,8 +47,11 @@ function Scenery(scene) {
 
 Scenery.prototype.display = function(){
 
-	//this.spaceDisplay();
-	this.normalRoomDisplay();
+	if(this.scene.interface.environment == 'Space')
+		this.spaceDisplay();
+	else {
+		this.normalRoomDisplay();
+	}
 
 }
 
@@ -134,6 +137,21 @@ Scenery.prototype.spaceDisplay = function(){
 	this.materialC.apply();
 	this.board2.display();
 	this.scene.popMatrix();
+
+	this.scene.pushMatrix();
+	this.scene.multMatrix(this.planet1Matrix);
+	this.planet1.display();
+	this.scene.popMatrix();
+
+	this.scene.pushMatrix();
+	this.scene.multMatrix(this.planet2Matrix);
+	this.planet2.display();
+	this.scene.popMatrix();
+
+	this.scene.pushMatrix();
+	this.scene.multMatrix(this.planet3Matrix);
+	this.planet3.display();
+	this.scene.popMatrix();
 }
 
 Scenery.prototype.initSpace = function(){
@@ -157,6 +175,12 @@ Scenery.prototype.initSpace = function(){
 	this.arm2 = new Cylinder(this.scene, 7, 0.2, 0.2, 20, 20);
 
 	this.board2 = new MyUnitCubeQuad(this.scene);
+
+	this.planet1 = new MyPlanet(this.scene, './resources/images/planet.jpg');
+
+	this.planet2 = new MyPlanet(this.scene, './resources/images/planet2.png');
+
+	this.planet3 = new MyPlanet(this.scene, './resources/images/planet3.jpg');
 
 	this.initSpaceMatrixes();
 }
@@ -229,6 +253,21 @@ Scenery.prototype.initSpaceMatrixes = function(){
 	mat4.identity(this.board2Matrix);
 	mat4.translate(this.board2Matrix, this.board2Matrix, [33,0,7.5]);
 	mat4.scale(this.board2Matrix, this.board2Matrix, [16, 0.2, 8]);
+
+	this.planet1Matrix = mat4.create();
+	mat4.identity(this.planet1Matrix);
+	mat4.translate(this.planet1Matrix, this.planet1Matrix, [-10, -10, -10]);
+	mat4.scale(this.planet1Matrix, this.planet1Matrix, [0.5, 0.5, 0.5]);
+
+	this.planet2Matrix = mat4.create();
+	mat4.identity(this.planet2Matrix);
+	mat4.translate(this.planet2Matrix, this.planet2Matrix, [-10, 5, -40]);
+	mat4.scale(this.planet2Matrix, this.planet2Matrix, [2, 2, 2]);
+
+	this.planet3Matrix = mat4.create();
+	mat4.identity(this.planet3Matrix);
+	mat4.translate(this.planet3Matrix, this.planet3Matrix, [80, 20, 40]);
+	mat4.scale(this.planet3Matrix, this.planet3Matrix, [3, 3, 3]);
 
 }
 

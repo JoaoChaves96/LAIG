@@ -11,6 +11,7 @@ function MyBoardCell(scene, x, y, object, prevColor) {
   this.cell = object;
   this.x = x;
   this.y = y;
+	this.prevColor = prevColor;
 
   this.transfMat = mat4.create();
   mat4.identity(this.transfMat);
@@ -47,6 +48,26 @@ MyBoardCell.prototype.select = function(){
 
 MyBoardCell.prototype.display = function(){
   this.scene.pushMatrix();
+	if(this.scene.interface.environment == "Space"){
+		if(this.prevColor == "white"){
+			this.appearance.setAmbient(0, 1, 1, 1);
+			this.appearance.setDiffuse(0, 1, 1, 1);
+			this.appearance.setSpecular(0.8, 0.8, 0.8, 1);
+		}else {
+			this.appearance.setAmbient(0.31, 0.31, 0.31, 1);
+			this.appearance.setDiffuse(0.31, 0.31, 0.31, 1);
+			this.appearance.setSpecular(0.8, 0.8, 0.8, 1);
+		}
+	}
+	else{
+		this.appearance = new CGFappearance(this.scene);
+
+	  if(this.prevColor == "white"){
+	    this.appearance.setAmbient(1, 1, 0, 1);
+	    this.appearance.setDiffuse(1, 1, 0, 1);
+	    this.appearance.setSpecular(0.8, 0.8, 0.8, 1);
+	  }
+	}
   this.appearance.apply();
 	this.scene.multMatrix(this.transfMat);
 	this.cell.display();
