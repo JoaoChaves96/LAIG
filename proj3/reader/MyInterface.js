@@ -70,6 +70,7 @@ MyInterface.prototype.undo = function(){
 }
 
 MyInterface.prototype.startGame = function(){
+	this.scene.board.init();
 	this.scene.board.history = new MyHistory(this.scene);
 	this.scene.board.scoreBoard = new MyScoreBoard(this.scene);
 	this.scene.board.makeRequest('init');
@@ -81,6 +82,9 @@ MyInterface.prototype.startGame = function(){
 				this.points = this.scene.board.history.p2Points;
 
 			this.scene.board.makeRequest('bot_play(' + this.scene.board.boardToList() + ',' + this.scene.board.history.playing + ',' + this.points + ',' + this.scene.board.history.difficulty + ')');
+	}
+	else {
+			this.scene.changeCamera('player1');
 	}
 }
 

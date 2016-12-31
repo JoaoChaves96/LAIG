@@ -21,6 +21,7 @@ MyBoard.prototype.getPrologRequest = function(requestString, onSuccess, onError,
 
     if(response == 'endgame'){
       board.showWinner();
+      board.scene.defaultCam();
       return;
     }
 
@@ -50,6 +51,10 @@ MyBoard.prototype.getPrologRequest = function(requestString, onSuccess, onError,
           console.log("Invalid play, pls try another move...");
         }
         else if(response != 'Bad Request'){
+          if(board.history.playing == board.history.player1)
+            board.scene.p2Cam();
+          else
+            board.scene.p1Cam();
           board.make_move(board.scene.objectPicked.x, board.scene.objectPicked.y, board.scene.destination.x, board.scene.destination.y, board.history.playing, parseFloat(response));
           board.makeRequest('checkend(' + board.boardToList() + ',8,P1,P2)');
 

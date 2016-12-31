@@ -5,22 +5,24 @@
  */
 function MyBoard(scene) {
 	CGFobject.call(this, scene);
-
-  this.finished = false;
-
 	this.scene = scene;
+	this.init();
+};
+
+MyBoard.prototype = Object.create(CGFobject.prototype);
+MyBoard.prototype.constructor=MyBoard;
+
+MyBoard.prototype.init = function(){
+	this.finished = false;
 
 	this.history = null;
 
 	this.scoreBoard = null;
 
-  this.initBoardMatrix();
+	this.initBoardMatrix();
 
-  this.initPiecesMatrix();
-};
-
-MyBoard.prototype = Object.create(CGFobject.prototype);
-MyBoard.prototype.constructor=MyBoard;
+	this.initPiecesMatrix();
+}
 
 MyBoard.prototype.initBoardMatrix = function(){
   this.matrix = [];
@@ -190,11 +192,12 @@ MyBoard.prototype.showWinner = function(){
 	if(this.history.p1Points > this.history.p2Points){
 		this.winnerP = this.history.p1Points;
 		this.winner = this.history.player1;
+		this.scoreBoard.gameInfo.setText(" Player 1 Wins ");
 	} else{
 		this.winner = this.history.player2;
 		this.winnerP = this.history.p2Points;
+		this.scoreBoard.gameInfo.setText(" Player 1 Wins ");
 	}
-	console.log("The winner is " + this.winner + " with " + this.winnerP + " points!!");
 }
 
 MyBoard.prototype.undo = function(){

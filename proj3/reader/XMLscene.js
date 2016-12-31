@@ -73,9 +73,30 @@ XMLscene.prototype.initLights = function () {
   this.lights[0].update();
 };
 
+function Prespective(name, position, direction){
+  position = typeof position !== 'undefined' ? position : vec3.fromValues(15, 15, 15);
+	direction = typeof direction !== 'undefined' ? direction : vec3.fromValues(11, 0, 7);
+
+  this.name = name;
+  this.position = position;
+  this.direction = direction;
+
+  this.cameraMat = mat4.create();
+  mat4.identity(this.cameraMat);
+}
+
 XMLscene.prototype.initCameras = function () {
-  this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
-  this.interface.setActiveCamera(this.camera);
+
+  this.prespectives = [];
+
+  this.prespectives[0] = new Prespective('default', vec3.fromValues(11, 20, 45), vec3.fromValues(11,0,0));
+  this.prespectives[1] = new Prespective('player1', vec3.fromValues(-25, 45, 15), vec3.fromValues(11, 0, 7));
+  this.prespectives[2] = new Prespective('player2', vec3.fromValues(45, 45, 15), vec3.fromValues(11, 0, 7));
+
+
+  this.camera = new CGFcamera(0.4, 0.1, 500, this.prespectives[0].position, this.prespectives[0].direction);
+
+  this.cameraAnimation = null;
 };
 
 XMLscene.prototype.setDefaultAppearance = function () {
@@ -314,7 +335,107 @@ if (this.graph.loadedOk)
 };
 
 XMLscene.prototype.update = function(currTime) {
+  if(this.startTime == 0)
+    this.startTime = currTime;
+  else {
+    if (this.cameraAnimation != null){
+      this.elapsedTime = currTime - this.startTime;
+      this.moveCamera();
+    }
+  }
   this.elapsedTime = currTime / 1000;
   this.time = currTime;
   this.board.update(currTime);
+}
+
+XMLscene.prototype.changeCamera = function(prespective){
+  var temp = null;
+
+  for(var i = 0; i < this.prespectives.length; i++){
+    if(prespective == this.prespectives[i].name)
+      temp = this.prespectives[i];
+  }
+  this.cameraAnimation = new MyCameraAnimation(this.camera, temp);
+}
+
+XMLscene.prototype.moveCamera = function(){
+  var cam = this.camera;
+  var anim = this.cameraAnimation;
+
+  if(this.startTime != 0){
+    if(Math.abs(anim.travelledPositionDist[0]) < Math.abs(anim.positionDist[0]) ||
+       Math.abs(anim.travelledPositionDist[1]) < Math.abs(anim.positionDist[1]) ||
+       Math.abs(anim.travelledPositionDist[2]) < Math.abs(anim.positionDist[2]) ||
+
+       Math.abs(anim.travelledPositionDist[0]) < Math.abs(anim.directionDist[0]) ||
+       Math.abs(anim.travelledPositionDist[1]) < Math.abs(anim.directionDist[1]) ||
+       Math.abs(anim.travelledPositionDist[2]) < Math.abs(anim.directionDist[2])){
+
+         var distPosX = anim.positionVel[0] * this.elapsedTime;
+         var distPosY = anim.positionVel[1] * this.elapsedTime;
+         var distPosZ = anim.positionVel[2] * this.elapsedTime;
+
+         if(Math.abs(anim.travelledPositionDist[0]) < Math.abs(anim.positionDist[0])){
+           cam.position[0] += distPosX;
+           anim.travelledPositionDist[0] += distPosX;
+         }
+
+         if(Math.abs(anim.travelledPositionDist[1]) < Math.abs(anim.positionDist[1])){
+           cam.position[1] += distPosY;
+           anim.travelledPositionDist[1] += distPosY;
+         }
+
+         if(Math.abs(anim.travelledPositionDist[2]) < Math.abs(anim.positionDist[2])){
+           cam.position[2] += distPosZ;
+           anim.travelledPositionDist[2] += distPosZ;
+         }
+
+
+         var distDirX = anim.directionVel[0] * this.elapsedTime;
+         var distDirY = anim.directionVel[1] * this.elapsedTime;
+         var distDirZ = anim.directionVel[2] * this.elapsedTime;
+
+         if(Math.abs(anim.travelledDirectionDist[0]) < Math.abs(anim.directionDist[0])){
+           cam.target[0] += distDirX;
+           cam.direction[0] += distDirX;
+           anim.travelledDirectionDist[0] += distDirX;
+         }
+
+         if(Math.abs(anim.travelledDirectionDist[1]) < Math.abs(anim.directionDist[1])){
+           cam.target[1] += distDirY;
+           cam.direction[1] += distDirY;
+           anim.travelledDirectionDist[1] += distDirY;
+         }
+
+         if(Math.abs(anim.travelledDirectionDist[2]) < Math.abs(anim.directionDist[2])){
+           cam.target[2] += distDirZ;
+           cam.direction[2] += distDirZ;
+           anim.travelledDirectionDist[2] += distDirZ;
+         }
+       }
+      else {
+        vec3.copy(cam.position, anim.destination.position);
+        vec3.copy(cam.direction, anim.destination.direction);
+        vec3.copy(cam.target, anim.destination.direction);
+      //this.camera = new CGFcamera(0.4, 0.1, 500, anim.destination.position, anim.destination.direction);
+
+        this.completeAnim = true;
+        this.cameraAnimation = null;
+      }
+  }
+}
+
+XMLscene.prototype.defaultCam = function(){
+  this.startTime = 0;
+  this.changeCamera('default');
+}
+
+XMLscene.prototype.p1Cam = function(){
+  this.startTime = 0;
+  this.changeCamera('player1');
+}
+
+XMLscene.prototype.p2Cam = function(){
+  this.startTime = 0;
+  this.changeCamera('player2');
 }

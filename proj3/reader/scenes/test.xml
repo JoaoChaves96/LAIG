@@ -30,30 +30,34 @@
 
   <lights>
 
-    <omni id="omni1" enabled="1">
-      <location x="4" y="6" z="1" w="1" />
-      <ambient r="0" g="0" b="0" a="1" />
-      <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
-      <specular r="1.0" g="1.0" b="1.0" a="1.0" />
-    </omni>
-
-    <omni id="omni2" enabled="1">
-      <location x="10.5" y="6.0" z="1.0" w="1.0" />
-      <ambient r="0" g="0" b="0" a="1" />
-      <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
-      <specular r="1.0" g="1.0" b="1.0" a="1.0" />
-    </omni>
-
     <omni id="omni3" enabled="1">
-      <location x="10.5" y="6.0" z="15.0" w="1.0" />
+      <location x="12.5" y="20.0" z="7.5" w="1.0" />
       <ambient r="0" g="0" b="0" a="1" />
       <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
       <specular r="1.0" g="1.0" b="1.0" a="1.0" />
     </omni>
+
+
 
     <spot id="spot1" enabled="1" angle="40" exponent="0.5">
-      <target x="1" y="1" z="0.5" />
-      <location x="4" y="2" z="2" />
+      <target x="12.5" y="1" z="7" />
+      <location x="12.5" y="20" z="7.5" />
+      <ambient r="0.5" g="0.5" b="0.5" a="0.5" />
+      <diffuse r="0.5" g="0.5" b="0.5" a="0.5" />
+      <specular r="0.5" g="0.5" b="0.5" a="0.5" />
+    </spot>
+
+    <spot id="spot2" enabled="1" angle="40" exponent="0.5">
+      <target x="50.5" y="1" z="7.5" />
+      <location x="12.5" y="20" z="7.5" />
+      <ambient r="0.5" g="0.5" b="0.5" a="0.5" />
+      <diffuse r="0.5" g="0.5" b="0.5" a="0.5" />
+      <specular r="0.5" g="0.5" b="0.5" a="0.5" />
+    </spot>
+
+    <spot id="spot3" enabled="1" angle="40" exponent="0.5">
+      <target x="-20.5" y="1" z="7.5" />
+      <location x="12.5" y="20" z="7.5" />
       <ambient r="0.5" g="0.5" b="0.5" a="0.5" />
       <diffuse r="0.5" g="0.5" b="0.5" a="0.5" />
       <specular r="0.5" g="0.5" b="0.5" a="0.5" />
@@ -62,7 +66,7 @@
   </lights>
 
   <textures>
-    <texture id="floor" file="./resources/images/floor.png" length_s="10" length_t="10" />
+    <texture id="floor" file="./resources/images/straw.jpg" length_s="10" length_t="10" />
   </textures>
 
   <materials>
