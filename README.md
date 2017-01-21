@@ -10,26 +10,26 @@
 
 ***
 
-###Description
+###Description<a name ="des"></a>
 
 The main goal of his subject was to develop 3D environments focused in Computer Graphics, and to use services offered by an operative system, with special emphasis on communication and synchronization. We developed projects written in JavaScript with the appropriated technology of image synthesys. The whole subject was based on WebGL.
 
 ***
 
-###Developers
+###Developers<a name ="dev"></a>
 
 * [Inês Teixeira] (https://github.com/inesteixeira)
 * [João Chaves] (https://github.com/JoaoChaves96)
 
 ***
 
-###Project 1 and 2
+###Project 1 and 2<a name ="p12"></a>
 
 The first two projects are focused on design, develop and evaluate applications with a 3D graphic interface using an appropriate image synthesis technology. We created 2D/3D surfaces, animations and shaders based in GLSL ES 1.0. We also created a parser to read data from a .dsx file, converting it to a WebGL scene.
 
 ***
 
-###Project 3
+###Project 3<a name ="p3"></a>
 
 In the third project it was intended to create a 3D environment developed in WebGL to represent the game states of a Prolog board game and make use of a game interface. The project had the following requirements:
 
@@ -44,3 +44,5 @@ In the third project it was intended to create a 3D environment developed in Web
 - [x] Point of View animated translation
 - [ ] Replay functionality
 - [ ] Measure the game time
+
+![](https://github.com/JoaoChaves96/LAIG/blob/master/res/game_env.PNG)
