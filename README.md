@@ -31,7 +31,7 @@ The first two projects are focused on design, develop and evaluate applications 
 
 ###Project 3<a name ="p3"></a>
 
-In the third project it was intended to create a 3D environment developed in WebGL to represent the game states of a Prolog board game and make use of a game interface. The project had the following requirements:
+In the third project it was intended to create a 3D environment developed in WebGL to represent the game states of a Prolog [board game] (https://github.com/JoaoChaves96/LAIG/blob/master/proj3/doc/ManualdeUtilizador.pdf) and make use of a game interface. The project had the following requirements:
 
 - [x] Create of the game scene
 - [x] Modeling and movement of game pieces
